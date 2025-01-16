@@ -21,12 +21,14 @@ knitr::opts_chunk$set(
 <!--[![R-CMD-check](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The `SatRbedo` package consists of a set of tools for retrieving snow and ice albedo from optical satellite imagery (e.g., Landsat and
-Sentinel-2). `SatRbedo` functions require the following datasets:
+The `SatRbedo` package consists of a set of tools for retrieving snow and ice albedo from optical satellite imagery
+(e.g., [Landsat](https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance) and
+[Sentinel-2](https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2)). `SatRbedo` functions require the following datasets:
 
-- Atmospherically corrected surface reflectance.
-- A digital elevation model (DEM).
-- Satellite ($\varphi_v$, $\theta_v$) and solar ($\varphi_s$, $\theta_s$) azimuth and zenith angles.
+- Atmospherically corrected surface reflectance (gridded).
+- Satellite ($\varphi_v$, $\theta_v$) and solar ($\varphi_s$, $\theta_s$) azimuth and zenith angles (numeric or gridded).
+- A digital elevation model (DEM) (gridded).
+- An outline of the area of interest (shapefile).
 
 The package includes tools for: 
 
@@ -47,33 +49,54 @@ You can install the development version of SatRbedo from [GitHub](https://github
 devtools::install_github("pabl1t0x/SatRbedo")
 ```
 
-## Get Started
+## Getting Started
 
-This is a basic example which shows you how to solve a common problem:
+Snow and ice albedo retrieval from satellite imagery is a three-step workflow that includes topographic and anisotropic corrections and a
+narrowband to broadband albedo conversion. The following example shows how to estimate albedo using satellite data from the Athabasca Glacier in
+Canada on 11 September 2020.
 
-```{r example}
+**Step 1: Load the data for the area of interest**
+
+```{r example-load}
+# Load the packages
 library(SatRbedo)
-## basic example code
+library(terra)
+
+# Load the raw Sentinel-2 surface reflectance data
+# Note: each spectral band was previously cut out to the extent of the area of interest and renamed
+blue_SR <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo") # blue band surface reflectance
+green_SR <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo") # green band surface reflectance
+red_SR <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo") # red band surface reflectance
+NIR_SR <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo") # near-infrared band surface reflectance
+SWIR1_SR <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo") # shortwave-infrared band 1 surface reflectance
+SWIR2_SR <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo") # shortwave-infrared band 2 surface reflectance
+
+# Load the DEM and the outline
+# Note: the DEM was re-projected to the extent of the area of interest
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+**Step 2: Data pre-processing**
 
-```{r cars}
-summary(cars)
+```{r example-preproc}
+# Transform the input data to SpatRaster and crop to the area of interest
+blue <- preproc(grd = blue_SR, outline = outline)
+green <- preproc(grd = green_SR, outline = outline)
+red <- preproc(grd = red_SR, outline = outline)
+nir <- preproc(grd = NIR_SR, outline = outline)
+swir1 <- preproc(grd = SWIR1_SR, outline = outline)
+swir2 <- preproc(grd = SWIR2_SR, outline = outline)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+**Step 3: Topographic correction**
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r example-topo}
+1 + 1
 ```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
 
 ## License
 
-This project is licensed under the terms of the GNU General Public License v3.0. See [LICENSE](/LICENSE) for more details.
+This project is licensed under the terms of the GNU General Public License v3.0. See [LICENSE](/LICENSE.md) for more details.
 
-![GPL](https://www.gnu.org/graphics/gplv3-127x51.png)
+![](https://www.gnu.org/graphics/gplv3-127x51.png)

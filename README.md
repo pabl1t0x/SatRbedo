@@ -80,9 +80,9 @@ files, so they display on GitHub and CRAN.
 ## License
 
 This project is licensed under the terms of the GNU General Public
-License v3.0. See [LICENSE](/LICENSE) for more details.
+License v3.0. See [LICENSE](/LICENSE.md) for more details.
 
 <figure>
 <img src="https://www.gnu.org/graphics/gplv3-127x51.png" alt="GPL" />
-<figcaption aria-hidden="true">GPL</figcaption>
+<figcaption aria-hidden="true"></figcaption>
 </figure>

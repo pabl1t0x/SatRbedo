@@ -13,10 +13,12 @@ coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/graph/badge.svg)](https://app.
 
 The `SatRbedo` package consists of a set of tools for retrieving snow
 and ice albedo from optical satellite imagery (e.g., Landsat and
-Sentinel-2). `SatRbedo` functions require the following datasets: \*
-Atmospherically corrected surface reflectance. \* A digital elevation
-model (DEM). \* Satellite ($\varphi_v$, $\theta_v$) and solar
-($\varphi_s$, $\theta_s$) azimuth and zenith angles. The package
+Sentinel-2). `SatRbedo` functions require the following datasets:
+- Atmospherically corrected surface reflectance.
+- A digital elevation model (DEM).
+- Satellite ($\varphi_v$, $\theta_v$) and solar
+($\varphi_s$, $\theta_s$) azimuth and zenith angles.
+The package
 includes tools for: image pre-processing (crop grids to a specified
 extent, project grids with different coordinate systems, and convert
 data from integer to floating point); convert nadir satellite

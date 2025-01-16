@@ -83,6 +83,7 @@ outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 
 ``` r
 # Transform the input data to SpatRaster and crop to the area of interest
+dem <- rast(dem)
 blue <- preproc(grd = blue_SR, outline = outline)
 green <- preproc(grd = green_SR, outline = outline)
 red <- preproc(grd = red_SR, outline = outline)
@@ -94,9 +95,34 @@ swir2 <- preproc(grd = SWIR2_SR, outline = outline)
 **Step 3: Topographic correction**
 
 ``` r
-1 + 1
-#> [1] 2
+SAA <- 164.8 # solar azimuth angle
+SZA <- 48.9 # solar zenith angle
+blue <- topo_corr(blue, dem, SAA, SZA)
+green <- topo_corr(green, dem, SAA, SZA)
+red <- topo_corr(red, dem, SAA, SZA)
+nir <- topo_corr(nir, dem, SAA, SZA)
+swir1 <- topo_corr(swir1, dem, SAA, SZA)
+swir2 <- topo_corr(swir2, dem, SAA, SZA)
 ```
+
+**Step 4: Estimation of broadband albedo, including the anisotropic
+correction**
+
+``` r
+SAA <- 164.8 # solar azimuth angle
+SZA <- 48.9 # solar zenith angle
+VAA <- 90.9 # view azimuth angle
+VZA <- 5.2 #view zenith angle
+th <- snow_or_ice(green$bands[[2]], nir$bands[[2]])$th
+broadband_albedo <- albedo_sat(SAA, SZA, VAA, VZA,
+  method = "fivebands", blue = blue$bands[[2]], green = green$bands[[2]],
+  red = red$bands[[2]], NIR = nir$bands[[2]], SWIR1 = swir1$bands[[2]],
+  SWIR2 = swir2$bands[[2]], th = th)
+# Plot the results
+plot(broadband_albedo[[6]])
+```
+
+<img src="man/figures/README-example-anisotropy-1.png" width="100%" />
 
 ## License
 

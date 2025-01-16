@@ -110,11 +110,11 @@ SAA <- 164.8 # solar azimuth angle
 SZA <- 48.9 # solar zenith angle
 VAA <- 90.9 # view azimuth angle
 VZA <- 5.2 #view zenith angle
-th <- snow_or_ice(green$bands[[2]], nir$bands[[2]])$th
+threshold <- snow_or_ice(green$bands[[2]], nir$bands[[2]])$th # threshold used to discriminate between snow and ice
 broadband_albedo <- albedo_sat(SAA, SZA, VAA, VZA,
   method = "fivebands", blue = blue$bands[[2]], green = green$bands[[2]],
   red = red$bands[[2]], NIR = nir$bands[[2]], SWIR1 = swir1$bands[[2]],
-  SWIR2 = swir2$bands[[2]], th = th)
+  SWIR2 = swir2$bands[[2]], th = threshold)
 # Plot the results
 plot(broadband_albedo[[6]])
 ```

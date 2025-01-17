@@ -105,8 +105,7 @@ swir1 <- topo_corr(swir1, dem, SAA, SZA)
 swir2 <- topo_corr(swir2, dem, SAA, SZA)
 ```
 
-**Step 4: Estimation of broadband albedo, including the anisotropic
-correction**
+**Step 4: Estimation of broadband albedo after anisotropic correction**
 
 ``` r
 SAA <- 164.8 # solar azimuth angle
@@ -122,7 +121,15 @@ broadband_albedo <- albedo_sat(SAA, SZA, VAA, VZA,
 plot(broadband_albedo[[6]])
 ```
 
-<img src="man/figures/README-example-anisotropy-1.png" width="100%" />
+<div class="figure">
+
+<img src="man/figures/README-example-anisotropy-1.png" alt="Broadband albedo" width="100%" />
+<p class="caption">
+
+Broadband albedo
+</p>
+
+</div>
 
 ## License
 

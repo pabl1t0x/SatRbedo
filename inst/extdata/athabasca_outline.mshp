@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SAGA_METADATA>
+  <DATABASE>
+    <FIELDS>
+      <FIELD TYPE="LONGINT">ID</FIELD>
+      <FIELD TYPE="SHORTINT">VALUE</FIELD>
+      <FIELD TYPE="STRING">NAME</FIELD>
+    </FIELDS>
+  </DATABASE>
+  <SOURCE></SOURCE>
+  <HISTORY saga-version="9.6.0">
+    <TOOL library="shapes_grid" id="6" name="Vectorizing Grid Classes">
+      <OPTION type="grid_system" id="PARAMETERS_GRID_SYSTEM" name="Grid System">
+        <CELLSIZE>30</CELLSIZE>
+        <XMIN>477855</XMIN>
+        <YMIN>5778315</YMIN>
+        <XMAX>484305</XMAX>
+        <YMAX>5784495</YMAX>
+      </OPTION>
+      <OPTION type="choice" id="CLASS_ALL" name="Class Selection" index="1">all classes</OPTION>
+      <OPTION type="choice" id="SPLIT" name="Vectorised class as..." index="0">one single (multi-)polygon object</OPTION>
+      <OPTION type="boolean" id="ALLVERTICES" name="Keep Vertices on Straight Lines">false</OPTION>
+      <INPUT type="grid" id="GRID" name="Grid" system="PARAMETERS_GRID_SYSTEM">
+        <TOOL library="grid_tools" id="0" name="Resampling">
+          <OPTION type="grid_system" id="PARAMETERS_GRID_SYSTEM" name="Grid System">
+            <CELLSIZE>30</CELLSIZE>
+            <XMIN>477858.1502984365</XMIN>
+            <XMAX>484308.1502984365</XMAX>
+            <YMIN>5778322.741421503</YMIN>
+            <YMAX>5784502.741421503</YMAX>
+          </OPTION>
+          <OPTION type="boolean" id="KEEP_TYPE" name="Preserve Data Type">true</OPTION>
+          <OPTION type="choice" id="SCALE_DOWN" name="Downscaling Method" index="3">B-Spline Interpolation</OPTION>
+          <OPTION type="choice" id="TARGET_DEFINITION" name="Target Grid System" index="1">grid or grid system</OPTION>
+          <OPTION type="grid_system" id="TARGET_SYSTEM" name="Grid System">
+            <CELLSIZE>30</CELLSIZE>
+            <XMIN>477855</XMIN>
+            <XMAX>484305</XMAX>
+            <YMIN>5778315</YMIN>
+            <YMAX>5784495</YMAX>
+          </OPTION>
+          <INPUT_LIST type="grid_list" id="INPUT" name="Grids" system="PARAMETERS_GRID_SYSTEM">
+            <INPUT type="grid_list" id="INPUT" name="Grids" system="PARAMETERS_GRID_SYSTEM">
+              <FILE>C:\docs\SIG_paper1\Athabasca\SRTM_DEM_Atha.sg-grd-z</FILE>
+            </INPUT>
+          </INPUT_LIST>
+          <OUTPUT type="grid_list" id="OUTPUT" name="Resampled Grids">SRTM_DEM_Atha</OUTPUT>
+        </TOOL>
+      </INPUT>
+      <OUTPUT type="shapes" id="POLYGONS" name="Polygons">athabasca_dem</OUTPUT>
+    </TOOL>
+  </HISTORY>
+  <FILE></FILE>
+  <DESCRIPTION></DESCRIPTION>
+  <PROJECTION>
+    <WKT2>PROJCRS["WGS 84 / UTM zone 11N",BASEGEODCRS["WGS 84",DATUM["World Geodetic System 1984",ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]]],CONVERSION["UTM zone 11N",METHOD["Transverse Mercator",ID["EPSG",9807]],PARAMETER["Latitude of natural origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8801]],PARAMETER["Longitude of natural origin",-117,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8802]],PARAMETER["Scale factor at natural origin",0.9996,SCALEUNIT["unity",1],ID["EPSG",8805]],PARAMETER["False easting",500000,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["easting",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["northing",north,ORDER[2],LENGTHUNIT["metre",1]],ID["EPSG",32611]]</WKT2>
+    <PROJ>+proj=utm +zone=11 +datum=WGS84 +units=m +no_defs +type=crs</PROJ>
+    <CODE authority="EPSG">32611</CODE>
+  </PROJECTION>
+</SAGA_METADATA>

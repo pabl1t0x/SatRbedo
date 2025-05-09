@@ -1,0 +1,13 @@
+test_that("An NDSII map and a threshold to discriminate between snow and ice are returned", {
+  green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
+  nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+  outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
+  green <- preproc(grd = green, outline = outline)
+  green <- terra::ifel(green > 0, green, NA)
+  nir <- preproc(grd = nir, outline = outline)
+  nir <- terra::ifel(nir > 0, nir, NA)
+  NDSII <- (green - nir) / (green + nir)
+  result <- snow_or_ice(green, nir)
+  expect_equal(terra::values(result$NDSII), terra::values(NDSII), tolerance = 1e-6)
+  expect_equal(result$th, 0.2148438, tolerance = 1e-6)
+})

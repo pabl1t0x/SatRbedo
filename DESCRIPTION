@@ -1,0 +1,77 @@
+Package: SatRbedo
+Title: Tools for Retrieving Snow and Ice Albedo from Optical Satellite
+    Imagery
+Version: 1.0
+Authors@R: 
+    c(
+      person(
+	    "Pablo", "Fuchs",
+	    email = "pablofuchs_llama@hotmail.com",
+	    role = c("aut", "cre"),
+	    comment = c(ORCID = "0000-0002-6042-5620")
+	  ),
+      person(
+	    "Heather", "Purdie",
+	    role = "ctb",
+	    comment = c(ORCID = "0000-0002-2723-6908")
+	  ),
+      person(
+	    "Shelley", "MacDonell",
+	    role = "ctb",
+	    comment = c(ORCID = "0000-0001-9641-4547")
+	  ),
+      person(
+	    "Marwan", "Katurji",
+	    role = "ctb",
+	    comment = c(ORCID = "0000-0002-3368-1469")
+	  ),
+      person(
+	    "Ruzica", "Dadic",
+	    role = "ctb",
+	    comment = c(ORCID = "0000-0003-1303-1896")
+	  ),
+      person(
+	    "Brian", "Anderson",
+	    role = "ctb"
+	  ),
+	  person(
+	    "Javier", "Corripio",
+		role = "cph",
+		comment = "Author of the vectorial algebra algorithms used to
+		  detect topographic shadows"
+	  )
+    )
+Description: The package consists of a set of tools for retrieving snow
+    and ice albedo from optical satellite imagery (e.g., Landsat and
+    Sentinel-2). The tools require the following gridded datasets: (1)
+    atmospherically-corrected surface reflectance, (2) a digital elevation
+    model (DEM), and (3) satellite and solar azimuth and zenith angles.
+    The package includes tools for: image pre-processing (crop grids to a
+    specified extent, project grids with different coordinate systems, and
+    convert data from integer to floating point); convert nadir
+    satellite observations to off-nadir values using view-angle
+    corrections; detect and mask topographic shadows; automatic discrimination
+	of snow and ice surfaces; anisotropic correction of reflected radiation
+	of glacier snow and ice using empirical parameterizations of the bidirectional
+	reflectance distribution function (BRDF); topographic correction; and
+    narrow-to-broadband albedo conversion.
+License: GPL (>= 3)
+Depends: 
+    R (>= 3.5)
+Imports:
+    cli,
+    EBImage,
+    graphics,
+    Rdpack,
+    stats,
+    terra
+RdMacros: 
+    Rdpack
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+URL: https://github.com/pabl1t0x/SatRbedo
+BugReports: https://github.com/pabl1t0x/SatRbedo/issues

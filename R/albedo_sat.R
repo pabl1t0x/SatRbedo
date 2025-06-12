@@ -215,8 +215,9 @@ f_BRDF <- function(SAA, SZA, VAA, VZA,
             b1_green <- a1[1] + a1[2] * alpha_green + a1[3] * theta_sc * 180 / pi
             b2_green <- a2[1] + a2[2] * alpha_green + a2[3] * theta_sc * 180 / pi
             b3_green <- a3[1] + a3[2] * alpha_green + a3[3] * theta_sc * 180 / pi
-            f_green <- 1 + b1_green * (cos_theta_vc - 2.0 / 3.0) + b2_green * theta_vc^2 * cos(phi_r) +
+            f <- 1 + b1_green * (cos_theta_vc - 2.0 / 3.0) + b2_green * theta_vc^2 * cos(phi_r) +
               b3_green * (theta_vc * (cos(phi_r))^2 - pi / 8.0)
+            f_green <- terra::ifel(f > 0.727, f, NA)
             green / f_green
           })
           difference <- abs(alpha_green - alpha_old)
@@ -230,8 +231,9 @@ f_BRDF <- function(SAA, SZA, VAA, VZA,
             b1_nir <- a1[4] + a1[5] * alpha_nir + a1[6] * theta_sc * 180 / pi
             b2_nir <- a2[4] + a2[5] * alpha_nir + a2[6] * theta_sc * 180 / pi
             b3_nir <- a3[4] + a3[5] * alpha_nir + a3[6] * theta_sc * 180 / pi
-            f_nir <- 1 + b1_nir * (cos_theta_vc - 2.0 / 3.0) + b2_nir * theta_vc^2 * cos(phi_r) +
+            f <- 1 + b1_nir * (cos_theta_vc - 2.0 / 3.0) + b2_nir * theta_vc^2 * cos(phi_r) +
               b3_nir * (theta_vc * (cos(phi_r))^2 - pi / 8.0)
+            f_nir <- terra::ifel(f > 0.718, f, NA)
             NIR / f_nir
           })
           difference <- abs(alpha_nir - alpha_old)
@@ -438,7 +440,15 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
           terra::ifel(
             albedo_NIR > 1.0,
             {
-              NA
+              terra::ifel(
+                albedo_Knap(green, albedo_NIR, saturated = TRUE) > 1.0,
+                {
+                  NA
+                },
+                {
+                  albedo_Knap(green, albedo_NIR, saturated = TRUE)
+                }
+              )
             },
             {
               albedo_Knap(green, albedo_NIR, saturated = TRUE)
@@ -482,8 +492,8 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
           )
         }
       )
-      albedo_green <- terra::ifel(albedo_green <= 1.0, albedo_green, NA)
-      albedo_NIR <- terra::ifel(albedo_NIR <= 1.0, albedo_NIR, NA)
+#      albedo_green <- terra::ifel(albedo_green <= 1.0, albedo_green, NA)
+#      albedo_NIR <- terra::ifel(albedo_NIR <= 1.0, albedo_NIR, NA)
       result <- c(albedo_green, albedo_NIR, albedo_broad, flag)
       names(result) <- c("albedo_green", "albedo_NIR", "albedo_broad", "flag")
       result
@@ -492,11 +502,16 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
     }
   } else if (method == 2) {
     if (!is.null(blue) & !is.null(green) & !is.null(red) & !is.null(NIR)) {
-      albedo_blue <- terra::ifel(blue < 0 | blue > 1, NA, blue)
-      albedo_green <- terra::ifel(green < 0 | green > 1, NA, green)
-      albedo_red <- terra::ifel(red < 0 | red > 1, NA, red)
-      albedo_NIR <- terra::ifel(NIR < 0 | NIR > 1, NA, NIR)
+#      albedo_blue <- terra::ifel(blue < 0 | blue > 1, NA, blue)
+#      albedo_green <- terra::ifel(green < 0 | green > 1, NA, green)
+#      albedo_red <- terra::ifel(red < 0 | red > 1, NA, red)
+#      albedo_NIR <- terra::ifel(NIR < 0 | NIR > 1, NA, NIR)
+      albedo_blue <- terra::ifel(blue < 0, NA, blue)
+      albedo_green <- terra::ifel(green < 0, NA, green)
+      albedo_red <- terra::ifel(red < 0, NA, red)
+      albedo_NIR <- terra::ifel(NIR < 0, NA, NIR)
       albedo_broad <- albedo_Feng(albedo_blue, albedo_green, albedo_red, albedo_NIR)
+      albedo_broad <- terra::ifel(albedo_broad <= 1.0, albedo_broad, NA)
       result <- c(albedo_blue, albedo_green, albedo_red, albedo_NIR, albedo_broad)
       names(result) <- c("albedo_blue", "albedo_green", "albedo_red", "albedo_NIR", "albedo_broad")
       result
@@ -521,25 +536,18 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
       f_nir <- f[[3]]
       f_swir1 <- f[[4]]
       f_swir2 <- f[[5]]
-      albedo_blue <- terra::ifel(blue > 0, blue - f_blue, 0)
-      albedo_red <- terra::ifel(red > 0, red - f_red, 0)
-      albedo_NIR <- terra::ifel(NIR > 0, NIR - f_nir, 0)
-      albedo_SWIR1 <- terra::ifel(SWIR1 > 0, SWIR1 - f_swir1, 0)
-      albedo_SWIR2 <- terra::ifel(SWIR2 > 0, SWIR2 - f_swir2, 0)
-      albedo_broad <- terra::ifel(
-        albedo_blue > 1.0 | albedo_red > 1.0 | albedo_NIR > 1.0 | albedo_SWIR1 > 1.0 | albedo_SWIR2 > 1.0,
-        {
-          NA
-        },
-        {
-          albedo_Liang(albedo_blue, albedo_red, albedo_NIR, albedo_SWIR1, albedo_SWIR2)
-        }
-      )
-      albedo_blue <- terra::ifel(albedo_blue <= 1.0 & albedo_blue > 0, albedo_blue, NA)
-      albedo_red <- terra::ifel(albedo_red <= 1.0 & albedo_red > 0, albedo_red, NA)
-      albedo_NIR <- terra::ifel(albedo_NIR <= 1.0 & albedo_NIR > 0, albedo_NIR, NA)
-      albedo_SWIR1 <- terra::ifel(albedo_SWIR1 <= 1.0 & albedo_SWIR1 > 0, albedo_SWIR1, NA)
-      albedo_SWIR2 <- terra::ifel(albedo_SWIR2 <= 1.0 & albedo_SWIR2 > 0, albedo_SWIR2, NA)
+      albedo_blue <- terra::ifel(blue > 0, blue - f_blue, 0 * f_blue)
+      albedo_red <- terra::ifel(red > 0, red - f_red, 0 * f_red)
+      albedo_NIR <- terra::ifel(NIR > 0, NIR - f_nir, 0 * f_nir)
+      albedo_SWIR1 <- terra::ifel(SWIR1 > 0, SWIR1 - f_swir1, 0 * f_swir1)
+      albedo_SWIR2 <- terra::ifel(SWIR2 > 0, SWIR2 - f_swir2, 0 * f_swir2)
+      albedo_broad <- albedo_Liang(albedo_blue, albedo_red, albedo_NIR, albedo_SWIR1, albedo_SWIR2)
+      albedo_broad <- terra::ifel(albedo_broad <= 1.0 & albedo_broad >= 0, albedo_broad, NA) 
+#      albedo_blue <- terra::ifel(albedo_blue <= 1.0 & albedo_blue > 0, albedo_blue, NA)
+#      albedo_red <- terra::ifel(albedo_red <= 1.0 & albedo_red > 0, albedo_red, NA)
+#      albedo_NIR <- terra::ifel(albedo_NIR <= 1.0 & albedo_NIR > 0, albedo_NIR, NA)
+#      albedo_SWIR1 <- terra::ifel(albedo_SWIR1 <= 1.0 & albedo_SWIR1 > 0, albedo_SWIR1, NA)
+#      albedo_SWIR2 <- terra::ifel(albedo_SWIR2 <= 1.0 & albedo_SWIR2 > 0, albedo_SWIR2, NA)
       result <- c(
         albedo_blue, albedo_red, albedo_NIR, albedo_SWIR1,
         albedo_SWIR2, albedo_broad

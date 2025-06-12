@@ -10,10 +10,10 @@ authors:
   - name: Pablo Fuchs
     corresponding: true
     orcid: 0000-0002-6042-5620
-    affiliation: "1, 2"
+    affiliation: 1
   - name: Ruzica Dadic
     orcid: 0000-0003-1303-1896
-    affiliation: "3, 4"
+    affiliation: "2, 3"
   - name: Shelley MacDonell
     orcid: 0000-0001-9641-4547
     affiliation: 1
@@ -21,20 +21,18 @@ authors:
     orcid: 0000-0002-2723-6908
     affiliation: 1
   - name: Brian Anderson
-    affiliation: 4
+    affiliation: 3
   - name: Marwan Katurji 
     orcid: 0000-0002-3368-1469
     affiliation: 1
 affiliations:
  - name: School of Earth & Environment, University of Canterbury, Christchurch, New Zealand 
    index: 1
- - name: Instituto de Hidráulica e Hidrología, Universidad Mayor de San Andrés, La Paz, Bolivia
-   index: 2
  - name: WSL Institute for Snow and Avalanche Research, Davos Dorf, Switzerland
-   index: 3
+   index: 2
  - name: Antarctic Research Centre, Victoria University, Wellington, New Zealand
-   index: 4
-date: 10 May 2025
+   index: 3
+date: 12 June 2025
 bibliography: paper.bib
 ---
 
@@ -54,7 +52,7 @@ can also be used.
 
 # Statement of need
 
-The land surface albedo is an essential climate variable controlling the partitioning of the radiative energy between the surface and the atmosphere [@bojinski_concept_2014;@radeloff_need_2024].
+The land surface albedo is an essential climate variable that controls the partitioning of radiative energy between the surface and the atmosphere [@bojinski_concept_2014;@radeloff_need_2024].
 Albedo is the hemispherically integrated reflectance representing the proportion of the incoming solar
 radiation reflected from a unit surface area [@budyko_effect_1969;@schaepman-strub_reflectance_2006]. In
 the cryosphere, albedo ranges from <0.1 for debris-covered ice to 0.3-0.4 for bare ice to ~0.5 for aged, wet snow to >0.9 for fresh, dry snow [@cuffey_physics_2010].

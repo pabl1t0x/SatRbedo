@@ -10,29 +10,29 @@ Authors@R:
 	    role = c("aut", "cre"),
 	    comment = c(ORCID = "0000-0002-6042-5620")
 	  ),
-      person(
-	    "Heather", "Purdie",
-	    role = "ctb",
-	    comment = c(ORCID = "0000-0002-2723-6908")
-	  ),
-      person(
-	    "Shelley", "MacDonell",
-	    role = "ctb",
-	    comment = c(ORCID = "0000-0001-9641-4547")
-	  ),
-      person(
-	    "Marwan", "Katurji",
-	    role = "ctb",
-	    comment = c(ORCID = "0000-0002-3368-1469")
-	  ),
-      person(
+     person(
 	    "Ruzica", "Dadic",
-	    role = "ctb",
+	    role = c("ctb", "ths"),
 	    comment = c(ORCID = "0000-0003-1303-1896")
 	  ),
       person(
+	    "Shelley", "MacDonell",
+	    role = c("ctb", "ths"),
+	    comment = c(ORCID = "0000-0001-9641-4547")
+	  ),
+      person(
+	    "Heather", "Purdie",
+	    role = c("ctb", "ths"),
+	    comment = c(ORCID = "0000-0002-2723-6908")
+	  ),
+      person(
 	    "Brian", "Anderson",
-	    role = "ctb"
+	    role = c("ctb", "ths")
+	  ),
+      person(
+	    "Marwan", "Katurji",
+	    role = c("ctb", "ths"),
+	    comment = c(ORCID = "0000-0002-3368-1469")
 	  ),
 	  person(
 	    "Javier", "Corripio",

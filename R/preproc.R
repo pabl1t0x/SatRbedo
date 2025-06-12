@@ -1,16 +1,17 @@
 #' Satellite data pre-processing
 #'
-#' `preproc()` crops an input grid to a specified extent with a polygon, reprojects
-#' the grid to a specified coordinate system, and converts the data from
-#' integer to floating point using an offset and a scale factor.
+#' `preproc()` crops an input grid to a specified extent with a polygon or SpatExtent,
+#' reprojects the grid to a specified coordinate system, and converts the data from integer
+#' to floating point using an offset and a scale factor.
 #'
 #' @inheritParams terra::rast
-#' @param grd filename (character) of the raster to be processed, in one of GDAL's raster
-#'  [drivers](https://gdal.org/en/stable/drivers/raster/index.html).
+#' @param grd filename (character) or SpatRaster of the raster to be processed, in one of
+#'  GDAL's raster [drivers](https://gdal.org/en/stable/drivers/raster/index.html).
 #' @param outline filename (character) of the shapefile containing the outline of the area
-#'  of interest, in `.shp` format.
-#' @param coords filename (character) of the raster with the coordinate system definition.
-#'  Alternatively, a coordinate reference system (CRS) description can
+#'  of interest, in `.shp` format, or SpatExtent giving a vector of length four (xmin, xmax,
+#'  ymin, ymax).
+#' @param coords filename (character) or SpatRaster of the raster with the coordinate system
+#'  definition. Alternatively, a coordinate reference system (CRS) description can
 #'  be provided. In this case, the CRS can be described using the PROJ-string
 #'  (e.g., "+proj=longlat +datum=WGS84") or the WKT format (e.g., "EPSG:4326").
 #' @param add_offset band-specific offset added to each grid value. Defaults to zero.
@@ -47,21 +48,22 @@
 #'
 #' @export
 preproc <- function(grd, drivers = NULL, outline = NULL, coords = NULL, add_offset = 0, scale_factor = 1) {
-  g <- terra::rast(grd, drivers)
+  if (inherits(grd, "character")) {
+    g <- terra::rast(grd, drivers)
+  } else {
+    g <- grd
+  }
   if (!is.null(outline)) {
-    out <- terra::vect(outline)
+    out <- terra::vect(outline, crs = terra::crs(g))
     g <- terra::crop(g, out, mask = TRUE)
   }
   if (!is.null(coords)) {
-    if (grepl("+proj=", coords) | grepl("EPSG:", coords)) {
+    if (grepl("+proj=", coords) | grepl("EPSG:", coords) |
+      inherits(coords, "SpatRaster")) {
       g <- terra::project(g, coords)
-    } else if (inherits(terra::rast(coords, drivers), "SpatRaster")) {
-      ref <- terra::rast(coords, drivers)
-      g <- terra::project(g, ref)
     } else {
       cli::cli_abort("Reproject: please ensure that the coords argument is either
-	                  the file location of the reference grid file or a valid CRS
-					  description.")
+                    the file location of the reference grid file or a valid CRS description.")
     }
   }
   g <- add_offset + g * scale_factor

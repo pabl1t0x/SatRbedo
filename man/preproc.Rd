@@ -14,16 +14,17 @@ preproc(
 )
 }
 \arguments{
-\item{grd}{filename (character) of the raster to be processed, in one of GDAL's raster
-\href{https://gdal.org/en/stable/drivers/raster/index.html}{drivers}.}
+\item{grd}{filename (character) or SpatRaster of the raster to be processed, in one of
+GDAL's raster \href{https://gdal.org/en/stable/drivers/raster/index.html}{drivers}.}
 
 \item{drivers}{character. GDAL drivers to consider}
 
 \item{outline}{filename (character) of the shapefile containing the outline of the area
-of interest, in \code{.shp} format.}
+of interest, in \code{.shp} format, or SpatExtent giving a vector of length four (xmin, xmax,
+ymin, ymax).}
 
-\item{coords}{filename (character) of the raster with the coordinate system definition.
-Alternatively, a coordinate reference system (CRS) description can
+\item{coords}{filename (character) or SpatRaster of the raster with the coordinate system
+definition. Alternatively, a coordinate reference system (CRS) description can
 be provided. In this case, the CRS can be described using the PROJ-string
 (e.g., "+proj=longlat +datum=WGS84") or the WKT format (e.g., "EPSG:4326").}
 
@@ -35,9 +36,9 @@ be provided. In this case, the CRS can be described using the PROJ-string
 Returns a pre-processed SpatRaster grid.
 }
 \description{
-\code{preproc()} crops an input grid to a specified extent with a polygon, reprojects
-the grid to a specified coordinate system, and converts the data from
-integer to floating point using an offset and a scale factor.
+\code{preproc()} crops an input grid to a specified extent with a polygon or SpatExtent,
+reprojects the grid to a specified coordinate system, and converts the data from integer
+to floating point using an offset and a scale factor.
 }
 \examples{
 # uncorrected grid

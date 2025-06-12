@@ -1,833 +1,497 @@
-albedo
-class(albedo)
-names(albedo) <- c("twobands", "fourbands", "fivebands")
-albedo
-albedo_five
-e <- terra::ext(421335, 460605, -4840305, -4808445) #(xmin, xmax, ymin, ymax)#
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-blue <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif")#
-green <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif")#
-red <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif")#
-nir <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif")#
-swir1 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif")#
-swir2 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif")#
-SAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif")#
-SZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif")#
-VAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif")#
-VZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif")#
-landsat_data <- c(blue, green, red, nir, swir1, swir2)#
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
-clust <- uclass(grd = landsat_data, extent = e, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
+modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020055.h31v13.061.2020335140359.hdf")
+modis_data
+dat<-modis_data[11]
+writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
+modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020055.h30v13.061.2020335140415.hdf")
+dat<-modis_data[11]
+writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
+modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020057.h30v13.061.2020335143352.hdf")
+modis_data[[11]]
+modis_data[11]
+modis_data[12]
+modis_data[13]
+modis_data[14]
+modis_data[15]
+modis_data[16]
+modis_data[17]
+modis_data[18]
+dat<-modis_data[18]
+writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
+sdate <- "2021-03-11"#
+edate <- "2020-03-13"#
+e <- terra::ext(421350, 460620, -4840320, -4808460)#
+e_new <- terra::project(#
+  e, from = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs",#
+  to = "+proj=longlat +datum=WGS84 +no_defs"#
+)#
+datadir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
+usr <- "pablo.fuchs"#
+pwd <- "Pfadfindern02"
+mod_data <- luna::getNASA(#
+  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+sdate
+mod_data <- luna::getNASA(#
+  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+product
+mod_data <- luna::getNASA(#
+  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2021-03-11"#
+edate <- "2021-03-13"
+mod_data <- luna::getNASA(#
+product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2021071.h30v13.061.2021082094015.hdf")
+modis_data[11]
+dat<-modis_data[12]
+writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
+??getNASA
+sdate <- "2022-02-14"#
+edate <- "2022-02-17"#
+e <- terra::ext(421350, 460620, -4840320, -4808460)#
+e_new <- terra::project(#
+  e, from = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs",#
+  to = "+proj=longlat +datum=WGS84 +no_defs"#
+)#
+datadir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
+usr <- "pablo.fuchs"#
+pwd <- "Pfadfindern02"
+mod_data <- luna::getNASA(#
+ product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2023-02-16"#
+edate <- "2023-02-24"#
+e <- terra::ext(421350, 460620, -4840320, -4808460)#
+e_new <- terra::project(#
+  e, from = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs",#
+  to = "+proj=longlat +datum=WGS84 +no_defs"#
+)#
+datadir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
+usr <- "pablo.fuchs"#
+pwd <- "Pfadfindern02"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate
+(.packages())
+source("./Documents/PhD/R_Code/albedo_MODISLandsat_functions.R")
+(.packages())
 ls()
-source("./Documents/PhD/R_code/albedo_MODISLandsat_functions.R")
-clust <- uclass(grd = landsat_data, extent = e, coords = coords,#
+?source
+modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
+modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020057.h30v13.061.2020335143352.hdf")
+dat<-modis_data[11]
+dat
+writeRaster(dat,filename="/Users/pablo/Documents/PhD/Tasman/modis.tif")
+writeRaster(dat,filename="/Users/pablo/Documents/PhD/Tasman/modis.tif", overwrite=TRUE)
+dir<-"/Users/pablo/Documents/PhD/Tasman/L30/2020/59/G/M/M/HLS.L30.T59GMM.2020055T221958.v2.0"
+files <- list.files(path = dir, full.names = TRUE)
+files
+metadata <- stringr::str_subset(files, "xml")#
+md <- xml2::read_xml(metadata)#
+date_f <- stringr::str_sub(#
+  xml2::xml_text(xml2::xml_find_all(md, "//BeginningDateTime")), 1, 10#
+)#
+sensor <- stringr::str_sub(#
+  xml2::xml_text(xml2::xml_find_all(md, "//GranuleUR")), 5, 7#
+)#
+if (sensor == "L30") {#
+  blue_band <- stringr::str_subset(files, "B02")#
+  green_band <- stringr::str_subset(files, "B03")#
+  red_band <- stringr::str_subset(files, "B04")#
+  nir_band <- stringr::str_subset(files, "B05")#
+  swir1_band <- stringr::str_subset(files, "B06")#
+  swir2_band <- stringr::str_subset(files, "B07")#
+} else {#
+  blue_band <- stringr::str_subset(files, "B02")#
+  green_band <- stringr::str_subset(files, "B03")#
+  red_band <- stringr::str_subset(files, "B04")#
+  nir_band <- stringr::str_subset(files, "B8A")#
+  swir1_band <- stringr::str_subset(files, "B11")#
+  swir2_band <- stringr::str_subset(files, "B12")#
+}
+SAA <- stringr::str_subset(files, "SAA")#
+SZA <- stringr::str_subset(files, "SZA")#
+VAA <- stringr::str_subset(files, "VAA")#
+VZA <- stringr::str_subset(files, "VZA")#
+clouds <- stringr::str_subset(files, "clouds") #Clouds mask#
+cloud_shadows <- stringr::str_subset(files, "shadows") #Cloud shadows mask
+clouds
+dem <- "./Documents/PhD/Tasman/NASADEM.tif"
+outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"
+expected_coords = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs"#
+actual_coords = "+proj=utm +zone=59 +south +datum=WGS84 +units=m +no_defs +type=crs"#
+e <- terra::ext(421350, 460620, -4840320, -4808460) #(xmin, xmax, ymin, ymax)#
+e2 <- terra::project(e, from = expected_coords, actual_coords)
+dem <- SatRbedo::preproc(grd = dem, outline = e)#
+blue_nbar <- SatRbedo::preproc(grd = blue_band, outline = e)#
+green_nbar <- SatRbedo::preproc(grd = green_band, outline = e)#
+red_nbar <- SatRbedo::preproc(grd = red_band, outline = e)#
+nir_nbar <- SatRbedo::preproc(grd = nir_band, outline = e)#
+swir1_nbar <- SatRbedo::preproc(grd = swir1_band, outline = e)#
+swir2_nbar <- SatRbedo::preproc(grd = swir2_band, outline = e)
+SAA_test <- try(SatRbedo::preproc(grd = SAA, outline = e))#
+if (inherits(SAA_test, "try-error")) {#
+  SAA <- SatRbedo::preproc(SAA)#
+  terra::crs(SAA) <- actual_coords#
+  SAA <- SatRbedo::preproc(SAA, outline = e2, coords = expected_coords)#
+} else {#
+  SAA <- SatRbedo::preproc(grd = SAA, outline = e)#
+}#
+SZA_test <- try(SatRbedo::preproc(grd = SZA, outline = e))#
+if (inherits(SZA_test, "try-error")) {#
+  SZA <- SatRbedo::preproc(SZA)#
+  terra::crs(SZA) <- actual_coords#
+  SZA <- SatRbedo::preproc(SZA, outline = e2, coords = expected_coords)#
+} else {#
+  SZA <- SatRbedo::preproc(grd = SZA, outline = e)#
+}#
+VAA_test <- try(SatRbedo::preproc(grd = VAA, outline = e))#
+if (inherits(VAA_test, "try-error")) {#
+  VAA <- SatRbedo::preproc(VAA)#
+  terra::crs(VAA) <- actual_coords#
+  VAA <- SatRbedo::preproc(VAA, outline = e2, coords = expected_coords)#
+} else {#
+  VAA <- SatRbedo::preproc(grd = VAA, outline = e)#
+}#
+VZA_test <- try(SatRbedo::preproc(grd = VZA, outline = e))#
+if (inherits(VZA_test, "try-error")) {#
+  VZA <- SatRbedo::preproc(VZA)#
+  terra::crs(VZA) <- actual_coords#
+  VZA <- SatRbedo::preproc(VZA, outline = e2, coords = expected_coords)#
+} else {#
+  VZA <- SatRbedo::preproc(grd = VZA, outline = e)#
+}#
+dem <- terra::resample(dem, blue_nbar)
+if (length(clouds) != 0 & length(cloud_shadows) != 0) {#
+  cl <- SatRbedo::preproc(grd = clouds, outline = e)#
+  sh <- SatRbedo::preproc(grd = cloud_shadows, outline = e)#
+  blue_nbar <- blue_nbar * cl * sh#
+  green_nbar <- green_nbar * cl * sh#
+  red_nbar <- red_nbar * cl * sh#
+  nir_nbar <- nir_nbar * cl * sh#
+  swir1_nbar <- swir1_nbar * cl * sh#
+  swir2_nbar <- swir2_nbar * cl * sh#
+  SAA <- SAA * cl * sh#
+  SZA <- SZA * cl * sh#
+  VAA <- VAA * cl * sh#
+  VZA <- VZA * cl * sh#
+}
+ls()
+coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
+landsat_data <- c(blue_nbar, green_nbar, red_nbar, nir_nbar, swir1_nbar, swir2_nbar)
+landsat_data
+plot(landsat_data[1])
+plot(landsat_data[[1]])
+plot(landsat_data[[4]])
+modis_dir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
+modis_files <- list.files(path = modis_dir, full.names = TRUE)
+modis_files
+files
+modis_files
+modis_dir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
+modis_files <- list.files(path = modis_dir, full.names = TRUE)
+modis_files
+modis_dir<-"./Documents/PhD/Tasman/MCD43"
+modis_files <- list.files(path = modis_dir, full.names = TRUE)
+modis_files
+as.int("2")
+as.integer("2")
+modis_data <- terra::sds(modis_files[as.integer("2"))
+modis_data <- terra::sds(modis_files[as.integer("2")])
+modis_data
+modis_data <- terra::sds(modis_files[as.integer("1")])
+modis_data
+coords
+clust <- uclass(grd = landsat_data, coords = coords,#
   cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
 clust
 plot(clust)
+clust <- uclass(grd = landsat_data, coords = coords,#
+  cluster_n = 13, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
+clust
+plot(clust)
 an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")#
-#an_blue_plot <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-#  extent = e, MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-#  br = 1.0, hb = 2.0, out = "raster")#
-an_green <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 14, MODIS_QA_band = 4,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_red <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 11, MODIS_QA_band = 1,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_nir <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 12, MODIS_QA_band = 2,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir1 <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 16, MODIS_QA_band = 6,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir2 <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 17, MODIS_QA_band = 7,#
+  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
+  br = 1.0, hb = 2.0, out = "table")
+source("../R_code/albedo_MODISLandsat_functions.R")
+source("./Documents/PhD/R_Code/albedo_MODISLandsat_functions.R")
+an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
+  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
   br = 1.0, hb = 2.0, out = "table")
 an_blue
-an_green
-an_red
-an_nir
-an_swir1
-an_swir2
-clust2 <- uclass(grd = landsat_data, extent = e, cluster_n = 6,#
+modis_data
+modis_data[1]
+plot(modis_data[1])
+clust2 <- uclass(grd = landsat_data, cluster_n = 10,#
   iter.max = 1000, nstart = 10, algorithm = "Lloyd")
 clust2
 plot(clust2)
-blue
-plot(blue)
-blue2 <- terra::crop(blue, e)
-plot(blue2)
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)
-dem
-plot(dem)
-dem <- "./Documents/PhD/Tasman/NASADEM.tif"
-dem
-dem<-rast(dem)
-dem
-dem2 <- terra::crop(dem, e)
-dem2
-plot(dem2)
-plot(SZA)
-plot(dem2, add=TRUE)
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)
-plot(SAA2)
-plot(dem2, add=TRUE)
-plot(SAA2)
-SAA2
-SZA2
-VAA2
-VZA2
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")
-blue2
-dem2
-SAA2
-SZA2
-dem2 <- terra::resample(dem2, blue2)
-dem2
-VAA2
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")
-SatRbedo::topo_splot(blue_corr$bands[[1]], blue2, maxcell = 1e+06)
-SatRbedo::topo_splot(blue_corr$bands[[1]], blue2, maxcell = 1e+08)
-SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+08)
-blue_corr
-blue2
-nir2
-nir_corr
-landsat_data2 <- c(blue_corr$bands[[2]], green_corr$bands[[2]], red_corr$bands[[2]],#
-  nir_corr$bands[[2]], swir1_corr$bands[[2]], swir2_corr$bands[[2]])
-landsat_data2
-clust22 <- uclass(grd = landsat_data2, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust22
-landsat_data
-names(landsat_data2) <- c("blue", "green", "red", "nir", "swir1", "swir2")
-landsat_data2
-clust22 <- uclass(grd = landsat_data2, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust22
-plot(clust22)
-dev.new()
-plot(clust2)
-clust2-clust22
-a<-clust2-clust22
-plot(a)
-clust_2 <- uclass(grd = landsat_data2, extent = e, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust_2
-plot(clust_2)
-dev.new()
-plot(clust)
-an_blue2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
+an_blue <- AN_ratios(landsat_clusters = clust2, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
+  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
+  br = 1.0, hb = 2.0, out = "table")
+clust <- uclass(grd = landsat_data, coords = coords,#
+  cluster_n = 10, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
+an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
+  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
   br = 1.0, hb = 2.0, out = "table")
 an_blue
-an_blue2
-blue
-blue2
-q()
-source("./Documents/PhD/R_code/albedo_MODISLandsat_functions.R")#
-library(terra)#
-library(SatRbedo)#
-library(xml2)
-e <- terra::ext(421335, 460605, -4840305, -4808445) #(xmin, xmax, ymin, ymax)#
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-blue <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif")#
-green <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif")#
-red <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif")#
-nir <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif")#
-swir1 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif")#
-swir2 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif")#
-SAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif")#
-SZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif")#
-VAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif")#
-VZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif")#
-landsat_data <- c(blue, green, red, nir, swir1, swir2)#
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
-clust <- uclass(grd = landsat_data, extent = e, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")#
 an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")#
-#an_blue_plot <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-#  extent = e, MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-#  br = 1.0, hb = 2.0, out = "raster")#
-an_green <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 14, MODIS_QA_band = 4,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_red <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 11, MODIS_QA_band = 1,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_nir <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 12, MODIS_QA_band = 2,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir1 <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 16, MODIS_QA_band = 6,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir2 <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 17, MODIS_QA_band = 7,#
+  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
+  br = 1.0, hb = 2.0, out = "raster")
+an_blue
+plot(an_blue[[1]])
+plot(an_blue[[2]])
+clust2
+landsat_data[[1]]
+plot(landsat_data[[1]])
+landsat_data[[1]]
+clust2
+source("./Documents/PhD/R_Code/albedo_MODISLandsat_functions.R")
+an_blue
+an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
+  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
   br = 1.0, hb = 2.0, out = "table")
-clust2 <- uclass(grd = landsat_data, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-plot(clust2)
-lpha_blue <- albedo_spectral_LandMod(AN_band = an_blue, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[1]])#
-alpha_green <- albedo_spectral_LandMod(AN_band = an_green, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[2]])#
-alpha_red <- albedo_spectral_LandMod(AN_band = an_red, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[3]])#
-alpha_nir <- albedo_spectral_LandMod(AN_band = an_nir, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[4]])#
-alpha_swir1 <- albedo_spectral_LandMod(AN_band = an_swir1, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[5]])#
-alpha_swir2 <- albedo_spectral_LandMod(AN_band = an_swir2, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[6]])#
-alpha_broad <- albedo_broad_LandMod(alpha_blue, alpha_green, alpha_red, alpha_nir,#
-  alpha_swir1, alpha_swir2)
 alpha_blue <- albedo_spectral_LandMod(AN_band = an_blue, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[1]])#
-alpha_green <- albedo_spectral_LandMod(AN_band = an_green, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[2]])#
-alpha_red <- albedo_spectral_LandMod(AN_band = an_red, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[3]])#
-alpha_nir <- albedo_spectral_LandMod(AN_band = an_nir, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[4]])#
-alpha_swir1 <- albedo_spectral_LandMod(AN_band = an_swir1, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[5]])#
-alpha_swir2 <- albedo_spectral_LandMod(AN_band = an_swir2, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[6]])#
-alpha_broad <- albedo_broad_LandMod(alpha_blue, alpha_green, alpha_red, alpha_nir,#
-  alpha_swir1, alpha_swir2)
-??SunCalcMeeus::irrad_extraterrestrial
-library(help=SunCalcMeeus)
-t<-as.POSIXct("2024-08-13 22:38", tz="UTC")
-t
-class(t)
-loc <- data.frame(lon=170.0977, lat=-43.73633, address="Mt. Cook Village")
-SW_TOA <- SunCalcMeeus::irrad_extraterrestrial(time = t,#
-    tz = "UTC", geocode = loc, solar.constant = "NASA")
-SW_TOA
-alpha_broad_blue <- albedo_blue_LandMod(alpha_broad = alpha_broad, SW_meas = 165.28,#
-  time = "2024-08-13 22:38", timezone = "UTC", lon = 170.0977, lat = -43.73633, site = "Mt. Cook Village")
-alpha_broad_blue
-plot(alpha_broad_blue)
-ls()
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"
-out<-vect(outline)
-out
-albedo_mod1 <- crop(albedo_blue_LandMod, out, mask=TRUE)
-albedo_mod1 <- crop(alpha_broad_blue, out, mask=TRUE)
-albedo_mod1
-plot(albedo_mod1)
-plot(albedo_mod1, range=c(0.5,1))
-plot(albedo_mod1, range=c(0.4,1))
-plot(albedo_mod1, range=c(0.3,1))
-plot(albedo_mod1, range=c(0.3,1.5))
-writeRaster(albedo_mod1, filename="./Documents/PhD/Tasman/albedo_mod1.tif")
-blue <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif"#
-green <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif"#
-red <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif"#
-nir <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif"#
-swir1 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif"#
-swir2 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif"#
-SAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif"#
-SZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif"#
-VAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif"#
-VZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif"#
-dem <- "./Documents/PhD/Tasman/NASADEM.tif"#
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"#
-metadata <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.cmr.xml"
-e <- terra::ext(421335, 460605, -4840305, -4808445) #(xmin, xmax, ymin, ymax)#
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-blue <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif")#
-green <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif")#
-red <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif")#
-nir <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif")#
-swir1 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif")#
-swir2 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif")#
-SAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif")#
-SZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif")#
-VAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif")#
-VZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif")#
-landsat_data <- c(blue, green, red, nir, swir1, swir2)#
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
-blue2 <- terra::crop(blue, e)#
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)#
-dem2 <- terra::crop(dem, e)#
-dem2 <- terra::resample(dem2, blue2)#
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)
-source("./Documents/PhD/R_code/albedo_MODISLandsat_functions.R")#
-library(terra)#
-library(SatRbedo)#
-library(xml2)
-dem <- "./Documents/PhD/Tasman/NASADEM.tif"
-e <- terra::ext(421335, 460605, -4840305, -4808445) #(xmin, xmax, ymin, ymax)#
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-blue <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif")#
-green <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif")#
-red <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif")#
-nir <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif")#
-swir1 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif")#
-swir2 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif")#
-SAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif")#
-SZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif")#
-VAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif")#
-VZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif")#
-landsat_data <- c(blue, green, red, nir, swir1, swir2)#
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
-blue2 <- terra::crop(blue, e)#
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)#
-dem <- terra::rast(dem)#
-dem2 <- terra::crop(dem, e)#
-dem2 <- terra::resample(dem2, blue2)#
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")#
-landsat_data2 <- c(blue_corr$bands[[2]], green_corr$bands[[2]], red_corr$bands[[2]],#
-  nir_corr$bands[[2]], swir1_corr$bands[[2]], swir2_corr$bands[[2]])#
-names(landsat_data2) <- c("blue", "green", "red", "nir", "swir1", "swir2")
-clust_2 <- uclass(grd = landsat_data2, extent = e, coords = coords,#
+  landsat_band = landsat_data[[1]])
+alpha_blue
+plot(alpha_blue[[1]])
+plot(alpha_blue[[2]])
+clust1 <- uclass(grd = landsat_data, coords = coords,#
   cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-plot(clust_2)
-an_blue2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_green2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 14, MODIS_QA_band = 4,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_red2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 11, MODIS_QA_band = 1,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_nir2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 12, MODIS_QA_band = 2,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir12 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 16, MODIS_QA_band = 6,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir22 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 17, MODIS_QA_band = 7,#
-  br = 1.0, hb = 2.0, out = "table")
-an_blue2
-an_green2
-an_red2
-an_nir2
-an_swir12
-an_swir22
-clust_22 <- uclass(grd = landsat_data2, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-plot(clust_22)
-alpha_blue2 <- albedo_spectral_LandMod(AN_band = an_blue2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[1]])#
-alpha_green2 <- albedo_spectral_LandMod(AN_band = an_green2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[2]])#
-alpha_red2 <- albedo_spectral_LandMod(AN_band = an_red2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[3]])#
-alpha_nir2 <- albedo_spectral_LandMod(AN_band = an_nir2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[4]])#
-alpha_swir12 <- albedo_spectral_LandMod(AN_band = an_swir12, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[5]])#
-alpha_swir22 <- albedo_spectral_LandMod(AN_band = an_swir22, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[6]])
-alpha_broad2 <- albedo_broad_LandMod(alpha_blue2, alpha_green2, alpha_red2, alpha_nir2,#
-  alpha_swir12, alpha_swir22)
-alpha_broad_blue2 <- albedo_blue_LandMod(alpha_broad = alpha_broad2, SW_meas = 165.28,#
-  time = "2024-08-13 22:38", timezone = "UTC", lon = 170.0977, lat = -43.73633, site = "Mt. Cook Village")
-albedo_mod2 <- crop(alpha_broad_blue2, out)
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"
-out<-vect(outline)
-albedo_mod2 <- crop(alpha_broad_blue2, out)
-plot(albedo_mod2)
-albedo_mod2 <- crop(alpha_broad_blue2, out, mask=TRUE)
-plot(albedo_mod2)
-writeRaster(albedo_mod2, filename="./Documents/PhD/Tasman/albedo_mod2.tif")
+clust2 <- uclass(grd = landsat_data, coords = coords,#
+  cluster_n = 12, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
+clust6<-clust1
+clust6
+clust12<-clust2
+clust12
+clust18 <- uclass(grd = landsat_data, coords = coords,#
+  cluster_n = 18, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
+clust18
+plot(clust18)
+?cars
+library(ggplot)#
+data(cars)#
+cars$speed <- cars$speed * 1.60934#
+cars$dist <- cars$dist * 0.3048
+cars$dits
+cars$dist
+ggplot() +#
+	geom_point(data=cars, aes=(x=speed, y=dist))
+cars
+library(ggplot)
+library()
+install.packages("ggplot")
+install.packages("ggplot2")
+library(ggplot2)
+ggplot() +#
+	geom_point(data=cars, aes=(x=speed, y=dist)) +#
+	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
+	theme_minimal(base_size=15)
+ggplot() +#
+	geom_point(data=cars, (aes(x=speed, y=dist))) +#
+	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
+	theme_minimal(base_size=15)
+m <- lm(dist ~ 0+I(speed^2), data=cars)
+summary(m)
+ggplot() +#
+	geom_point(data=cars, (aes(x=speed, y=dist))) +#
+	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
+	theme_minimal(base_size=15)
+d.pred <- data.frame(speed=seq(0,70,length.out=100))#
+predict(m,newdata=d.pred,interval='confidence')
+?predict
+z <- predict(m,newdata=d.pred,interval='prediction')#
+d.pred$est <- z[,1]#
+d.pred$pi.lo <- z[,2]#
+d.pred$pi.up <- z[,3]
+z
+ggplot() +#
+	geom_point(data=cars, (aes(x=speed, y=dist))) +#
+	#confidence intervals#
+	geom_ribbon(data=d.pred,aes(x=speed,ymin=ci.lo,ymax=ci.up),#
+		fill='salmon',alpha=0.8) +#
+	#predictive intervals#
+	geom_ribbon(data=d.pred,aes(x=speed,ymin=pi.lo,ymax=pi.up),#
+		fill='blue',alpha=0.2) +#
+	#fitted line#
+	geom_line(data=d.pred,aes(x=speed,y=est),col='blue',lwd=2) +	#
+	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
+	theme_minimal(base_size=15)
+d.pred
+z <- predict(m,newdata=d.pred,interval='confidence')#
+d.pred$est <- z[,1]#
+d.pred$ci.lo <- z[,2]#
+d.pred$ci.up <- z[,3]
+z <- predict(m,newdata=d.pred,interval='prediction')#
+d.pred$est <- z[,1]#
+d.pred$pi.lo <- z[,2]#
+d.pred$pi.up <- z[,3]
+d.pred
+ggplot() +#
+	geom_point(data=cars, (aes(x=speed, y=dist))) +#
+	#confidence intervals#
+	geom_ribbon(data=d.pred,aes(x=speed,ymin=ci.lo,ymax=ci.up),#
+		fill='salmon',alpha=0.8) +#
+	#predictive intervals#
+	geom_ribbon(data=d.pred,aes(x=speed,ymin=pi.lo,ymax=pi.up),#
+		fill='blue',alpha=0.2) +#
+	#fitted line#
+	geom_line(data=d.pred,aes(x=speed,y=est),col='blue',lwd=2) +	#
+	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
+	theme_minimal(base_size=15)
 ls()
-source("./Documents/PhD/R_code/albedo_MODISLandsat_functions.R")#
-library(terra)#
-library(SatRbedo)#
-library(xml2)
-e <- terra::ext(421335, 460605, -4840305, -4808445) #(xmin, xmax, ymin, ymax)#
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-blue <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif")#
-green <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif")#
-red <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif")#
-nir <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif")#
-swir1 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif")#
-swir2 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif")#
-SAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif")#
-SZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif")#
-VAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif")#
-VZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif")#
-landsat_data <- c(blue, green, red, nir, swir1, swir2)#
-dem <- terra::rast("./Documents/PhD/Tasman/NASADEM.tif")#
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
+rm(list=ls())
 ls()
-dem
-blue2 <- terra::crop(blue, e)#
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)#
-dem2 <- terra::crop(dem, e)#
-dem2 <- terra::resample(dem2, blue2)#
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)
-msk <- SatRbedo::shadow_removal(dem2, SZA2, SAA2, mask = TRUE)
-plot(msk)
-blue2 <- blue2 * msk#
-green2 <- green2 * msk#
-red2 <- red2 * msk#
-nir2 <- nir2 * msk#
-swir12 <- swir12 * msk#
-swir22 <- swir22 * msk
-plot(blue2)
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")
-SatRbedo::topo_splot(blue_corr$bands[[1]], blue2, maxcell = 1e+06)
-SatRbedo::topo_splot(blue_corr$bands[[1]], blue2, maxcell = 1e+07)
-SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+07)
-blue_corr
-plot(blue_corr$bands[[2]])
-blue_corr2 <- crop(blue_corr$bands[[2]], out)
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"
-out<-vect(outline)
-blue_corr2 <- crop(blue_corr$bands[[2]], out, mask=TRUE)
-plot(blue_corr2)
-writeRaster(blue_corr2, filename="./Documents/PhD/Tasman/blue_corr2.tif")
-blue <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif"#
-green <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif"#
-red <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif"#
-nir <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif"#
-swir1 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif"#
-swir2 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif"#
-SAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif"#
-SZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif"#
-VAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif"#
-VZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif"#
-dem <- "./Documents/PhD/Tasman/NASADEM.tif"#
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"#
-metadata <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.cmr.xml"
-dem <- SatRbedo::preproc(grd = dem, outline = outline)#
-blue <- SatRbedo::preproc(grd = blue, outline = outline)#
-green <- SatRbedo::preproc(grd = green, outline = outline)#
-red <- SatRbedo::preproc(grd = red, outline = outline)#
-nir <- SatRbedo::preproc(grd = nir, outline = outline)#
-swir1 <- SatRbedo::preproc(grd = swir1, outline = outline)#
-swir2 <- SatRbedo::preproc(grd = swir2, outline = outline)#
-SAA <- SatRbedo::preproc(grd = SAA, outline = outline)#
-SZA <- SatRbedo::preproc(grd = SZA, outline = outline)#
-VAA <- SatRbedo::preproc(grd = VAA, outline = outline)#
-VZA <- SatRbedo::preproc(grd = VZA, outline = outline)#
-dem <- terra::resample(dem, blue)#
-md <- xml2::read_xml(metadata)#
-NSZA <- xml2::xml_double(xml_find_all(md,#
-  "/Granule/AdditionalAttributes/AdditionalAttribute[24]/Values/Value"))
-msk <- SatRbedo::shadow_removal(dem, SZA, SAA, mask = TRUE)#
-blue <- blue * msk#
-green <- green * msk#
-red <- red * msk#
-nir <- nir * msk#
-swir1 <- swir1 * msk#
-swir2 <- swir2 * msk
-blue_corr <- SatRbedo::topo_corr(blue, dem, SAA, SZA, method = "tanrotation")
-plot(blue_corr$bands[[2]])
-writeRaster(blue_corr$bands[[2]], filename="./Documents/PhD/Tasman/blue_corr.tif")
-blue2 <- terra::crop(blue, e)#
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)#
-dem2 <- terra::crop(dem, e)#
-dem2 <- terra::resample(dem2, blue2)#
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)#
-msk <- SatRbedo::shadow_removal(dem2, SZA2, SAA2, mask = TRUE)#
-blue2 <- blue2 * msk#
-green2 <- green2 * msk#
-red2 <- red2 * msk#
-nir2 <- nir2 * msk#
-swir12 <- swir12 * msk#
-swir22 <- swir22 * msk#
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")#
-landsat_data2 <- c(blue_corr$bands[[2]], green_corr$bands[[2]], red_corr$bands[[2]],#
-  nir_corr$bands[[2]], swir1_corr$bands[[2]], swir2_corr$bands[[2]])#
-names(landsat_data2) <- c("blue", "green", "red", "nir", "swir1", "swir2")
-clust_2 <- uclass(grd = landsat_data2, extent = e, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust_2
-plot(clust_2)
-plot(landsat_data2)
-source("./Documents/PhD/R_code/albedo_MODISLandsat_functions.R")#
-library(terra)#
-library(SatRbedo)#
-library(xml2)
-blue2 <- terra::crop(blue, e)#
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)#
-dem2 <- terra::crop(dem, e)#
-dem2 <- terra::resample(dem2, blue2)#
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)#
-msk <- SatRbedo::shadow_removal(dem2, SZA2, SAA2, mask = TRUE)#
-blue2 <- blue2 * msk#
-green2 <- green2 * msk#
-red2 <- red2 * msk#
-nir2 <- nir2 * msk#
-swir12 <- swir12 * msk#
-swir22 <- swir22 * msk#
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")#
-landsat_data2 <- c(blue_corr$bands[[2]], green_corr$bands[[2]], red_corr$bands[[2]],#
-  nir_corr$bands[[2]], swir1_corr$bands[[2]], swir2_corr$bands[[2]])#
-names(landsat_data2) <- c("blue", "green", "red", "nir", "swir1", "swir2")
-e <- terra::ext(421335, 460605, -4840305, -4808445) #(xmin, xmax, ymin, ymax)#
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-blue <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif")#
-green <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif")#
-red <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif")#
-nir <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif")#
-swir1 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif")#
-swir2 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif")#
-SAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif")#
-SZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif")#
-VAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif")#
-VZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif")#
-landsat_data <- c(blue, green, red, nir, swir1, swir2)#
-dem <- terra::rast("./Documents/PhD/Tasman/NASADEM.tif")#
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
-blue2 <- terra::crop(blue, e)#
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)#
-dem2 <- terra::crop(dem, e)#
-dem2 <- terra::resample(dem2, blue2)#
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)#
-msk <- SatRbedo::shadow_removal(dem2, SZA2, SAA2, mask = TRUE)#
-blue2 <- blue2 * msk#
-green2 <- green2 * msk#
-red2 <- red2 * msk#
-nir2 <- nir2 * msk#
-swir12 <- swir12 * msk#
-swir22 <- swir22 * msk#
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")#
-landsat_data2 <- c(blue_corr$bands[[2]], green_corr$bands[[2]], red_corr$bands[[2]],#
-  nir_corr$bands[[2]], swir1_corr$bands[[2]], swir2_corr$bands[[2]])#
-names(landsat_data2) <- c("blue", "green", "red", "nir", "swir1", "swir2")
-plot(landsat_data2)
-clust_2 <- uclass(grd = landsat_data2, extent = e, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust_2
-plot(clust_2)
-an_blue2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_green2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 14, MODIS_QA_band = 4,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_red2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 11, MODIS_QA_band = 1,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_nir2 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 12, MODIS_QA_band = 2,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir12 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 16, MODIS_QA_band = 6,#
-  br = 1.0, hb = 2.0, out = "table")#
-an_swir22 <- AN_ratios(landsat_clusters = clust_2, SAA = SAA2, SZA = SZA2, VAA = VAA2, VZA = VZA2,#
-  extent = e, MODIS_data = modis_data, MODIS_band = 17, MODIS_QA_band = 7,#
-  br = 1.0, hb = 2.0, out = "table")
-an_blue2
-an_green2
-an_red2
-an_nir2
-an_swir12
-an_swir22
-clust_22 <- uclass(grd = landsat_data2, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-plot(clust_22)
-alpha_blue2 <- albedo_spectral_LandMod(AN_band = an_blue2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[1]])#
-alpha_green2 <- albedo_spectral_LandMod(AN_band = an_green2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[2]])#
-alpha_red2 <- albedo_spectral_LandMod(AN_band = an_red2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[3]])#
-alpha_nir2 <- albedo_spectral_LandMod(AN_band = an_nir2, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[4]])#
-alpha_swir12 <- albedo_spectral_LandMod(AN_band = an_swir12, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[5]])#
-alpha_swir22 <- albedo_spectral_LandMod(AN_band = an_swir22, landsat_clusters = clust_22,#
-  landsat_band = landsat_data2[[6]])#
-alpha_broad2 <- albedo_broad_LandMod(alpha_blue2, alpha_green2, alpha_red2, alpha_nir2,#
-  alpha_swir12, alpha_swir22)#
-alpha_broad_blue2 <- albedo_blue_LandMod(alpha_broad = alpha_broad2, SW_meas = 165.28,#
-  time = "2024-08-13 22:38", timezone = "UTC", lon = 170.0977, lat = -43.73633, site = "Mt. Cook Village")
-plot(alpha_broad_blue2)
-albedo_mod3 <- crop(alpha_broad_blue2, out, mask=TRUE)
-out
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"
-out<-vect(outline)
-albedo_mod3 <- crop(alpha_broad_blue2, out, mask=TRUE)
-plot(albedo_mod3)
-writeRaster(albedo_mod3, filename="./Documents/PhD/Tasman/albedo_mod3.tif")
+q()
+library(terra)
+f <- system.file("ex/logo.tif", package = "terra")#
+r <- rast(f)
+r
+plot(r)
+km <- k_means(r, centers=5)
+km
+plot(km)
+??kmeans
+q()
+??data.frame
+L3 <- LETTERS[1:3]#
+char <- sample(L3, 10, replace = TRUE)#
+(d <- data.frame(x = 1, y = 1:10, char = char))
+d
+class(d)
+d$x
+d[1,3]
+save(d,file="./Documents/PhD/Tasman/test/df.RData")
 ls()
-source("./Documents/PhD/R_code/albedo_MODISLandsat_functions.R")#
-library(terra)#
-library(SatRbedo)#
-library(xml2)
-blue <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif"#
-green <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif"#
-red <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif"#
-nir <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif"#
-swir1 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif"#
-swir2 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif"#
-SAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif"#
-SZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif"#
-VAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif"#
-VZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif"#
-dem <- "./Documents/PhD/Tasman/NASADEM.tif"#
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"#
-metadata <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.cmr.xml"
-dem <- SatRbedo::preproc(grd = dem, outline = outline)#
-blue <- SatRbedo::preproc(grd = blue, outline = outline)#
-green <- SatRbedo::preproc(grd = green, outline = outline)#
-red <- SatRbedo::preproc(grd = red, outline = outline)#
-nir <- SatRbedo::preproc(grd = nir, outline = outline)#
-swir1 <- SatRbedo::preproc(grd = swir1, outline = outline)#
-swir2 <- SatRbedo::preproc(grd = swir2, outline = outline)#
-SAA <- SatRbedo::preproc(grd = SAA, outline = outline)#
-SZA <- SatRbedo::preproc(grd = SZA, outline = outline)#
-VAA <- SatRbedo::preproc(grd = VAA, outline = outline)#
-VZA <- SatRbedo::preproc(grd = VZA, outline = outline)#
-dem <- terra::resample(dem, blue)#
-md <- xml2::read_xml(metadata)#
-NSZA <- xml2::xml_double(xml_find_all(md,#
-  "/Granule/AdditionalAttributes/AdditionalAttribute[24]/Values/Value"))
-msk <- SatRbedo::shadow_removal(dem, SZA, SAA, mask = TRUE)#
-blue <- blue * msk#
-green <- green * msk#
-red <- red * msk#
-nir <- nir * msk#
-swir1 <- swir1 * msk#
-swir2 <- swir2 * msk
-blue_corr <- SatRbedo::topo_corr(blue, dem, SAA, SZA, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green, dem, SAA, SZA, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red, dem, SAA, SZA, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir, dem, SAA, SZA, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir1, dem, SAA, SZA, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir2, dem, SAA, SZA, method = "tanrotation")
-surf_type <- SatRbedo::snow_or_ice(green_corr$bands[[2]], nir_corr$bands[[2]])#
-thres <- surf_type$th#
-# SatRbedo::NDSII_hist(surf_type$NDSII, surf_type$th, breaks = 64, stdev = 3)#
-albedo_two <- albedo_sat(SAA, SZA, VAA, VZA, method = "twobands",#
-  blue = NULL, green = green_corr$bands[[2]], red = NULL, NIR = nir_corr$bands[[2]],#
-  SWIR1 = NULL, SWIR2 = NULL, green_max = 0.95, NIR_max = 0.75, th = thres)#
-albedo_four <- albedo_sat(SAA, SZA, VAA, VZA, method = "fourbands",#
-  blue = blue_corr$bands[[2]], green = green_corr$bands[[2]], red = red_corr$bands[[2]],#
-  NIR = nir_corr$bands[[2]], SWIR1 = NULL, SWIR2 = NULL, th = thres)#
-albedo_five <- albedo_sat(SAA, SZA, VAA, VZA, method = "fivebands",#
-  blue = blue_corr$bands[[2]], green = green_corr$bands[[2]], red = red_corr$bands[[2]],#
-  NIR = nir_corr$bands[[2]], SWIR1 = swir1_corr$bands[[2]], SWIR2 = swir2_corr$bands[[2]],#
-  th = thres)#
-albedo <- c(albedo_two[[3]], albedo_four[[5]], albedo_five[[6]])#
-names(albedo) <- c("twobands", "fourbands", "fivebands")
-writeRaster(albedo, filename="./Documents/PhD/Tasman/albedo_land.tif")
-blue <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif"#
-green <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif"#
-red <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif"#
-nir <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif"#
-swir1 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif"#
-swir2 <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif"#
-SAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif"#
-SZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif"#
-VAA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif"#
-VZA <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif"#
-dem <- "./Documents/PhD/Tasman/NASADEM.tif"#
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"#
-metadata <- "./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.cmr.xml"#
-#
-## Preprocessing#
-dem <- SatRbedo::preproc(grd = dem, outline = outline)#
-blue <- SatRbedo::preproc(grd = blue, outline = outline)#
-green <- SatRbedo::preproc(grd = green, outline = outline)#
-red <- SatRbedo::preproc(grd = red, outline = outline)#
-nir <- SatRbedo::preproc(grd = nir, outline = outline)#
-swir1 <- SatRbedo::preproc(grd = swir1, outline = outline)#
-swir2 <- SatRbedo::preproc(grd = swir2, outline = outline)#
-SAA <- SatRbedo::preproc(grd = SAA, outline = outline)#
-SZA <- SatRbedo::preproc(grd = SZA, outline = outline)#
-VAA <- SatRbedo::preproc(grd = VAA, outline = outline)#
-VZA <- SatRbedo::preproc(grd = VZA, outline = outline)#
-dem <- terra::resample(dem, blue)#
-md <- xml2::read_xml(metadata)#
-NSZA <- xml2::xml_double(xml_find_all(md,#
-  "/Granule/AdditionalAttributes/AdditionalAttribute[24]/Values/Value"))
-surf_type <- SatRbedo::snow_or_ice(green, nir)
-surf_type
-thres <- surf_type$th
-thres
-NDSII_hist(surf_type$NDSII, thres)
-albedo_two <- albedo_sat(SAA, SZA, VAA, VZA, method = "twobands",#
-  blue = NULL, green = green, red = NULL, NIR = nir,#
-  SWIR1 = NULL, SWIR2 = NULL, green_max = 0.95, NIR_max = 0.75, th = thres)
-albedo_four <- albedo_sat(SAA, SZA, VAA, VZA, method = "fourbands",#
-  blue = blue, green = green, red = red, NIR = nir, SWIR1 = NULL, SWIR2 = NULL, th = thres)
-albedo_five <- albedo_sat(SAA, SZA, VAA, VZA, method = "fivebands",#
-  blue = blue, green = green, red = red, NIR = nir, SWIR1 = swir1, SWIR2 = swir2,#
-  th = thres)
-albedo <- c(albedo_two[[3]], albedo_four[[5]], albedo_five[[6]])#
-names(albedo) <- c("twobands", "fourbands", "fivebands")
-writeRaster(albedo, filename="./Documents/PhD/Tasman/albedo_land2.tif")
-e <- terra::ext(421335, 460605, -4840305, -4808445) #(xmin, xmax, ymin, ymax)#
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-blue <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B02.tif")#
-green <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B03.tif")#
-red <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B04.tif")#
-nir <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B8A.tif")#
-swir1 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B11.tif")#
-swir2 <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.B12.tif")#
-SAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SAA.tif")#
-SZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.SZA.tif")#
-VAA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VAA.tif")#
-VZA <- terra::rast("./Documents/PhD/HLS.S30.T59GMM.2024226T223709.v2.0/HLS.S30.T59GMM.2024226T223709.v2.0.VZA.tif")#
-landsat_data <- c(blue, green, red, nir, swir1, swir2)#
-dem <- terra::rast("./Documents/PhD/Tasman/NASADEM.tif")#
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
-clust2 <- uclass(grd = landsat_data, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-source("./Documents/PhD/R_code/albedo_MODISLandsat_functions.R")
-clust2 <- uclass(grd = landsat_data, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-plot(clust2)
-writeRaster(clust2, filename="./Documents/PhD/Tasman/clust.tif")
-blue2 <- terra::crop(blue, e)#
-green2 <- terra::crop(green, e)#
-red2 <- terra::crop(red, e)#
-nir2 <- terra::crop(nir, e)#
-swir12 <- terra::crop(swir1, e)#
-swir22 <- terra::crop(swir2, e)#
-dem2 <- terra::crop(dem, e)#
-dem2 <- terra::resample(dem2, blue2)#
-SAA2 <- terra::crop(SAA, e)#
-SZA2 <- terra::crop(SZA, e)#
-VAA2 <- terra::crop(VAA, e)#
-VZA2 <- terra::crop(VZA, e)#
-msk <- SatRbedo::shadow_removal(dem2, SZA2, SAA2, mask = TRUE)#
-blue2 <- blue2 * msk#
-green2 <- green2 * msk#
-red2 <- red2 * msk#
-nir2 <- nir2 * msk#
-swir12 <- swir12 * msk#
-swir22 <- swir22 * msk#
-blue_corr <- SatRbedo::topo_corr(blue2, dem2, SAA2, SZA2, method = "tanrotation")#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue, maxcell = 1e+06)#
-# SatRbedo::topo_splot(blue_corr$bands[[1]], blue_corr$bands[[2]], maxcell = 1e+06)#
-green_corr <- SatRbedo::topo_corr(green2, dem2, SAA2, SZA2, method = "tanrotation")#
-red_corr <- SatRbedo::topo_corr(red2, dem2, SAA2, SZA2, method = "tanrotation")#
-nir_corr <- SatRbedo::topo_corr(nir2, dem2, SAA2, SZA2, method = "tanrotation")#
-swir1_corr <- SatRbedo::topo_corr(swir12, dem2, SAA2, SZA2, method = "tanrotation")#
-swir2_corr <- SatRbedo::topo_corr(swir22, dem2, SAA2, SZA2, method = "tanrotation")#
-landsat_data2 <- c(blue_corr$bands[[2]], green_corr$bands[[2]], red_corr$bands[[2]],#
-  nir_corr$bands[[2]], swir1_corr$bands[[2]], swir2_corr$bands[[2]])#
-names(landsat_data2) <- c("blue", "green", "red", "nir", "swir1", "swir2")
-lust_2 <- uclass(grd = landsat_data2, extent = e, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust22 <- uclass(grd = landsat_data2, extent = e, cluster_n = 6,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-plot(clust22)
-writeRaster(clust22, filename="./Documents/PhD/Tasman/clust2.tif")
+load("./Documents/PhD/Tasman/test/df.RData")
+ls()
+class(d)
+d
+??data.frame
+?time
+library(SunCalcMeeus)
+??irrad_extraterrestrial
+t <- c(#
+  "2020-02-24 22:19", "2023-02-16 22:20", "2020-02-26 22:38",#
+  "2021-03-12 22:38", "2022-02-15 22:38", "2023-02-20 22:38"#
+)#
+site <- c(#
+  "Tasman Neve AWS", "TG RedAWS", "Tasman Neve AWS",#
+  "Tasman Saddle AWS", "Tasman Saddle AWS", "TG RedAWS"#
+)#
+lon <- c(170.35, 170.3502, 170.35, 170.35, 170.3594, 170.3502)#
+lat <- c(-43.5143, -43.5139, -43.5143, -43.51, -43.5139, -43.5139)#
+SW_meas <- c(821.0, 818.0, 317.3, 777.5, 936.0, 865.0)#
+df <- data.frame(SW_meas, t, lon, lat, site)
+df
+df$t
+class(df$t)
+df$SW_meas
+class(df$SW_meas)
+df$site
+class(df$site)
+df
+df$SW_meas
+df$SW_meas[1]
+df$SW_meas[7]
+df$SW_meas[6]
+df$SW_meas[5]
+df
+df$t[1]
+df$lon
+df$lat
+df$s
+df$site
+q()
+??print
+n<-3
+print("The values is ", n)
+n
+n<-3
+??print
+print(paste0("The values is "), n)
+print(paste0("The values is ", n))
+print(paste0("Computation number ", n))
 q()
 library(SatRbedo)
-library(help=SatRbedo)
+??albedo_sat
 q()
 library(devtools)
-library(styler)
-proj_activate("/Users/pablo/Documents/PhD/SatRbedo/")
-?style_pkg
-style_pkg("/Users/pablo/Documents/PhD/SatRbedo/")
-?test
-test("/Users/pablo/Documents/PhD/SatRbedo/")
+proj_activate("./Documents/PhD/SatRbedo/")
 check()
+install()
+library(SatRbedo)
+??albedo_sat
+library(terra)#
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")#
+blue <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo")#
+green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")#
+red <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo")#
+nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")#
+swir1 <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo")#
+swir2 <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")#
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
+blue <- preproc(grd = blue, outline = outline)#
+green <- preproc(grd = green, outline = outline)#
+red <- preproc(grd = red, outline = outline)#
+nir <- preproc(grd = nir, outline = outline)#
+swir1 <- preproc(grd = swir1, outline = outline)#
+swir2 <- preproc(grd = swir2, outline = outline)#
+dem <- preproc(grd = dem, outline = outline)#
+SAA <- 164.8#
+SZA <- 48.9#
+VAA <- 90.9#
+VZA <- 5.2#
+slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")#
+aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
+th <- snow_or_ice(green, nir)$th#
+alb <- albedo_sat(#
+  SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
+  slope = slope, aspect = aspect, method = "twobands",#
+  green = green, NIR = nir, th = th#
+)
+alb
+plot(alb[[1]])
+plot(alb[[2]])
+plot(alb[[1]])
+plot(alb[[3]])
+plot(alb[[4]])
+plot(alb[[3]])
+alb <- albedo_sat(#
+  method = "fourbands",#
+  blue = blue, green = green, red = red, NIR = nir#
+)
+alb
+plot(alb[[1]])
+plot(alb[[4]])
+plot(alb[[5]])
+th <- snow_or_ice(green, nir)$th#
+alb <- albedo_sat(#
+  SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
+  slope = slope, aspect = aspect, method = "fivebands",#
+  blue = blue, green = green, red = red, NIR = nir, SWIR1 = swir1, SWIR2 = swir2, th = th#
+)
+alb
+plot(alb[[1]])
+plot(alb[[2]])
+plot(alb[[6]])
+ls()
+q()

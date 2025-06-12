@@ -5,9 +5,8 @@
 
 <!-- badges: start -->
 
-[![licence](https://img.shields.io/badge/Licence-GPL--3-blue.svg)](https://www.r-project.org/Licenses/GPL-3)
-<!--[![Codecov test coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo)
-<!--[![R-CMD-check](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo)
 <!-- badges: end -->
 
 The `SatRbedo` package consists of a set of tools for retrieving snow
@@ -41,7 +40,7 @@ The package includes tools for:
 ## Installation
 
 You can install the development version of SatRbedo from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/pabl1t0x/SatRbedo) with:
 
 ``` r
 # install.packages("devtools")
@@ -50,11 +49,23 @@ devtools::install_github("pabl1t0x/SatRbedo")
 
 ## Getting Started
 
-Snow and ice albedo retrieval from satellite imagery is a three-step
-workflow that includes topographic and anisotropic corrections and a
-narrowband to broadband albedo conversion. The following example shows
-how to estimate albedo using satellite data from the Athabasca Glacier
-in Canada on 11 September 2020.
+Snow and ice albedo retrieval from satellite imagery is a four-step
+workflow that includes image pre-processing, topographic and anisotropic
+corrections, and a narrow-to-broadband albedo conversion (Fig. 1).
+
+<div class="figure">
+
+<img src="inst/paper/workflow.png" alt="Fig. 1 Flowchart of the satellite albedo retrieval workflow" width="80%" />
+<p class="caption">
+
+Fig. 1 Flowchart of the satellite albedo retrieval workflow
+</p>
+
+</div>
+
+The following example shows how to estimate albedo using surface
+reflectance data from five spectral bands at the Athabasca Glacier in
+Canada on 11 September 2020.
 
 **Step 1: Load the data for the area of interest**
 
@@ -62,7 +73,7 @@ in Canada on 11 September 2020.
 # Load the packages
 library(SatRbedo)
 library(terra)
-#> terra 1.8.10
+#> terra 1.8.50
 
 # Load the raw Sentinel-2 surface reflectance data
 # Note: each spectral band was previously cut out to the extent of the area of interest and renamed
@@ -83,7 +94,7 @@ outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 
 ``` r
 # Transform the input data to SpatRaster and crop to the area of interest
-dem <- rast(dem)
+dem <- terra::rast(dem)
 blue <- preproc(grd = blue_SR, outline = outline)
 green <- preproc(grd = green_SR, outline = outline)
 red <- preproc(grd = red_SR, outline = outline)
@@ -111,25 +122,42 @@ swir2 <- topo_corr(swir2, dem, SAA, SZA)
 SAA <- 164.8 # solar azimuth angle
 SZA <- 48.9 # solar zenith angle
 VAA <- 90.9 # view azimuth angle
-VZA <- 5.2 #view zenith angle
+VZA <- 5.2 # view zenith angle
+slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")
+aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
 threshold <- snow_or_ice(green$bands[[2]], nir$bands[[2]])$th # threshold used to discriminate between snow and ice
-broadband_albedo <- albedo_sat(SAA, SZA, VAA, VZA,
-  method = "fivebands", blue = blue$bands[[2]], green = green$bands[[2]],
-  red = red$bands[[2]], NIR = nir$bands[[2]], SWIR1 = swir1$bands[[2]],
-  SWIR2 = swir2$bands[[2]], th = threshold)
+broadband_albedo <- albedo_sat(
+  SAA, SZA, VAA, VZA,
+  slope, aspect, method = "fivebands",
+  blue = blue$bands[[2]], green = green$bands[[2]], red = red$bands[[2]],
+  NIR = nir$bands[[2]], SWIR1 = swir1$bands[[2]], SWIR2 = swir2$bands[[2]],
+  th = threshold
+)
 # Plot the results
 plot(broadband_albedo[[6]])
 ```
 
 <div class="figure">
 
-<img src="man/figures/README-example-anisotropy-1.png" alt="Broadband albedo" width="80%" />
+<img src="man/figures/README-example-anisotropy-1.png" alt="Fig. 2 Broadband albedo" width="80%" />
 <p class="caption">
 
-Broadband albedo
+Fig. 2 Broadband albedo
 </p>
 
 </div>
+
+## Citing
+
+Please cite `SatRbedo` using:
+
+    @Manual{,
+      title = {SatRbedo: An R package for retrieving snow and ice albedo from optical satellite imagery},
+      author = {Pablo Fuchs and Ruzica Dadic and Shelley MacDonell and Heather Purdie and Brian Anderson and Marwan Katurji},
+      year = {2025},
+      note = {R package version 1.0},
+      url = {https://github.com/pabl1t0x/SatRbedo},
+    }
 
 ## License
 

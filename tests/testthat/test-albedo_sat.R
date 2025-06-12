@@ -510,8 +510,8 @@ test_that("Narrow and broadband albedo are returned for method=='twobands'", {
   names(albedo_green) <- "albedo_green"
   albedo_NIR <- c(
     0.2806, NA, 0.6893,
-    NA, NA, 0.8984,
-    0.1064, 0.7780, NA
+    NA, 1.0722, 0.8984,
+    0.1064, 0.7780, 1.0462
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()
@@ -519,7 +519,7 @@ test_that("Narrow and broadband albedo are returned for method=='twobands'", {
   albedo_broad <- c(
     0.3015, NA, 0.6216,
     NA, NA, 0.8220,
-    0.1101, 0.7080, NA
+    0.1101, 0.7080, 0.9801
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()
@@ -544,11 +544,6 @@ test_that("Narrow and broadband albedo are returned for method=='twobands'", {
 })
 
 test_that("Narrow and broadband albedo are returned for method=='fourbands'", {
-  SAA <- 164.8
-  SZA <- 48.9
-  VAA <- 90.9
-  VZA <- 5.2
-  th <- 0.2148438
   blue <- c(
     0.4271, 0.2922, 0.7802,
     0.2865, 0.7489, 1.0469,
@@ -579,8 +574,8 @@ test_that("Narrow and broadband albedo are returned for method=='fourbands'", {
     terra::rast()
   albedo_broad <- c(
     0.4248, 0.3357, 0.6263,
-    0.3874, 0.5969, NA,
-    NA, NA, 0.4824
+    0.3874, 0.5969, 0.7724,
+    0.6863, NA, 0.4824
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()
@@ -658,7 +653,7 @@ test_that("Narrow and broadband albedo are returned for method=='fivebands'", {
   albedo_blue <- c(
     0.4333, 0.3960, 0.4154,
     0.7526, 0.8894, NA,
-    NA, NA, 0.9283
+    NA, 1.0407, 0.9283
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()
@@ -666,7 +661,7 @@ test_that("Narrow and broadband albedo are returned for method=='fivebands'", {
   albedo_red <- c(
     0.3950, 0.3708, 0.4355,
     0.7936, 0.9390, NA,
-    NA, NA, 0.9770
+    NA, 1.0769, 0.9770
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()
@@ -680,15 +675,15 @@ test_that("Narrow and broadband albedo are returned for method=='fivebands'", {
     terra::rast()
   names(albedo_NIR) <- "albedo_NIR"
   albedo_swir1 <- c(
-    NA, NA, NA,
-    NA, 0.0547, NA,
+    0.0000, 0.0000, 0.0000,
+    0.0000, 0.0547, NA,
     NA, 0.0413, 0.0553
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()
   names(albedo_swir1) <- "albedo_SWIR1"
   albedo_swir2 <- c(
-    0.0003, NA, NA,
+    0.0003, 0.0000, 0.0000,
     0.0543, 0.0537, NA,
     NA, 0.0425, 0.0540
   ) |>
@@ -698,7 +693,7 @@ test_that("Narrow and broadband albedo are returned for method=='fivebands'", {
   albedo_broad <- c(
     0.2999, 0.2768, 0.3315,
     0.6242, 0.7389, NA,
-    NA, NA, 0.7651
+    NA, 0.8463, 0.7651
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()

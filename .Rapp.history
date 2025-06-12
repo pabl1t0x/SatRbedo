@@ -1,140 +1,3 @@
-modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020055.h31v13.061.2020335140359.hdf")
-modis_data
-dat<-modis_data[11]
-writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
-modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020055.h30v13.061.2020335140415.hdf")
-dat<-modis_data[11]
-writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
-modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020057.h30v13.061.2020335143352.hdf")
-modis_data[[11]]
-modis_data[11]
-modis_data[12]
-modis_data[13]
-modis_data[14]
-modis_data[15]
-modis_data[16]
-modis_data[17]
-modis_data[18]
-dat<-modis_data[18]
-writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
-sdate <- "2021-03-11"#
-edate <- "2020-03-13"#
-e <- terra::ext(421350, 460620, -4840320, -4808460)#
-e_new <- terra::project(#
-  e, from = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs",#
-  to = "+proj=longlat +datum=WGS84 +no_defs"#
-)#
-datadir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
-usr <- "pablo.fuchs"#
-pwd <- "Pfadfindern02"
-mod_data <- luna::getNASA(#
-  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-sdate
-mod_data <- luna::getNASA(#
-  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-product
-mod_data <- luna::getNASA(#
-  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2021-03-11"#
-edate <- "2021-03-13"
-mod_data <- luna::getNASA(#
-product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-mod_data
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2021071.h30v13.061.2021082094015.hdf")
-modis_data[11]
-dat<-modis_data[12]
-writeRaster(dat,filename="./Documents/PhD/Tasman/modis.tif",overwrite=TRUE)
-??getNASA
-sdate <- "2022-02-14"#
-edate <- "2022-02-17"#
-e <- terra::ext(421350, 460620, -4840320, -4808460)#
-e_new <- terra::project(#
-  e, from = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs",#
-  to = "+proj=longlat +datum=WGS84 +no_defs"#
-)#
-datadir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
-usr <- "pablo.fuchs"#
-pwd <- "Pfadfindern02"
-mod_data <- luna::getNASA(#
- product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-mod_data
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2023-02-16"#
-edate <- "2023-02-24"#
-e <- terra::ext(421350, 460620, -4840320, -4808460)#
-e_new <- terra::project(#
-  e, from = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs",#
-  to = "+proj=longlat +datum=WGS84 +no_defs"#
-)#
-datadir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
-usr <- "pablo.fuchs"#
-pwd <- "Pfadfindern02"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate
-(.packages())
-source("./Documents/PhD/R_Code/albedo_MODISLandsat_functions.R")
-(.packages())
-ls()
-?source
-modis_data <- terra::sds("./Documents/PhD/MCD43A1.A2024226.h30v13.061.2024235060610.hdf")
-modis_data <- terra::sds("./Documents/PhD/Tasman/MCD43/MCD43A1.A2020057.h30v13.061.2020335143352.hdf")
-dat<-modis_data[11]
-dat
-writeRaster(dat,filename="/Users/pablo/Documents/PhD/Tasman/modis.tif")
-writeRaster(dat,filename="/Users/pablo/Documents/PhD/Tasman/modis.tif", overwrite=TRUE)
-dir<-"/Users/pablo/Documents/PhD/Tasman/L30/2020/59/G/M/M/HLS.L30.T59GMM.2020055T221958.v2.0"
-files <- list.files(path = dir, full.names = TRUE)
-files
-metadata <- stringr::str_subset(files, "xml")#
-md <- xml2::read_xml(metadata)#
-date_f <- stringr::str_sub(#
-  xml2::xml_text(xml2::xml_find_all(md, "//BeginningDateTime")), 1, 10#
-)#
-sensor <- stringr::str_sub(#
-  xml2::xml_text(xml2::xml_find_all(md, "//GranuleUR")), 5, 7#
-)#
-if (sensor == "L30") {#
-  blue_band <- stringr::str_subset(files, "B02")#
-  green_band <- stringr::str_subset(files, "B03")#
-  red_band <- stringr::str_subset(files, "B04")#
-  nir_band <- stringr::str_subset(files, "B05")#
-  swir1_band <- stringr::str_subset(files, "B06")#
-  swir2_band <- stringr::str_subset(files, "B07")#
-} else {#
-  blue_band <- stringr::str_subset(files, "B02")#
-  green_band <- stringr::str_subset(files, "B03")#
-  red_band <- stringr::str_subset(files, "B04")#
-  nir_band <- stringr::str_subset(files, "B8A")#
-  swir1_band <- stringr::str_subset(files, "B11")#
-  swir2_band <- stringr::str_subset(files, "B12")#
-}
-SAA <- stringr::str_subset(files, "SAA")#
-SZA <- stringr::str_subset(files, "SZA")#
-VAA <- stringr::str_subset(files, "VAA")#
-VZA <- stringr::str_subset(files, "VZA")#
-clouds <- stringr::str_subset(files, "clouds") #Clouds mask#
-cloud_shadows <- stringr::str_subset(files, "shadows") #Cloud shadows mask
-clouds
-dem <- "./Documents/PhD/Tasman/NASADEM.tif"
 outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"
 expected_coords = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs"#
 actual_coords = "+proj=utm +zone=59 +south +datum=WGS84 +units=m +no_defs +type=crs"#
@@ -434,64 +297,211 @@ q()
 library(SatRbedo)
 ??albedo_sat
 q()
+library(luna)#
+library(terra)
+product <- "MCD43A1"
+sdate <- "2015-05-01"#
+edate <- "2016-10-01"#
+e <- terra::ext(427035, 509745, 5755275, 5800005)#
+e_new <- terra::project(#
+  e, from = "+proj=utm +zone=11 +ellps=WGS84 +units=m +no_defs +type=crs",#
+  to = "+proj=longlat +datum=WGS84 +no_defs"#
+)
+e_new
+datadir <- "/Users/pablo/Documents/PhD/Athabasca/MCD43"#
+usr <- "pablo.fuchs"#
+pwd <- "Pfadfindern02"
+#Check available MODIS data:#
+#mod_data <- luna::getNASA(#
+#  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+#)
+#Check available MODIS data:#
+mod_data <- luna::getNASA(#
+  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data
+sdate <- "2015-05-01"#
+edate <- "2015-05-10"
+#Check available MODIS data:#
+mod_data <- luna::getNASA(#
+  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+mod_data
+mod_data <- luna::getNASA(#
+ product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data
+??getNASA
+sdate <- "2016-05-20"#
+edate <- "2016-06-01"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2016-09-05"#
+edate <- "2016-09-06"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2017-08-05"#
+edate <- "2017-08-06"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2017-10-04"#
+edate <- "2017-10-04"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2018-03-18"#
+edate <- "2018-04-18"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2018-05-02"#
+edate <- "2018-06-12"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+e_new
+sdate <- "2019-06-05"#
+edate <- "2019-06-05"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2019-06-04"#
+edate <- "2019-06-04"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2019-07-30"#
+edate <- "2019-08-20"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2019-07-30"#
+edate <- "2019-08-31"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2019-07-29"#
+edate <- "2019-07-29"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2019-08-21"#
+edate <- "2019-08-29"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2020-03-25" #Set 'sdate' to 7 days after the desired date#
+edate <- "2020-03-25" #Set 'edate' to 8 days before the desired date
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2020-05-26" #Set 'sdate' to 7 days after the desired date#
+edate <- "2020-05-26"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2020-08-02" #Set 'sdate' to 7 days after the desired date#
+edate <- "2020-08-08"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
+edate <- "2020-09-16"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+sdate
+edate
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+q()
+library(luna)#
+library(terra)
+product <- "MCD43A1"
+sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
+edate <- "2020-09-16" #Set 'edate' to 8 days before the desired date#
+e <- terra::ext(427035, 509745, 5755275, 5800005)#
+e_new <- terra::project(#
+  e, from = "+proj=utm +zone=11 +ellps=WGS84 +units=m +no_defs +type=crs",#
+  to = "+proj=longlat +datum=WGS84 +no_defs"#
+)#
+datadir <- "/Users/pablo/Documents/PhD/Athabasca/MCD43"#
+usr <- "pablo.fuchs"#
+pwd <- "Pfadfindern02"
+mod_data <- luna::getNASA(#
+ product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+q()
+library(luna)#
+library(terra)
+product <- "MCD43A1"
+sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
+edate <- "2020-09-16" #Set 'edate' to 8 days before the desired date#
+e <- terra::ext(427035, 509745, 5755275, 5800005)#
+e_new <- terra::project(#
+  e, from = "+proj=utm +zone=11 +ellps=WGS84 +units=m +no_defs +type=crs",#
+  to = "+proj=longlat +datum=WGS84 +no_defs"#
+)#
+datadir <- "/Users/pablo/Documents/PhD/Athabasca/MCD43"#
+usr <- "pablo.fuchs"#
+pwd <- "Pfadfindern02"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+e_new
+mod_data <- luna::getNASA(#
+  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+q()
+modis_dir <- "./Documents/PhD/Athabasca/MCD43"
+modis_files <- list.files(path = modis_dir, full.names = TRUE)
+modis_files
+modis_data <- terra::sds(modis_files[40])
+modis_data
+modis_data[[1]]
+modis_data[[12]]
+library(terra)
+writeRaster(modis_data[[12]],filename="./Documents/PhD/Athabasca/modis.tif")
+768/2
+384*50
+q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
 check()
+document()
+document()
+load_all()
 install()
-library(SatRbedo)
-??albedo_sat
-library(terra)#
-outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")#
-blue <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo")#
-green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")#
-red <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo")#
-nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")#
-swir1 <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo")#
-swir2 <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")#
-dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
-blue <- preproc(grd = blue, outline = outline)#
-green <- preproc(grd = green, outline = outline)#
-red <- preproc(grd = red, outline = outline)#
-nir <- preproc(grd = nir, outline = outline)#
-swir1 <- preproc(grd = swir1, outline = outline)#
-swir2 <- preproc(grd = swir2, outline = outline)#
-dem <- preproc(grd = dem, outline = outline)#
-SAA <- 164.8#
-SZA <- 48.9#
-VAA <- 90.9#
-VZA <- 5.2#
-slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")#
-aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
-th <- snow_or_ice(green, nir)$th#
-alb <- albedo_sat(#
-  SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  slope = slope, aspect = aspect, method = "twobands",#
-  green = green, NIR = nir, th = th#
-)
-alb
-plot(alb[[1]])
-plot(alb[[2]])
-plot(alb[[1]])
-plot(alb[[3]])
-plot(alb[[4]])
-plot(alb[[3]])
-alb <- albedo_sat(#
-  method = "fourbands",#
-  blue = blue, green = green, red = red, NIR = nir#
-)
-alb
-plot(alb[[1]])
-plot(alb[[4]])
-plot(alb[[5]])
-th <- snow_or_ice(green, nir)$th#
-alb <- albedo_sat(#
-  SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  slope = slope, aspect = aspect, method = "fivebands",#
-  blue = blue, green = green, red = red, NIR = nir, SWIR1 = swir1, SWIR2 = swir2, th = th#
-)
-alb
-plot(alb[[1]])
-plot(alb[[2]])
-plot(alb[[6]])
-ls()
 q()

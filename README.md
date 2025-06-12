@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Codecov test
-coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo/tree/master)
+coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo/tree/master)
 <!-- badges: end -->
 
 The `SatRbedo` package consists of a set of tools for retrieving snow

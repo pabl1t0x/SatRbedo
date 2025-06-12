@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # SatRbedo
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo/tree/master)
+[![Codecov test coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo/tree/master)
 <!-- badges: end -->
 
 The `SatRbedo` package consists of a set of tools for retrieving snow and ice albedo from optical satellite imagery (e.g., [Landsat](https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance) and [Sentinel-2](https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2)). `SatRbedo` functions require the following datasets:

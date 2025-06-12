@@ -1,76 +1,3 @@
-outline <- "./Documents/PhD/Tasman/Tasman-debris_2024.shp"
-expected_coords = "+proj=utm +zone=59 +ellps=WGS84 +units=m +no_defs"#
-actual_coords = "+proj=utm +zone=59 +south +datum=WGS84 +units=m +no_defs +type=crs"#
-e <- terra::ext(421350, 460620, -4840320, -4808460) #(xmin, xmax, ymin, ymax)#
-e2 <- terra::project(e, from = expected_coords, actual_coords)
-dem <- SatRbedo::preproc(grd = dem, outline = e)#
-blue_nbar <- SatRbedo::preproc(grd = blue_band, outline = e)#
-green_nbar <- SatRbedo::preproc(grd = green_band, outline = e)#
-red_nbar <- SatRbedo::preproc(grd = red_band, outline = e)#
-nir_nbar <- SatRbedo::preproc(grd = nir_band, outline = e)#
-swir1_nbar <- SatRbedo::preproc(grd = swir1_band, outline = e)#
-swir2_nbar <- SatRbedo::preproc(grd = swir2_band, outline = e)
-SAA_test <- try(SatRbedo::preproc(grd = SAA, outline = e))#
-if (inherits(SAA_test, "try-error")) {#
-  SAA <- SatRbedo::preproc(SAA)#
-  terra::crs(SAA) <- actual_coords#
-  SAA <- SatRbedo::preproc(SAA, outline = e2, coords = expected_coords)#
-} else {#
-  SAA <- SatRbedo::preproc(grd = SAA, outline = e)#
-}#
-SZA_test <- try(SatRbedo::preproc(grd = SZA, outline = e))#
-if (inherits(SZA_test, "try-error")) {#
-  SZA <- SatRbedo::preproc(SZA)#
-  terra::crs(SZA) <- actual_coords#
-  SZA <- SatRbedo::preproc(SZA, outline = e2, coords = expected_coords)#
-} else {#
-  SZA <- SatRbedo::preproc(grd = SZA, outline = e)#
-}#
-VAA_test <- try(SatRbedo::preproc(grd = VAA, outline = e))#
-if (inherits(VAA_test, "try-error")) {#
-  VAA <- SatRbedo::preproc(VAA)#
-  terra::crs(VAA) <- actual_coords#
-  VAA <- SatRbedo::preproc(VAA, outline = e2, coords = expected_coords)#
-} else {#
-  VAA <- SatRbedo::preproc(grd = VAA, outline = e)#
-}#
-VZA_test <- try(SatRbedo::preproc(grd = VZA, outline = e))#
-if (inherits(VZA_test, "try-error")) {#
-  VZA <- SatRbedo::preproc(VZA)#
-  terra::crs(VZA) <- actual_coords#
-  VZA <- SatRbedo::preproc(VZA, outline = e2, coords = expected_coords)#
-} else {#
-  VZA <- SatRbedo::preproc(grd = VZA, outline = e)#
-}#
-dem <- terra::resample(dem, blue_nbar)
-if (length(clouds) != 0 & length(cloud_shadows) != 0) {#
-  cl <- SatRbedo::preproc(grd = clouds, outline = e)#
-  sh <- SatRbedo::preproc(grd = cloud_shadows, outline = e)#
-  blue_nbar <- blue_nbar * cl * sh#
-  green_nbar <- green_nbar * cl * sh#
-  red_nbar <- red_nbar * cl * sh#
-  nir_nbar <- nir_nbar * cl * sh#
-  swir1_nbar <- swir1_nbar * cl * sh#
-  swir2_nbar <- swir2_nbar * cl * sh#
-  SAA <- SAA * cl * sh#
-  SZA <- SZA * cl * sh#
-  VAA <- VAA * cl * sh#
-  VZA <- VZA * cl * sh#
-}
-ls()
-coords = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +R=6371007.181 +units=m +no_defs +type=crs"#
-landsat_data <- c(blue_nbar, green_nbar, red_nbar, nir_nbar, swir1_nbar, swir2_nbar)
-landsat_data
-plot(landsat_data[1])
-plot(landsat_data[[1]])
-plot(landsat_data[[4]])
-modis_dir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
-modis_files <- list.files(path = modis_dir, full.names = TRUE)
-modis_files
-files
-modis_files
-modis_dir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
-modis_files <- list.files(path = modis_dir, full.names = TRUE)
 modis_files
 modis_dir<-"./Documents/PhD/Tasman/MCD43"
 modis_files <- list.files(path = modis_dir, full.names = TRUE)
@@ -497,11 +424,58 @@ writeRaster(modis_data[[12]],filename="./Documents/PhD/Athabasca/modis.tif")
 768/2
 384*50
 q()
+library(SatRbedo)
+??f_BRDF
+library(terra)
+blue_SR <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo") # blue band surface reflectance#
+green_SR <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo") # green band surface reflectance#
+red_SR <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo") # red band surface reflectance#
+NIR_SR <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo") # near-infrared band surface reflectance#
+SWIR1_SR <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo") # shortwave-infrared band 1 surface reflectance#
+SWIR2_SR <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
+dem <- terra::rast(dem)#
+blue <- preproc(grd = blue_SR, outline = outline)#
+green <- preproc(grd = green_SR, outline = outline)#
+red <- preproc(grd = red_SR, outline = outline)#
+nir <- preproc(grd = NIR_SR, outline = outline)#
+swir1 <- preproc(grd = SWIR1_SR, outline = outline)#
+swir2 <- preproc(grd = SWIR2_SR, outline = outline)
+plot(red)
+SAA <- 164.8 # solar azimuth angle#
+SZA <- 48.9 # solar zenith angle#
+blue <- topo_corr(blue, dem, SAA, SZA)#
+green <- topo_corr(green, dem, SAA, SZA)#
+red <- topo_corr(red, dem, SAA, SZA)#
+nir <- topo_corr(nir, dem, SAA, SZA)#
+swir1 <- topo_corr(swir1, dem, SAA, SZA)#
+swir2 <- topo_corr(swir2, dem, SAA, SZA)
+swir2
+plot(green$bands[[2]])
+SAA <- 164.8 # solar azimuth angle#
+SZA <- 48.9 # solar zenith angle#
+VAA <- 90.9 # view azimuth angle#
+VZA <- 5.2 # view zenith angle#
+slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")#
+aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")#
+threshold <- snow_or_ice(green$bands[[2]], nir$bands[[2]])$th
+threshold
+broadband_albedo <- albedo_sat(#
+  SAA, SZA, VAA, VZA,#
+  slope, aspect, method = "fivebands",#
+  blue = blue$bands[[2]], green = green$bands[[2]], red = red$bands[[2]],#
+  NIR = nir$bands[[2]], SWIR1 = swir1$bands[[2]], SWIR2 = swir2$bands[[2]],#
+  th = threshold#
+)
+broadband_albedo
+plot(broadband_albedo[[6]]
+)
+)
+plot(broadband_albedo[[6]])
 library(devtools)
+build_readme()
 proj_activate("./Documents/PhD/SatRbedo/")
-check()
-document()
-document()
-load_all()
-install()
+build_readme()
+build_readme()
 q()

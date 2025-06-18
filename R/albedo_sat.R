@@ -468,7 +468,7 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
       albedo_red <- terra::ifel(red < 0, NA, red)
       albedo_NIR <- terra::ifel(NIR < 0, NA, NIR)
       albedo_broad <- albedo_Feng(albedo_blue, albedo_green, albedo_red, albedo_NIR)
-      albedo_broad <- terra::ifel(albedo_broad <= 1.0, albedo_broad, NA)
+#      albedo_broad <- terra::ifel(albedo_broad <= 1.0, albedo_broad, NA)
       result <- c(albedo_blue, albedo_green, albedo_red, albedo_NIR, albedo_broad)
       names(result) <- c("albedo_blue", "albedo_green", "albedo_red", "albedo_NIR", "albedo_broad")
       result
@@ -499,7 +499,7 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
       albedo_SWIR1 <- terra::ifel(SWIR1 > 0, SWIR1 - f_swir1, 0 * f_swir1)
       albedo_SWIR2 <- terra::ifel(SWIR2 > 0, SWIR2 - f_swir2, 0 * f_swir2)
       albedo_broad <- albedo_Liang(albedo_blue, albedo_red, albedo_NIR, albedo_SWIR1, albedo_SWIR2)
-      albedo_broad <- terra::ifel(albedo_broad <= 1.0 & albedo_broad >= 0, albedo_broad, NA) 
+#      albedo_broad <- terra::ifel(albedo_broad <= 1.0 & albedo_broad >= 0, albedo_broad, NA) 
 #      albedo_blue <- terra::ifel(albedo_blue <= 1.0 & albedo_blue > 0, albedo_blue, NA)
 #      albedo_red <- terra::ifel(albedo_red <= 1.0 & albedo_red > 0, albedo_red, NA)
 #      albedo_NIR <- terra::ifel(albedo_NIR <= 1.0 & albedo_NIR > 0, albedo_NIR, NA)

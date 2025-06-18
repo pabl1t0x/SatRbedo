@@ -73,7 +73,7 @@ Canada on 11 September 2020.
 # Load the packages
 library(SatRbedo)
 library(terra)
-#> terra 1.8.50
+#> terra 1.8.54
 
 # Load the raw Sentinel-2 surface reflectance data
 # Note: each spectral band was previously cut out to the extent of the area of interest and renamed
@@ -108,12 +108,12 @@ swir2 <- preproc(grd = SWIR2_SR, outline = outline)
 ``` r
 SAA <- 164.8 # solar azimuth angle
 SZA <- 48.9 # solar zenith angle
-blue <- topo_corr(blue, dem, SAA, SZA)
-green <- topo_corr(green, dem, SAA, SZA)
-red <- topo_corr(red, dem, SAA, SZA)
-nir <- topo_corr(nir, dem, SAA, SZA)
-swir1 <- topo_corr(swir1, dem, SAA, SZA)
-swir2 <- topo_corr(swir2, dem, SAA, SZA)
+blue_corr <- topo_corr(blue, dem, SAA, SZA)
+green_corr <- topo_corr(green, dem, SAA, SZA)
+red_corr <- topo_corr(red, dem, SAA, SZA)
+nir_corr <- topo_corr(nir, dem, SAA, SZA)
+swir1_corr <- topo_corr(swir1, dem, SAA, SZA)
+swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
 ```
 
 **Step 4: Estimation of broadband albedo after anisotropic correction**
@@ -125,12 +125,12 @@ VAA <- 90.9 # view azimuth angle
 VZA <- 5.2 # view zenith angle
 slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")
 aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
-threshold <- snow_or_ice(green$bands[[2]], nir$bands[[2]])$th # threshold used to discriminate between snow and ice
+threshold <- snow_or_ice(green, nir)$th # threshold used to discriminate between snow and ice
 broadband_albedo <- albedo_sat(
   SAA, SZA, VAA, VZA,
   slope, aspect, method = "fivebands",
-  blue = blue$bands[[2]], green = green$bands[[2]], red = red$bands[[2]],
-  NIR = nir$bands[[2]], SWIR1 = swir1$bands[[2]], SWIR2 = swir2$bands[[2]],
+  blue = blue_corr$bands[[2]], green = green_corr$bands[[2]], red = red_corr$bands[[2]],
+  NIR = nir_corr$bands[[2]], SWIR1 = swir1_corr$bands[[2]], SWIR2 = swir2_corr$bands[[2]],
   th = threshold
 )
 # Plot the results

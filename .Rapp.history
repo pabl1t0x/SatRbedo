@@ -1,37 +1,3 @@
-modis_dir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
-modis_files <- list.files(path = modis_dir, full.names = TRUE)
-modis_files
-modis_dir<-"./Documents/PhD/Tasman/MCD43"
-modis_files <- list.files(path = modis_dir, full.names = TRUE)
-modis_files
-as.int("2")
-as.integer("2")
-modis_data <- terra::sds(modis_files[as.integer("2"))
-modis_data <- terra::sds(modis_files[as.integer("2")])
-modis_data
-modis_data <- terra::sds(modis_files[as.integer("1")])
-modis_data
-coords
-clust <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust
-plot(clust)
-clust <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 13, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust
-plot(clust)
-an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")
-source("../R_code/albedo_MODISLandsat_functions.R")
-source("./Documents/PhD/R_Code/albedo_MODISLandsat_functions.R")
-an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")
-an_blue
-modis_data
-modis_data[1]
-plot(modis_data[1])
 clust2 <- uclass(grd = landsat_data, cluster_n = 10,#
   iter.max = 1000, nstart = 10, algorithm = "Lloyd")
 clust2
@@ -471,6 +437,68 @@ getDoParRegistered()
 q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
+test()
 check()
 install()
+library(SatRbedo0)
+library(SatRbedo)
+albedo_sat
+??snow_or_ice
+green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")#
+nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")#
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")#
+green <- preproc(grd = green, outline = outline)#
+nir <- preproc(grd = nir, outline = outline)
+green
+nir
+plot(green)
+library(terra)
+plot(green)
+plot(nir)
+res <- snow_or_ice(green, nir)
+res
+plot(res$NDSII, range = c(-0.5, 0.5))
+plot(res$NDSII > res$th, type = "classes", col = c("#FFFFC8", "#00407F"), levels = c("snow", "ice")
+plot(res$NDSII > res$th, type = "classes", col = c("#FFFFC8", "#00407F"), levels = c("snow", "ice"))
+q()
+blue_SR <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo") # blue band surface reflectance#
+green_SR <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo") # green band surface reflectance#
+red_SR <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo") # red band surface reflectance#
+NIR_SR <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo") # near-infrared band surface reflectance#
+SWIR1_SR <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo") # shortwave-infrared band 1 surface reflectance#
+SWIR2_SR <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
+dem <- terra::rast(dem)#
+blue <- preproc(grd = blue_SR, outline = outline)#
+green <- preproc(grd = green_SR, outline = outline)#
+red <- preproc(grd = red_SR, outline = outline)#
+nir <- preproc(grd = NIR_SR, outline = outline)#
+swir1 <- preproc(grd = SWIR1_SR, outline = outline)#
+swir2 <- preproc(grd = SWIR2_SR, outline = outline)
+SAA <- 164.8 # solar azimuth angle#
+SZA <- 48.9 # solar zenith angle#
+blue <- topo_corr(blue, dem, SAA, SZA)#
+green <- topo_corr(green, dem, SAA, SZA)#
+red <- topo_corr(red, dem, SAA, SZA)#
+nir <- topo_corr(nir, dem, SAA, SZA)#
+swir1 <- topo_corr(swir1, dem, SAA, SZA)#
+swir2 <- topo_corr(swir2, dem, SAA, SZA)
+SAA <- 164.8 # solar azimuth angle#
+SZA <- 48.9 # solar zenith angle#
+VAA <- 90.9 # view azimuth angle#
+VZA <- 5.2 # view zenith angle#
+slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")#
+aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")#
+threshold <- snow_or_ice(green$bands[[2]], nir$bands[[2]])$th
+threshold
+broadband_albedo <- albedo_sat(#
+  SAA, SZA, VAA, VZA,#
+  slope, aspect, method = "fivebands",#
+  blue = blue$bands[[2]], green = green$bands[[2]], red = red$bands[[2]],#
+  NIR = nir$bands[[2]], SWIR1 = swir1$bands[[2]], SWIR2 = swir2$bands[[2]],#
+  th = threshold#
+)
+plot(broadband_albedo[[6]])
+plot(broadband_albedo[[6]]>1)
 q()

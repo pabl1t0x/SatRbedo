@@ -339,17 +339,14 @@ f_BRDF <- function(SAA, SZA, VAA, VZA,
 #'  `method="fourbands"` and six layers for `method="fivebands"`. These layers are:
 #'  * If `method="twobands"`: green and NIR narrowband albedo, broadband albedo, and
 #'    quality flags indicating whether broadband albedo was calculated using the corrected
-#'    green and NIR narrowband albedos (`flag=1`) or the NIR albedo only (`flag=2`). Broadband
-#'    albedo is not calculated if both the green and NIR narrowband albedo values are greater
-#'    than one or for pixels for which the SZA relative to the inclined surface is >65.51°
-#'    over snow or >74.2° over ice (`flag=3`).
+#'    green and NIR narrowband albedos (`flag=1`) or the NIR albedo only (`flag=2`).
+#'    Broadband albedo values higher than one are not excluded for this method.
 #'  * If `method="fourbands"`: blue, green, red, and NIR surface reflectance and
-#'    broadband albedo. Broadband albedo is not calculated if the surface reflectance values
-#'    are >1. These SR values are masked out.
+#'    broadband albedo. Broadband albedo values higher than one and lower than zero are
+#'    masked out.
 #'  * If `method="fivebands"`: blue, red, NIR, SWIR1, SWIR2 narrowband albedo, and
-#'    broadband albedo. Broadband albedo is not calculated if any of the band albedo
-#'    values are greater than one or for pixels for which the SZA relative to the inclined
-#'    surface is >70.9° over snow or >57.6° over ice.
+#'    broadband albedo. Broadband albedo values higher than one and lower than zero are
+#'    masked out.
 #'
 #' @references
 #' \insertAllCited{}
@@ -437,59 +434,19 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
       albedo_broad <- terra::ifel(
         albedo_green > 1.0,
         {
-          terra::ifel(
-            albedo_NIR > 1.0,
-            {
-              terra::ifel(
-                albedo_Knap(green, albedo_NIR, saturated = TRUE) > 1.0,
-                {
-                  NA
-                },
-                {
-                  albedo_Knap(green, albedo_NIR, saturated = TRUE)
-                }
-              )
-            },
-            {
-              albedo_Knap(green, albedo_NIR, saturated = TRUE)
-            }
-          )
+          albedo_Knap(green, albedo_NIR, saturated = TRUE)
         },
         {
-          terra::ifel(
-            albedo_NIR > 1.0,
-            {
-              NA
-            },
-            {
-              albedo_Knap(albedo_green, albedo_NIR, saturated = FALSE)
-            }
-          )
+          albedo_Knap(albedo_green, albedo_NIR, saturated = FALSE)
         }
       )
       flag <- terra::ifel(
         albedo_green > 1.0,
         {
-          terra::ifel(
-            albedo_NIR > 1.0,
-            {
-              green / green * 3
-            },
-            {
-              albedo_NIR / albedo_NIR * 2
-            }
-          )
+          albedo_NIR / albedo_NIR * 2
         },
         {
-          terra::ifel(
-            albedo_NIR > 1.0,
-            {
-              green / green * 3
-            },
-            {
-              albedo_green / albedo_green * 1
-            }
-          )
+          albedo_green / albedo_green * 1
         }
       )
 #      albedo_green <- terra::ifel(albedo_green <= 1.0, albedo_green, NA)

@@ -518,16 +518,16 @@ test_that("Narrow and broadband albedo are returned for method=='twobands'", {
   names(albedo_NIR) <- "albedo_NIR"
   albedo_broad <- c(
     0.3015, NA, 0.6216,
-    NA, NA, 0.8220,
+    NA, 1.0086, 0.8220,
     0.1101, 0.7080, 0.9801
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()
   names(albedo_broad) <- "albedo_broad"
   flags <- c(
-    1, 3, 1,
-    3, 3, 2,
-    1, 1, 3
+    1, NA, 1,
+    NA, 2, 2,
+    1, 1, 2
   ) |>
     matrix(nrow = 3, ncol = 3, byrow = TRUE) |>
     terra::rast()

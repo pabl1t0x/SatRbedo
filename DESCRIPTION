@@ -73,5 +73,5 @@ RoxygenNote: 7.3.2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-URL: https://github.com/pabl1t0x/SatRbedo
+URL: https://github.com/pabl1t0x/SatRbedo, https://pabl1t0x.github.io/SatRbedo/
 BugReports: https://github.com/pabl1t0x/SatRbedo/issues

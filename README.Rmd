@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  fig.path = "man/figures/",
   out.width = "80%"
 )
 ```
@@ -51,7 +51,7 @@ devtools::install_github("pabl1t0x/SatRbedo")
 Snow and ice albedo retrieval from satellite imagery is a four-step workflow that includes image pre-processing, topographic and anisotropic corrections, and a narrow-to-broadband albedo conversion (Fig. 1).
 
 ``` {r workflow, echo = FALSE, fig.cap = "Fig. 1 Flowchart of the satellite albedo retrieval workflow"}
-knitr::include_graphics("inst/paper/workflow.png")
+knitr::include_graphics("man/figures/workflow.png")
 ```
 
 The following example shows how to estimate albedo using surface reflectance data from five spectral bands at the Athabasca Glacier in Canada on 11 September 2020.

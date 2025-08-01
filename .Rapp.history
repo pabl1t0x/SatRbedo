@@ -1,4 +1,10 @@
 modis_files
+modis_dir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
+modis_files <- list.files(path = modis_dir, full.names = TRUE)
+modis_files
+modis_dir<-"./Documents/PhD/Tasman/MCD43"
+modis_files <- list.files(path = modis_dir, full.names = TRUE)
+modis_files
 as.int("2")
 as.integer("2")
 modis_data <- terra::sds(modis_files[as.integer("2"))
@@ -467,9 +473,4 @@ q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
 build_readme()
-.Last.error
-build_readme()
-build_readme()
-check()
-install()
 q()

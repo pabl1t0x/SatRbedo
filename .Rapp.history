@@ -1,166 +1,3 @@
-modis_files
-modis_dir <- "/Users/pablo/Documents/PhD/Tasman/MCD43"#
-modis_files <- list.files(path = modis_dir, full.names = TRUE)
-modis_files
-modis_dir<-"./Documents/PhD/Tasman/MCD43"
-modis_files <- list.files(path = modis_dir, full.names = TRUE)
-modis_files
-as.int("2")
-as.integer("2")
-modis_data <- terra::sds(modis_files[as.integer("2"))
-modis_data <- terra::sds(modis_files[as.integer("2")])
-modis_data
-modis_data <- terra::sds(modis_files[as.integer("1")])
-modis_data
-coords
-clust <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust
-plot(clust)
-clust <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 13, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust
-plot(clust)
-an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")
-source("../R_code/albedo_MODISLandsat_functions.R")
-source("./Documents/PhD/R_Code/albedo_MODISLandsat_functions.R")
-an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")
-an_blue
-modis_data
-modis_data[1]
-plot(modis_data[1])
-clust2 <- uclass(grd = landsat_data, cluster_n = 10,#
-  iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust2
-plot(clust2)
-an_blue <- AN_ratios(landsat_clusters = clust2, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")
-clust <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 10, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")
-an_blue
-an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "raster")
-an_blue
-plot(an_blue[[1]])
-plot(an_blue[[2]])
-clust2
-landsat_data[[1]]
-plot(landsat_data[[1]])
-landsat_data[[1]]
-clust2
-source("./Documents/PhD/R_Code/albedo_MODISLandsat_functions.R")
-an_blue
-an_blue <- AN_ratios(landsat_clusters = clust, SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  MODIS_data = modis_data, MODIS_band = 13, MODIS_QA_band = 3,#
-  br = 1.0, hb = 2.0, out = "table")
-alpha_blue <- albedo_spectral_LandMod(AN_band = an_blue, landsat_clusters = clust2,#
-  landsat_band = landsat_data[[1]])
-alpha_blue
-plot(alpha_blue[[1]])
-plot(alpha_blue[[2]])
-clust1 <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 6, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust2 <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 12, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust6<-clust1
-clust6
-clust12<-clust2
-clust12
-clust18 <- uclass(grd = landsat_data, coords = coords,#
-  cluster_n = 18, iter.max = 1000, nstart = 10, algorithm = "Lloyd")
-clust18
-plot(clust18)
-?cars
-library(ggplot)#
-data(cars)#
-cars$speed <- cars$speed * 1.60934#
-cars$dist <- cars$dist * 0.3048
-cars$dits
-cars$dist
-ggplot() +#
-	geom_point(data=cars, aes=(x=speed, y=dist))
-cars
-library(ggplot)
-library()
-install.packages("ggplot")
-install.packages("ggplot2")
-library(ggplot2)
-ggplot() +#
-	geom_point(data=cars, aes=(x=speed, y=dist)) +#
-	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
-	theme_minimal(base_size=15)
-ggplot() +#
-	geom_point(data=cars, (aes(x=speed, y=dist))) +#
-	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
-	theme_minimal(base_size=15)
-m <- lm(dist ~ 0+I(speed^2), data=cars)
-summary(m)
-ggplot() +#
-	geom_point(data=cars, (aes(x=speed, y=dist))) +#
-	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
-	theme_minimal(base_size=15)
-d.pred <- data.frame(speed=seq(0,70,length.out=100))#
-predict(m,newdata=d.pred,interval='confidence')
-?predict
-z <- predict(m,newdata=d.pred,interval='prediction')#
-d.pred$est <- z[,1]#
-d.pred$pi.lo <- z[,2]#
-d.pred$pi.up <- z[,3]
-z
-ggplot() +#
-	geom_point(data=cars, (aes(x=speed, y=dist))) +#
-	#confidence intervals#
-	geom_ribbon(data=d.pred,aes(x=speed,ymin=ci.lo,ymax=ci.up),#
-		fill='salmon',alpha=0.8) +#
-	#predictive intervals#
-	geom_ribbon(data=d.pred,aes(x=speed,ymin=pi.lo,ymax=pi.up),#
-		fill='blue',alpha=0.2) +#
-	#fitted line#
-	geom_line(data=d.pred,aes(x=speed,y=est),col='blue',lwd=2) +	#
-	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
-	theme_minimal(base_size=15)
-d.pred
-z <- predict(m,newdata=d.pred,interval='confidence')#
-d.pred$est <- z[,1]#
-d.pred$ci.lo <- z[,2]#
-d.pred$ci.up <- z[,3]
-z <- predict(m,newdata=d.pred,interval='prediction')#
-d.pred$est <- z[,1]#
-d.pred$pi.lo <- z[,2]#
-d.pred$pi.up <- z[,3]
-d.pred
-ggplot() +#
-	geom_point(data=cars, (aes(x=speed, y=dist))) +#
-	#confidence intervals#
-	geom_ribbon(data=d.pred,aes(x=speed,ymin=ci.lo,ymax=ci.up),#
-		fill='salmon',alpha=0.8) +#
-	#predictive intervals#
-	geom_ribbon(data=d.pred,aes(x=speed,ymin=pi.lo,ymax=pi.up),#
-		fill='blue',alpha=0.2) +#
-	#fitted line#
-	geom_line(data=d.pred,aes(x=speed,y=est),col='blue',lwd=2) +	#
-	xlab('Speed (km/h)') + ylab('Stopping distance (m)') +#
-	theme_minimal(base_size=15)
-ls()
-rm(list=ls())
-ls()
-q()
-library(terra)
-f <- system.file("ex/logo.tif", package = "terra")#
-r <- rast(f)
-r
-plot(r)
-km <- k_means(r, centers=5)
-km
 plot(km)
 ??kmeans
 q()
@@ -470,7 +307,218 @@ doParallel::registerDoParallel(cores = 3)
 getDoParWorkers()
 getDoParRegistered()
 q()
+library(SatRbedo)
+library(help=SatRbedo)
+??snow_or_ice
+q()
+??f_BRDF
+??albedo_sat
+q()
+t <- c(#
+  "2015-05-08 18:41", "2020-03-18 18:41", "2020-07-31 18:47", "2020-08-16 18:47", "2016-05-15 18:53",#
+  "2016-06-04 18:54", "2016-09-12 18:50", "2017-07-29 18:58", "2017-08-06 19:08", "2017-08-11 19:03",#
+  "2017-09-27 18:58", "2017-10-05 19:02", "2018-03-11 18:52", "2018-03-24 19:03", "2018-03-31 18:49",#
+  "2018-04-23 18:59", "2018-04-25 18:58", "2018-05-13 19:04", "2018-05-23 19:07", "2018-06-17 19:02",#
+  "2018-06-19 18:55", "2018-07-17 18:59", "2018-07-29 18:51", "2018-08-08 18:58", "2018-08-21 18:59",#
+  "2018-09-05 19:05", "2019-03-19 19:10", "2019-03-21 19:00", "2019-03-29 19:10", "2019-04-25 19:00",#
+  "2019-05-20 19:00", "2019-05-28 19:10", "2019-07-22 19:10", "2019-08-28 19:00", "2019-09-05 19:10",#
+  "2020-05-19 19:00", "2020-07-26 19:10", "2020-07-28 19:00", "2020-08-05 19:10", "2020-09-09 19:10"#
+)
+site <- rep("Athabasca_iceAWS", 20)#
+lon <- rep(-117.252, 20)#
+lat <- rep(52.1918, 20)
+SW_meas <- c(#
+  898.09, 637.17, 913.30, 815.27, 894.55,#
+  920.71, 663.41, 800.02, 811.50, 800.52,#
+  508.31, 416.29, 391.34, 645.91, 766.36,#
+  792.02, 800.01, 836.18, 948.80, 955.29,#
+  957.98, 914.14, 860.96, 863.04, 635.94,#
+  717.85, 602.47, 639.79, 679.38, 836.61,#
+  895.54, 858.60, 900.69, 754.64, 718.37,#
+  928.46, 928.85, 925.06, 928.79, 729.92#
+)#
+df <- data.frame(SW_meas, t, lon, lat, site)
+df
+q()
+t <- c(#
+  "2014-07-11 14:34", "2015-11-19 14:35", "2016-04-27 14:34", "2016-05-29 14:34", "2017-06-17 14:34",#
+  "2017-08-04 14:35", "2017-08-20 14:35", "2017-09-21 14:35", "2019-06-07 14:34", "2019-06-23 14:34",#
+  "2016-03-18 14:55", "2016-05-17 14:55", "2016-08-05 14:55", "2016-08-25 14:47", "2016-11-13 14:52",#
+  "2016-11-23 14:51", "2017-06-01 14:47", "2017-06-21 14:47", "2017-07-11 14:47", "2017-07-16 14:50",#
+  "2017-07-31 14:47", "2017-08-05 14:51", "2017-08-25 14:56", "2017-09-29 14:53", "2017-10-04 14:55",#
+  "2017-11-18 14:50", "2017-12-13 14:55", "2018-04-12 14:47", "2018-04-17 14:48", "2018-04-22 14:56",#
+  "2018-05-02 14:56", "2019-01-07 14:57", "2019-03-23 14:57", "2019-05-17 14:57", "2019-05-27 14:57",#
+  "2019-06-01 14:57", "2019-06-06 14:57", "2019-06-11 14:57", "2019-06-21 14:57", "2019-06-26 14:57",#
+  "2019-08-15 14:57", "2019-08-20 14:57", "2019-08-30 14:57",#
+)#
+site <- rep("AWS_Zongo", 43)#
+lon <- rep(-68.142, 43)#
+lat <- rep(-16.279, 43)#
+SW_meas <- c(#
+  734.80, 882.00, 924.83, 879.18, 801.21,#
+  838.96, 863.38, 1022.94, 760.32, 757.60,#
+  1106.66, 951.49, 960.99, 932.66, 1228.38,#
+  1187.52, 906.41, 839.20, 872.67, 863.41,#
+  896.82, 892.17, 938.26, 1183.41, 1159.52,#
+  1251.91, 1250.84, 1105.66, 1083.06, 1069.50,#
+  1017.97, 1145.97, 1036.28, 895.93, 827.22,#
+  810.04, 838.18, 607.53, 817.27, 828.39,#
+  934.55, 981.66, 1054.14#
+)#
+df <- data.frame(SW_meas, t, lon, lat, site)
+SW_meas
+t
+t <- c(#
+  "2014-07-11 14:34", "2015-11-19 14:35", "2016-04-27 14:34", "2016-05-29 14:34", "2017-06-17 14:34",#
+  "2017-08-04 14:35", "2017-08-20 14:35", "2017-09-21 14:35", "2019-06-07 14:34", "2019-06-23 14:34",#
+  "2016-03-18 14:55", "2016-05-17 14:55", "2016-08-05 14:55", "2016-08-25 14:47", "2016-11-13 14:52",#
+  "2016-11-23 14:51", "2017-06-01 14:47", "2017-06-21 14:47", "2017-07-11 14:47", "2017-07-16 14:50",#
+  "2017-07-31 14:47", "2017-08-05 14:51", "2017-08-25 14:56", "2017-09-29 14:53", "2017-10-04 14:55",#
+  "2017-11-18 14:50", "2017-12-13 14:55", "2018-04-12 14:47", "2018-04-17 14:48", "2018-04-22 14:56",#
+  "2018-05-02 14:56", "2019-01-07 14:57", "2019-03-23 14:57", "2019-05-17 14:57", "2019-05-27 14:57",#
+  "2019-06-01 14:57", "2019-06-06 14:57", "2019-06-11 14:57", "2019-06-21 14:57", "2019-06-26 14:57",#
+  "2019-08-15 14:57", "2019-08-20 14:57", "2019-08-30 14:57",#
+)
+t <- c(#
+  "2014-07-11 14:34", "2015-11-19 14:35", "2016-04-27 14:34", "2016-05-29 14:34", "2017-06-17 14:34",#
+  "2017-08-04 14:35", "2017-08-20 14:35", "2017-09-21 14:35", "2019-06-07 14:34", "2019-06-23 14:34",#
+  "2016-03-18 14:55", "2016-05-17 14:55", "2016-08-05 14:55", "2016-08-25 14:47", "2016-11-13 14:52",#
+  "2016-11-23 14:51", "2017-06-01 14:47", "2017-06-21 14:47", "2017-07-11 14:47", "2017-07-16 14:50",#
+  "2017-07-31 14:47", "2017-08-05 14:51", "2017-08-25 14:56", "2017-09-29 14:53", "2017-10-04 14:55",#
+  "2017-11-18 14:50", "2017-12-13 14:55", "2018-04-12 14:47", "2018-04-17 14:48", "2018-04-22 14:56",#
+  "2018-05-02 14:56", "2019-01-07 14:57", "2019-03-23 14:57", "2019-05-17 14:57", "2019-05-27 14:57",#
+  "2019-06-01 14:57", "2019-06-06 14:57", "2019-06-11 14:57", "2019-06-21 14:57", "2019-06-26 14:57",#
+  "2019-08-15 14:57", "2019-08-20 14:57", "2019-08-30 14:57"#
+)#
+site <- rep("AWS_Zongo", 43)#
+lon <- rep(-68.142, 43)#
+lat <- rep(-16.279, 43)#
+SW_meas <- c(#
+  734.80, 882.00, 924.83, 879.18, 801.21,#
+  838.96, 863.38, 1022.94, 760.32, 757.60,#
+  1106.66, 951.49, 960.99, 932.66, 1228.38,#
+  1187.52, 906.41, 839.20, 872.67, 863.41,#
+  896.82, 892.17, 938.26, 1183.41, 1159.52,#
+  1251.91, 1250.84, 1105.66, 1083.06, 1069.50,#
+  1017.97, 1145.97, 1036.28, 895.93, 827.22,#
+  810.04, 838.18, 607.53, 817.27, 828.39,#
+  934.55, 981.66, 1054.14#
+)#
+df <- data.frame(SW_meas, t, lon, lat, site)
+df
+q()
+library(SatRbedo)
+library(help=SatRbedo)
+??preproc
+library(help=SatRbedo)
+??preproc
+q()
+e <- terra::ext(427005, 509745, 5755245, 5800005)
+e
+q()
+t <- c(#
+  "2021-11-20 10:04", "2022-01-15 10:04", "2022-07-18 10:04", "2022-10-06 10:04", "2022-11-23 10:04",#
+  "2023-09-07 10:04", "2023-10-01 10:04", "2024-01-29 10:04", "2021-11-24 10:17", "2021-12-19 10:17",#
+  "2022-01-13 10:17", "2022-01-18 10:17", "2022-01-23 10:17", "2022-03-09 10:18", "2022-03-14 10:17",#
+  "2022-03-19 10:18", "2022-03-24 10:17", "2022-04-13 10:17", "2022-04-18 10:18", "2022-04-28 10:18",#
+  "2022-07-02 10:18", "2022-07-17 10:18", "2022-10-05 10:18", "2022-10-25 10:18", "2022-10-30 10:17",#
+  "2023-02-12 10:17", "2023-08-11 10:18", "2023-09-10 10:18", "2023-09-25 10:18", "2024-01-28 10:17",#
+  "2024-04-12 10:17", "2024-07-31 10:18", "2024-08-10 10:18"#
+)#
+site <- rep("AWS_HEF30", 33)#
+lon <- rep(10.7487, 33)#
+lat <- rep(46.7910, 33)#
+SW_meas <- c(#
+  495.13, 466.46, 1020.92, 661.56, 444.34,#
+  752.66, 679.01, 428.41, 468.48, 381.93,#
+  462.86, 490.86, 512.43, 789.34, 831.33,#
+  854.58, 879.75, 952.23, 980.99, 1033.76,#
+  1028.46, 1023.22, 674.39, 570.84, 455.50,#
+  563.63, 936.02, 715.49, 734.09, 433.75,#
+  810.24, 288.15, 876.07#
+)#
+df <- data.frame(SW_meas, t, lon, lat, site)
+df
+plot(df$t,df$SW_meas)
+df$t
+plot(as.Date(df$t),df$SW_meas)
+??plot
+plot(as.Date(df$t),df$SW_meas, type="l")
+plot(as.Date(sort(df$t)),df$SW_meas, type="l")
+q()
+library(SatRbedo)
+??f_BRDF
+q()
+1309*1062
+1309*1062*30
+1309/30
+1309*1062*30*30
+ID	VALUE	NAME	AREA#
+1	1.000000	1	691539300.000000
+691539300/(1309*1062*30*30)
+*100
+691539300/(1309*1062*30*30)*100
+ID	VALUE	NAME	AREA#
+1	1.000000	1	797373000.000000
+7.97373e+08
+7.97373e+08/(1309*1062*30*30)*100
+1.7482e+09/(1912*2048*30*30)
+1.22199e+09/(1912*2048*30*30)
+9.68328e+08/(1912*2048*30*30)
+7.06024e+08/(2339*1177*30*30)
+q*
+q()
+7489.46-3497.86
+3991.6*0.7
+3991.6*0.6
+q()
+library(SatRbedo)
+??shadow_removal
+??topo_corr
+??albedo_sat
+f_BRDF
+library()
+library(SatRbedo)
+??albedo_sat
+??snow_or_ice
+??cfactor_BRDF
+??topo_corr
+??albedo_sat
+q()
+library(SatRbedo)
+??albedo_sat
+q()
+library(stringr)#
+library(terra)#
+library(xml2)#
+library(XML)#
+library(SatRbedo)#
+library(doParallel)
+files <- list.files(path = "./Documents/PhD/Tasman2/L30/2018/59/G/M/M/HLS.L30.T59GMM.2018193T221908.v2.0", full.names = TRUE)
+files
+metadata <- stringr::str_subset(files, "xml")
+metadata
+md <- xml2::read_xml(metadata)
+md
+date_f <- stringr::str_sub(#
+  xml2::xml_text(xml2::xml_find_all(md, "//BeginningDateTime")), 1, 10#
+)
+date_f
+sensor <- stringr::str_sub(#
+  xml2::xml_text(xml2::xml_find_all(md, "//GranuleUR")), 5, 7#
+)
+sensor
+NSZA <- xml2::xml_double(xml2::xml_find_all(md,#
+  "/Granule/AdditionalAttributes/AdditionalAttribute[24]/Values/Value"))
+NSZA
+q()
+library(SatRbedo)
+??f_BRDF
+q()
+# install.package('remotes')#
+remotes::install_github('coolbutuseless/simplefortran')
+q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
-build_readme()
+check()
 q()

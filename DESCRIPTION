@@ -68,6 +68,10 @@ Imports:
 RdMacros: 
     Rdpack
 Encoding: UTF-8
+Additional_repositories:
+    https://bioconductor.org/packages/release/bioc
+Remotes:
+    bioc::EBImage
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Suggests: 

@@ -1,36 +1,3 @@
-plot(km)
-??kmeans
-q()
-??data.frame
-L3 <- LETTERS[1:3]#
-char <- sample(L3, 10, replace = TRUE)#
-(d <- data.frame(x = 1, y = 1:10, char = char))
-d
-class(d)
-d$x
-d[1,3]
-save(d,file="./Documents/PhD/Tasman/test/df.RData")
-ls()
-load("./Documents/PhD/Tasman/test/df.RData")
-ls()
-class(d)
-d
-??data.frame
-?time
-library(SunCalcMeeus)
-??irrad_extraterrestrial
-t <- c(#
-  "2020-02-24 22:19", "2023-02-16 22:20", "2020-02-26 22:38",#
-  "2021-03-12 22:38", "2022-02-15 22:38", "2023-02-20 22:38"#
-)#
-site <- c(#
-  "Tasman Neve AWS", "TG RedAWS", "Tasman Neve AWS",#
-  "Tasman Saddle AWS", "Tasman Saddle AWS", "TG RedAWS"#
-)#
-lon <- c(170.35, 170.3502, 170.35, 170.35, 170.3594, 170.3502)#
-lat <- c(-43.5143, -43.5139, -43.5143, -43.51, -43.5139, -43.5139)#
-SW_meas <- c(821.0, 818.0, 317.3, 777.5, 936.0, 865.0)#
-df <- data.frame(SW_meas, t, lon, lat, site)
 df
 df$t
 class(df$t)
@@ -520,5 +487,57 @@ remotes::install_github('coolbutuseless/simplefortran')
 q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
-check()
+load_all()
+# install.packages("devtools")#
+devtools::install_github("pabl1t0x/SatRbedo")
+install()
+library(SatR)
+library(SatR)bedo
+library(SatRbedo)
+??snow_or_ice
+??snow_or_ice
+green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")#
+nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")#
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")#
+green <- preproc(grd = green, outline = outline)#
+nir <- preproc(grd = nir, outline = outline)#
+res <- snow_or_ice(green, nir)
+res
+library(terra)
+plot(res$NDSII, range = c(-0.5, 0.5))
+library(terra)#
+plot(res$NDSII > res$th, type = "classes", col = c("#FFFFC8", "#00407F"), levels = c("snow", "ice"))
+??albedo_sat
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")#
+blue <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo")#
+green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")#
+red <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo")#
+nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")#
+swir1 <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo")#
+swir2 <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")#
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
+blue <- preproc(grd = blue, outline = outline)#
+green <- preproc(grd = green, outline = outline)#
+red <- preproc(grd = red, outline = outline)#
+nir <- preproc(grd = nir, outline = outline)#
+swir1 <- preproc(grd = swir1, outline = outline)#
+swir2 <- preproc(grd = swir2, outline = outline)#
+dem <- preproc(grd = dem, outline = outline)#
+SAA <- 164.8#
+SZA <- 48.9#
+VAA <- 90.9#
+VZA <- 5.2#
+slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")#
+aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
+plot(aspect)
+th <- snow_or_ice(green, nir)$th#
+alb <- albedo_sat(#
+  SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
+  slope = slope, aspect = aspect, method = "twobands",#
+  green = green, NIR = nir, th = th#
+)
+th
+alb
+plot(alb[[3]])
+plot(alb[[4]])
 q()

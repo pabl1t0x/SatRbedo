@@ -125,6 +125,10 @@ broadband_albedo <- albedo_sat(
 plot(broadband_albedo[[6]])
 ```
 
+## Contributing
+
+All contributions are welcomed. See our [Contributing Guidelines](CONTRIBUTING.md) for more details.
+
 ## Citing
 
 Please cite `SatRbedo` using:

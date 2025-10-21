@@ -1,10 +1,9 @@
 # Contributing
-Thank you for your interest in contributing to SatRbedo! To ensure a smooth experience, please review the guidelines provided here.
+Thank you for your interest in contributing to `SatRbedo`! To ensure a smooth experience, please review the guidelines provided here.
 ## Community Code of Conduct
-By participating in the SatRbedo community, you are expected to uphold this [Code of Conduct](CODE_OF_CONDUCT.md), which defines the standards
-for a positive and constructive environment.
+By participating in the `SatRbedo` community, you are expected to uphold this [Code of Conduct](CODE_OF_CONDUCT.md), which defines the standards for a positive and constructive environment.
 ## How to contribute
-You can contribute to SatRbedo by:
+You can contribute to `SatRbedo` by:
 - Reporting or fixing an [issue](https://github.com/pabl1t0x/SatRbedo/issues).
 - Reviewing a [Pull Request](https://github.com/pabl1t0x/SatRbedo/pulls).
 - Suggesting new features.

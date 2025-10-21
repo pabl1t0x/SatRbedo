@@ -74,7 +74,7 @@ Canada on 11 September 2020.
 # Load the packages
 library(SatRbedo)
 library(terra)
-#> terra 1.8.54
+#> terra 1.8.70
 
 # Load the raw Sentinel-2 surface reflectance data
 # Note: each spectral band was previously cut out to the extent of the area of interest and renamed
@@ -147,6 +147,11 @@ Fig. 2 Broadband albedo
 </p>
 
 </div>
+
+## Contributing
+
+All contributions are welcomed. See our [Contributing
+Guidelines](CONTRIBUTING.md) for more details.
 
 ## Citing
 

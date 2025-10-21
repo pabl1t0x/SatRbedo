@@ -1,272 +1,3 @@
-df
-df$t
-class(df$t)
-df$SW_meas
-class(df$SW_meas)
-df$site
-class(df$site)
-df
-df$SW_meas
-df$SW_meas[1]
-df$SW_meas[7]
-df$SW_meas[6]
-df$SW_meas[5]
-df
-df$t[1]
-df$lon
-df$lat
-df$s
-df$site
-q()
-??print
-n<-3
-print("The values is ", n)
-n
-n<-3
-??print
-print(paste0("The values is "), n)
-print(paste0("The values is ", n))
-print(paste0("Computation number ", n))
-q()
-library(SatRbedo)
-??albedo_sat
-q()
-library(luna)#
-library(terra)
-product <- "MCD43A1"
-sdate <- "2015-05-01"#
-edate <- "2016-10-01"#
-e <- terra::ext(427035, 509745, 5755275, 5800005)#
-e_new <- terra::project(#
-  e, from = "+proj=utm +zone=11 +ellps=WGS84 +units=m +no_defs +type=crs",#
-  to = "+proj=longlat +datum=WGS84 +no_defs"#
-)
-e_new
-datadir <- "/Users/pablo/Documents/PhD/Athabasca/MCD43"#
-usr <- "pablo.fuchs"#
-pwd <- "Pfadfindern02"
-#Check available MODIS data:#
-#mod_data <- luna::getNASA(#
-#  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-#)
-#Check available MODIS data:#
-mod_data <- luna::getNASA(#
-  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-mod_data
-sdate <- "2015-05-01"#
-edate <- "2015-05-10"
-#Check available MODIS data:#
-mod_data <- luna::getNASA(#
-  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-mod_data
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-mod_data
-mod_data <- luna::getNASA(#
- product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-mod_data
-??getNASA
-sdate <- "2016-05-20"#
-edate <- "2016-06-01"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2016-09-05"#
-edate <- "2016-09-06"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2017-08-05"#
-edate <- "2017-08-06"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2017-10-04"#
-edate <- "2017-10-04"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2018-03-18"#
-edate <- "2018-04-18"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2018-05-02"#
-edate <- "2018-06-12"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-e_new
-sdate <- "2019-06-05"#
-edate <- "2019-06-05"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2019-06-04"#
-edate <- "2019-06-04"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2019-07-30"#
-edate <- "2019-08-20"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2019-07-30"#
-edate <- "2019-08-31"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2019-07-29"#
-edate <- "2019-07-29"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2019-08-21"#
-edate <- "2019-08-29"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2020-03-25" #Set 'sdate' to 7 days after the desired date#
-edate <- "2020-03-25" #Set 'edate' to 8 days before the desired date
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2020-05-26" #Set 'sdate' to 7 days after the desired date#
-edate <- "2020-05-26"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2020-08-02" #Set 'sdate' to 7 days after the desired date#
-edate <- "2020-08-08"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
-edate <- "2020-09-16"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-sdate
-edate
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-q()
-library(luna)#
-library(terra)
-product <- "MCD43A1"
-sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
-edate <- "2020-09-16" #Set 'edate' to 8 days before the desired date#
-e <- terra::ext(427035, 509745, 5755275, 5800005)#
-e_new <- terra::project(#
-  e, from = "+proj=utm +zone=11 +ellps=WGS84 +units=m +no_defs +type=crs",#
-  to = "+proj=longlat +datum=WGS84 +no_defs"#
-)#
-datadir <- "/Users/pablo/Documents/PhD/Athabasca/MCD43"#
-usr <- "pablo.fuchs"#
-pwd <- "Pfadfindern02"
-mod_data <- luna::getNASA(#
- product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-q()
-library(luna)#
-library(terra)
-product <- "MCD43A1"
-sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
-edate <- "2020-09-16" #Set 'edate' to 8 days before the desired date#
-e <- terra::ext(427035, 509745, 5755275, 5800005)#
-e_new <- terra::project(#
-  e, from = "+proj=utm +zone=11 +ellps=WGS84 +units=m +no_defs +type=crs",#
-  to = "+proj=longlat +datum=WGS84 +no_defs"#
-)#
-datadir <- "/Users/pablo/Documents/PhD/Athabasca/MCD43"#
-usr <- "pablo.fuchs"#
-pwd <- "Pfadfindern02"
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-e_new
-mod_data <- luna::getNASA(#
-  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-mod_data
-mod_data <- luna::getNASA(#
-	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
-	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
-)
-q()
-modis_dir <- "./Documents/PhD/Athabasca/MCD43"
-modis_files <- list.files(path = modis_dir, full.names = TRUE)
-modis_files
-modis_data <- terra::sds(modis_files[40])
-modis_data
-modis_data[[1]]
-modis_data[[12]]
-library(terra)
-writeRaster(modis_data[[12]],filename="./Documents/PhD/Athabasca/modis.tif")
-768/2
-384*50
-q()
-site <- rep("Athabasca_iceAWS", 20)
-site
-library(terra)
-aws<-vect("./Documents/PhD/Athabasca/Athabasca_iceAWS.shp")
-aws
-plot(aws)
-lon <- rep(-117.3, 20)#
-lat <- rep(52.19, 20)
-lon
-lat
-t <- c(#
-  "2015-05-08 18:41", "2020-03-18 18:41", "2020-07-31 18:47", "2020-08-16 18:47", "2016-05-15 18:53",#
-  "2016-06-04 18:54", "2016-09-12 18:50", "2017-07-29 18:58", "2017-08-06 19:08", "2017-08-11 19:03",#
-  "2017-09-27 18:58", "2017-10-05 19:02", "2018-03-11 18:52", "2018-03-24 19:03", "2018-03-31 18:49",#
-  "2018-04-23 18:59", "2018-04-25 18:58", "2018-05-13 19:04", "2018-05-23 19:07", "2018-06-17 19:02",#
-  "2018-06-19 18:55", "2018-07-17 18:59", "2018-07-29 18:51", "2018-08-08 18:58", "2018-08-21 18:59",#
-  "2018-09-05 19:05", "2019-03-19 19:10", "2019-03-21 19:00", "2019-03-29 19:10", "2019-04-25 19:00",#
-  "2019-05-20 19:00", "2019-05-28 19:10", "2019-07-22 19:10", "2019-08-28 19:00", "2019-09-05 19:10",#
-  "2020-05-19 19:00", "2020-07-26 19:10", "2020-07-28 19:00", "2020-08-05 19:10", "2020-09-09 19:10"#
-)#
-site <- rep("Athabasca_iceAWS", 20)#
-)#
-lon <- rep(-117.252, 20)#
-lat <- rep(52.1918, 20)#
-SW_meas <- c(#
-  898.09, 637.17, 913.30, 815.27, 894.55,#
-  920.71, 663.41, 800.02, 811.50, 800.52,#
-  508.31, 416.29, 391.34, 645.91, 766.36,#
-  792.02, 800.01, 836.18, 948.80, 955.29,#
-  957.98, 914.14, 860.96, 863.04, 635.94,#
-  717.85, 602.47, 639.79, 679.38, 836.61,#
-  895.54, 858.60, 900.69, 754.64, 718.37,#
-  928.46, 928.85, 925.06, 928.79, 729.92#
-)#
-df <- data.frame(SW_meas, t, lon, lat, site)
-df
 q()
 library(doParallel)
 doParallel::registerDoParallel(cores=3)
@@ -485,59 +216,223 @@ q()
 # install.package('remotes')#
 remotes::install_github('coolbutuseless/simplefortran')
 q()
+remove.packages(SatRbedo)
+remove.packages("SatRbedo")
+remove.packages("EBImage")
+librayr(EBImage)
+library(EBImage)
+# install.packages("devtools")#
+devtools::install_github("pabl1t0x/SatRbedo")
+library(EBImage)
+library(SatRbedo)
+q()
+library(covr)
+package_coverage("./Documents/PhD/SatRbedo/")
+package_coverage("./Documents/PhD/SatRbedo/", quiet=FALSE)
+sessionInfo()
+q()
+library(covr)
+package_coverage("./Documents/PhD/SatRbedo/")
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
 load_all()
-# install.packages("devtools")#
-devtools::install_github("pabl1t0x/SatRbedo")
-install()
-library(SatR)
-library(SatR)bedo
+test()
+use_test("shadow_removal")
 library(SatRbedo)
-??snow_or_ice
-??snow_or_ice
-green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")#
-nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")#
-outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")#
-green <- preproc(grd = green, outline = outline)#
-nir <- preproc(grd = nir, outline = outline)#
-res <- snow_or_ice(green, nir)
-res
-library(terra)
-plot(res$NDSII, range = c(-0.5, 0.5))
+?shadow_removal
 library(terra)#
-plot(res$NDSII > res$th, type = "classes", col = c("#FFFFC8", "#00407F"), levels = c("snow", "ice"))
-??albedo_sat
-outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")#
-blue <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo")#
-green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")#
-red <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo")#
-nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")#
-swir1 <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo")#
-swir2 <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")#
 dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
-blue <- preproc(grd = blue, outline = outline)#
-green <- preproc(grd = green, outline = outline)#
-red <- preproc(grd = red, outline = outline)#
-nir <- preproc(grd = nir, outline = outline)#
-swir1 <- preproc(grd = swir1, outline = outline)#
-swir2 <- preproc(grd = swir2, outline = outline)#
-dem <- preproc(grd = dem, outline = outline)#
-SAA <- 164.8#
-SZA <- 48.9#
-VAA <- 90.9#
-VZA <- 5.2#
-slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")#
-aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
-plot(aspect)
-th <- snow_or_ice(green, nir)$th#
-alb <- albedo_sat(#
-  SAA = SAA, SZA = SZA, VAA = VAA, VZA = VZA,#
-  slope = slope, aspect = aspect, method = "twobands",#
-  green = green, NIR = nir, th = th#
-)
-th
-alb
-plot(alb[[3]])
-plot(alb[[4]])
+dem <- terra::rast(dem)#
+SZA <- 49#
+SAA <- 165
+shadow_removal(dem,SZA,SAA,mask=FALSE)
+a<-shadow_removal(dem,SZA,SAA,mask=FALSE)
+plot(a)
+a<-shadow_removal(dem,SZA,SAA,mask=TRUE)
+plot(a)
+?cast_shadows
+library(Rdpack)
+viewRd("./man/cast_shadows.Rd")
+viewRd("./man/shadow_removal.Rd")
+topography <- c(#
+    2474.0, 2483.0, 2499.0, 2516.0, 2529.0,#
+    2481.0, 2495.0, 2520.0, 2542.0, 2556.0,#
+    2494.0, 2515.0, 2547.0, 2571.0, 2584.0,#
+    2514.0, 2542.0, 2573.0, 2593.0, 2604.0,#
+    2543.0, 2572.0, 2596.0, 2612.0, 2621.0#
+  ) |>#
+    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
+    terra::rast()
+topography
+plot(topography)
+SZA <- 49#
+SAA <- 165
+a<-cast_shadows(topography, SZA,SAA)
+a
+plot(a)
+topography <- c(#
+    2474.0, 2483.0, 2499.0, 2516.0, 2529.0,#
+    2481.0, 2495.0, 2520.0, 2542.0, 2556.0,#
+    2494.0, 2515.0, 2547.0, 2571.0, 2584.0,#
+    2514.0, 2542.0, 2573.0, 2593.0, 2604.0,#
+    2543.0, 2572.0, 2596.0, 2612.0, 2621.0#
+  ) |>#
+    matrix(nrow = 5, ncol = 5, byrow = FALSE) |>#
+    terra::rast()
+a<-cast_shadows(topography, SZA,SAA)
+plot(a)
+plot(topography)
+topography <- c(#
+    2474.0, 2483.0, 2499.0, 2516.0, 2529.0,#
+    2481.0, 2495.0, 2520.0, 2542.0, 2556.0,#
+    2494.0, 2515.0, 2547.0, 2571.0, 2584.0,#
+    2514.0, 2542.0, 2573.0, 2593.0, 2604.0,#
+    2543.0, 2572.0, 2596.0, 2612.0, 2621.0#
+  ) |>#
+    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
+    terra::rast()
+plot(topography)
+click(topography,n=3)
+SZA
+SAA
+a<-cast_shadows(topography, SZA,SAA)
+a
+plot(a)
+b <- hill_shade(topography, SZA, SAA)
+b
+plot(b)
+plot(sa)
+plot(a)
+msk <- shadow_removal(topography, SZA, SAA, mask = FALSE)
+msk
+plot(msk)
+msk <- shadow_removal(topography, SZA, SAA, mask = TRUE)
+msk
+plot(msk)
+a
+plot(a)
+plot(b)
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
+dem <- terra::rast(dem)#
+SZA <- 49#
+SAA <- 165#
+msk <- shadow_removal(dem, SZA, SAA, mask = TRUE)
+msk
+plot(msk)
+plot(dem)
+zoom(dem)
+plot(dem)
+zoom(dem)
+plot(dem)
+zoom(dem)
+hs<-hill_shade(dem,SZA,SAA)
+hs
+plot(hs)
+zoom(hs)
+click(hs,n=3)
+hs
+plot(hs)
+writeRaster(hs,filename="../hs.tif")
+cs<-cast_shadows(dem,SZA,SAA)
+plot(cs)
+writeRaster(cs,filename="../cs.tif")
+topography <- c(#
+    2456.0, 2460.0, 2467.0, 2473.0, 2481.0,#
+    2463.0, 2468.0, 2475.0, 2482.0, 2494.0,#
+    2470.0, 2476.0, 2485.0, 2495.0, 2514.0,#
+    2479.0, 2487.0, 2500.0, 2518.0, 2543.0,#
+    2492.0, 2505.0, 2526.0, 2550.0, 2574.0#
+  ) |>#
+    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
+    terra::rast()#
+  SZA <- 49#
+  SAA <- 165
+a<-cast_shadows(topog)
+a<-cast_shadows(topography,SZA,SAA)
+plot(a)
+b<-hill_shade(topography,SZA,SAA)
+b
+plot(b)
+plot(topography)
+hill_shade
+normal_vector
+??terra::rast
+res(topography)
+ext(topography) <- c(482145,482265,5780535,5780655)
+topography
+a<-cast_shadows(topography,SZA,SAA)
+plot(a)
+hs<-hill_shade(topography,SZA,SAA)
+plot(hs)
+ext(topography) <- c(482142,482268,5780532,5780658)
+topography
+ext(topography) <- c(482130,482280,5780520,5780670)
+topography
+topography <- c(#
+    2456.0, 2460.0, 2467.0, 2473.0, 2481.0,#
+    2463.0, 2468.0, 2475.0, 2482.0, 2494.0,#
+    2470.0, 2476.0, 2485.0, 2495.0, 2514.0,#
+    2479.0, 2487.0, 2500.0, 2518.0, 2543.0,#
+    2492.0, 2505.0, 2526.0, 2550.0, 2574.0#
+  ) |>#
+    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
+    terra::rast(extent = c(482130,482280,5780520,5780670))#
+  SZA <- 49#
+  SAA <- 165
+topography
+topography <- c(#
+    2456.0, 2460.0, 2467.0, 2473.0, 2481.0,#
+    2463.0, 2468.0, 2475.0, 2482.0, 2494.0,#
+    2470.0, 2476.0, 2485.0, 2495.0, 2514.0,#
+    2479.0, 2487.0, 2500.0, 2518.0, 2543.0,#
+    2492.0, 2505.0, 2526.0, 2550.0, 2574.0#
+  ) |>#
+    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
+    terra::rast(crs = "+proj=utm +zone=11 +datum=WGS84 +units=m +no_defs +type=crs",#
+      extent = c(482130,482280,5780520,5780670))
+topography
+plot(topography)
+SZA <- 49#
+  SAA <- 165
+a<-cast_shadows(topography, SZA,SAA)
+a
+plot(a)
+b<-hill_shade(topography,SZA,SAA)
+b
+plot(b)
+shadow_removal(topography,SZA,SAA)
+aa<-shadow_removal(topography,SZA,SAA)
+aa
+plot(aas)
+plot(aa)
+aa<-shadow_removal(topography,SZA,SAA, mask = FALSE)
+aa
+plot(aa)
+shadow_removal
+cc<-a*b
+plot(cc)
+values(cc)
+click(cc,n=3)
+with_mask <- c(#
+    1, 1, 1, 1, 1,#
+    1, 1, 1, NA, 1,#
+    1, 1, NA, NA, NA,#
+    1, 1, NA, NA, NA,#
+    1, 1, NA, NA, NA#
+  ) |>#
+    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
+    terra::rast(crs = "+proj=utm +zone=11 +datum=WGS84 +units=m +no_defs +type=crs",#
+      extent = c(482130,482280,5780520,5780670))
+with_mask
+plot(with_mask)
+shadow_removal
+test_active_file("./tests/testthat/test-shadow_removal.R")
+test_active_file("./tests/testthat/test-shadow_removal.R")
+test()
+library(stylr)
+library(styler)
+style_dir("./tests/")
+style_dir("./tests/")
+test()
+check()
 q()

@@ -11,3 +11,14 @@ test_that("An NDSII map and a threshold to discriminate between snow and ice are
   expect_equal(terra::values(result$NDSII), terra::values(NDSII), tolerance = 1e-6)
   expect_equal(result$th, 0.2148438, tolerance = 1e-6)
 })
+
+test_that("An NDSII histogram is returned", {
+  green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
+  nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+  outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
+  green <- preproc(grd = green, outline = outline)
+  nir <- preproc(grd = nir, outline = outline)
+  result <- snow_or_ice(green, nir)
+  p <- NDSII_hist(result$NDSII, result$th, breaks = 16, stdev = 3)
+  vdiffr::expect_doppelganger("NDSII plot", p)
+})

@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/",
   out.width = "100%"
 )
+knitr::opts_knit$set(global.par = TRUE)
 ```
 
 # SatRbedo
@@ -57,6 +58,10 @@ knitr::include_graphics("man/figures/workflow.png")
 The following example shows how to estimate albedo using surface reflectance data from five spectral bands at the Athabasca Glacier in Canada on 11 September 2020.
 
 **Step 1: Load the data for the area of interest**
+
+```{r}
+par(mar=c(1,1,1,1))
+``` 
 
 ```{r example-load}
 # Load the packages

@@ -71,6 +71,10 @@ Canada on 11 September 2020.
 **Step 1: Load the data for the area of interest**
 
 ``` r
+par(mar=c(1,1,1,1))
+```
+
+``` r
 # Load the packages
 library(SatRbedo)
 library(terra)

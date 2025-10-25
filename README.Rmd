@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/",
-  out.width = "90%"
+  out.width = "100%"
 )
 ```
 
@@ -50,7 +50,7 @@ devtools::install_github("pabl1t0x/SatRbedo")
 
 Snow and ice albedo retrieval from satellite imagery is a four-step workflow that includes image pre-processing, topographic and anisotropic corrections, and a narrow-to-broadband albedo conversion (Fig. 1).
 
-``` {r workflow, echo = FALSE, out.width = "80%", fig.cap = "Fig. 1 Flowchart of the satellite albedo retrieval workflow"}
+``` {r workflow, echo = FALSE, fig.cap = "Fig. 1 Flowchart of the satellite albedo retrieval workflow"}
 knitr::include_graphics("man/figures/workflow.png")
 ```
 
@@ -106,7 +106,7 @@ swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
 
 **Step 4: Estimation of broadband albedo after anisotropic correction**
 
-```{r example-anisotropy, fig.dim = c(3, 3), fig.cap = "Fig. 2 Broadband albedo"}
+```{r example-anisotropy, fig.dim = c(5, 5), fig.cap = "Fig. 2 Broadband albedo"}
 SAA <- 164.8 # solar azimuth angle
 SZA <- 48.9 # solar zenith angle
 VAA <- 90.9 # view azimuth angle

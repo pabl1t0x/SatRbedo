@@ -87,6 +87,8 @@ Fig. 1 Flowchart of the satellite albedo retrieval workflow
 <p>The following example shows how to estimate albedo using surface reflectance data from five spectral bands at the Athabasca Glacier in Canada on 11 September 2020.</p>
 <p><strong>Step 1: Load the data for the area of interest</strong></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pabl1t0x/SatRbedo" class="external-link">SatRbedo</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
@@ -106,7 +108,7 @@ Fig. 1 Flowchart of the satellite albedo retrieval workflow
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_dem.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span>
 <span><span class="va">outline</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_outline.shp"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Step 2: Data pre-processing</strong></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform the input data to SpatRaster and crop to the area of interest</span></span>
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">dem</span><span class="op">)</span></span>
 <span><span class="va">blue</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/preproc.html">preproc</a></span><span class="op">(</span>grd <span class="op">=</span> <span class="va">blue_SR</span>, outline <span class="op">=</span> <span class="va">outline</span><span class="op">)</span></span>
@@ -116,7 +118,7 @@ Fig. 1 Flowchart of the satellite albedo retrieval workflow
 <span><span class="va">swir1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/preproc.html">preproc</a></span><span class="op">(</span>grd <span class="op">=</span> <span class="va">SWIR1_SR</span>, outline <span class="op">=</span> <span class="va">outline</span><span class="op">)</span></span>
 <span><span class="va">swir2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/preproc.html">preproc</a></span><span class="op">(</span>grd <span class="op">=</span> <span class="va">SWIR2_SR</span>, outline <span class="op">=</span> <span class="va">outline</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Step 3: Topographic correction</strong></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SAA</span> <span class="op">&lt;-</span> <span class="fl">164.8</span> <span class="co"># solar azimuth angle</span></span>
 <span><span class="va">SZA</span> <span class="op">&lt;-</span> <span class="fl">48.9</span> <span class="co"># solar zenith angle</span></span>
 <span><span class="va">blue_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">blue</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span><span class="op">)</span></span>
@@ -126,7 +128,7 @@ Fig. 1 Flowchart of the satellite albedo retrieval workflow
 <span><span class="va">swir1_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir1</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span><span class="op">)</span></span>
 <span><span class="va">swir2_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir2</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Step 4: Estimation of broadband albedo after anisotropic correction</strong></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SAA</span> <span class="op">&lt;-</span> <span class="fl">164.8</span> <span class="co"># solar azimuth angle</span></span>
 <span><span class="va">SZA</span> <span class="op">&lt;-</span> <span class="fl">48.9</span> <span class="co"># solar zenith angle</span></span>
 <span><span class="va">VAA</span> <span class="op">&lt;-</span> <span class="fl">90.9</span> <span class="co"># view azimuth angle</span></span>
@@ -158,13 +160,13 @@ Fig. 2 Broadband albedo
 <h2 id="citing">Citing<a class="anchor" aria-label="anchor" href="#citing"></a>
 </h2>
 <p>Please cite <code>SatRbedo</code> using:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  title <span class="ot">=</span> {SatRbedo<span class="sc">:</span> An R package <span class="cf">for</span> retrieving snow and ice albedo from optical satellite imagery},</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  author <span class="ot">=</span> {Pablo Fuchs and Ruzica Dadic and Shelley MacDonell and Heather Purdie and Brian Anderson and Marwan Katurji},</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="fl">1.0</span>},</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>pabl1t0x<span class="sc">/</span>SatRbedo},</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  title <span class="ot">=</span> {SatRbedo<span class="sc">:</span> An R package <span class="cf">for</span> retrieving snow and ice albedo from optical satellite imagery},</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  author <span class="ot">=</span> {Pablo Fuchs and Ruzica Dadic and Shelley MacDonell and Heather Purdie and Brian Anderson and Marwan Katurji},</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="fl">1.0</span>},</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>pabl1t0x<span class="sc">/</span>SatRbedo},</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>

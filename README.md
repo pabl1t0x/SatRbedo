@@ -56,7 +56,7 @@ corrections, and a narrow-to-broadband albedo conversion (Fig. 1).
 
 <div class="figure">
 
-<img src="man/figures/workflow.png" alt="Fig. 1 Flowchart of the satellite albedo retrieval workflow" width="100%" />
+<img src="./man/figures/workflow.png" alt="Fig. 1 Flowchart of the satellite albedo retrieval workflow" width="90%" />
 <p class="caption">
 
 Fig. 1 Flowchart of the satellite albedo retrieval workflow
@@ -144,7 +144,7 @@ plot(broadband_albedo[[6]])
 
 <div class="figure">
 
-<img src="man/figures/example-anisotropy-1.png" alt="Fig. 2 Broadband albedo" width="100%" />
+<img src="./man/figures/example-anisotropy-1.png" alt="Fig. 2 Broadband albedo" width="90%" />
 <p class="caption">
 
 Fig. 2 Broadband albedo

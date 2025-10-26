@@ -1,3 +1,44 @@
+library(terra)
+writeRaster(modis_data[[12]],filename="./Documents/PhD/Athabasca/modis.tif")
+768/2
+384*50
+q()
+site <- rep("Athabasca_iceAWS", 20)
+site
+library(terra)
+aws<-vect("./Documents/PhD/Athabasca/Athabasca_iceAWS.shp")
+aws
+plot(aws)
+lon <- rep(-117.3, 20)#
+lat <- rep(52.19, 20)
+lon
+lat
+t <- c(#
+  "2015-05-08 18:41", "2020-03-18 18:41", "2020-07-31 18:47", "2020-08-16 18:47", "2016-05-15 18:53",#
+  "2016-06-04 18:54", "2016-09-12 18:50", "2017-07-29 18:58", "2017-08-06 19:08", "2017-08-11 19:03",#
+  "2017-09-27 18:58", "2017-10-05 19:02", "2018-03-11 18:52", "2018-03-24 19:03", "2018-03-31 18:49",#
+  "2018-04-23 18:59", "2018-04-25 18:58", "2018-05-13 19:04", "2018-05-23 19:07", "2018-06-17 19:02",#
+  "2018-06-19 18:55", "2018-07-17 18:59", "2018-07-29 18:51", "2018-08-08 18:58", "2018-08-21 18:59",#
+  "2018-09-05 19:05", "2019-03-19 19:10", "2019-03-21 19:00", "2019-03-29 19:10", "2019-04-25 19:00",#
+  "2019-05-20 19:00", "2019-05-28 19:10", "2019-07-22 19:10", "2019-08-28 19:00", "2019-09-05 19:10",#
+  "2020-05-19 19:00", "2020-07-26 19:10", "2020-07-28 19:00", "2020-08-05 19:10", "2020-09-09 19:10"#
+)#
+site <- rep("Athabasca_iceAWS", 20)#
+)#
+lon <- rep(-117.252, 20)#
+lat <- rep(52.1918, 20)#
+SW_meas <- c(#
+  898.09, 637.17, 913.30, 815.27, 894.55,#
+  920.71, 663.41, 800.02, 811.50, 800.52,#
+  508.31, 416.29, 391.34, 645.91, 766.36,#
+  792.02, 800.01, 836.18, 948.80, 955.29,#
+  957.98, 914.14, 860.96, 863.04, 635.94,#
+  717.85, 602.47, 639.79, 679.38, 836.61,#
+  895.54, 858.60, 900.69, 754.64, 718.37,#
+  928.46, 928.85, 925.06, 928.79, 729.92#
+)#
+df <- data.frame(SW_meas, t, lon, lat, site)
+df
 q()
 library(doParallel)
 doParallel::registerDoParallel(cores=3)
@@ -233,206 +274,234 @@ sessionInfo()
 q()
 library(covr)
 package_coverage("./Documents/PhD/SatRbedo/")
+q()
+citation("terra")
+q()
+library(SunCalcMeeus)
+library(help=SunCalcMeeus)
+??as_tod
+360/364
+90*pi/180
+sin(45)
+sin(45*pi/180)
+15*9
+asin(0.5)
+asin(0.5) * 180/pi
+??ifelse
+asin
+acos
+100000*(1-300*0.0001)
+100*100/1000
+100000*(1-300*10)
+100000-300*10
+100000/(100000*(1-300*0.0001))
+1/1.030928
+97000/100000
+10/100000
+1-0.0001*300
+1e-04
+90*pi/180
+min(1,3,4)
+??min
+min
+class(min)
+min(3/4, 0.22)
+n <- 0.8
+D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15)
+D_f
+n <- 0.81
+D_f
+D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15)
+D_f
+n <- 0.6
+D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15)
+D_f
+library(styler)
+style_file("./Documents/PhD/Tasman_spts/spatiotemporal_analysis/SW_melt.R")
+SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, we) {#
+  day_ang <- J * 360 / 365.25 # day angle#
+  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
+    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
+  LSTM <- 15 * time_diff # local standard time meridian#
+  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
+  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
+    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
+    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
+  omega <- 15 * (LST - 12) # hour angle#
+  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
+    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
+  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
+    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
+  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
+  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
+  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
+  n <- min(1 - SW / K, 1) # cloudiness#
+  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
+  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
+  SW_dir <- (1 - D_f) * SW_normal *#
+    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
+  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
+  if (we) {#
+    res <- (1 - alb) * SW_dir + (1 - alb) * SW_diff#
+  } else {#
+    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
+  }#
+  res#
+}
+a<-SW_net(178,100,0,0,-19.5,63.5,300,1.572,3,90,we=FALSE)
+SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, alb, we) {#
+  day_ang <- J * 360 / 365.25 # day angle#
+  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
+    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
+  LSTM <- 15 * time_diff # local standard time meridian#
+  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
+  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
+    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
+    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
+  omega <- 15 * (LST - 12) # hour angle#
+  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
+    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
+  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
+    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
+  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
+  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
+  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
+  n <- min(1 - SW / K, 1) # cloudiness#
+  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
+  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
+  SW_dir <- (1 - D_f) * SW_normal *#
+    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
+  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
+  if (we) {#
+    res <- (1 - alb) * SW_dir + (1 - alb) * SW_diff#
+  } else {#
+    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
+  }#
+  res#
+}
+a<-SW_net(178,100,0,0,-19.5,63.5,300,1.572,3,90,0.31,we=FALSE)
+a
+a<-SW_net(178,100,0,0,-19.5,63.5,300,1.572,3,90,0.31,we=TRUE)
+a
+a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
+a
+a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=TRUE)
+a
+SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, alb, we) {#
+  day_ang <- J * 360 / 365.25 # day angle#
+  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
+    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
+  LSTM <- 15 * time_diff # local standard time meridian#
+  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
+  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
+    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
+    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
+  omega <- 15 * (LST - 12) # hour angle#
+  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
+    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
+  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
+    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
+  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
+  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
+  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
+  n <- min(1 - SW / K, 1) # cloudiness#
+  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
+  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
+  SW_dir <- (1 - D_f) * SW_normal *#
+    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
+  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
+  if (we) {#
+    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
+  } else {#
+    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
+  }#
+  res#
+}
+a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
+a
+a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=TRUE)
+a
+SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, alb, we) {#
+  day_ang <- J * 360 / 365.25 # day angle#
+  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
+    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
+  LSTM <- 15 * time_diff # local standard time meridian#
+  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
+  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
+    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
+    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
+  omega <- 15 * (LST - 12) # hour angle#
+  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
+    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
+  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
+    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
+  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
+  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
+  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
+  n <- min(1 - SW / K, 1) # cloudiness#
+  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
+  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
+  SW_dir <- (1 - D_f) * SW_normal *#
+    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
+  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
+  if (we) {#
+    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
+  } else {#
+    res <- (1 - alb) * SW_dir + (1 - alb) * SW_diff#
+  }#
+  res#
+}
+a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
+a
+a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=TRUE)
+a
+a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
+a
+q()
+library(SatRbedo)
+library(help=SatRbedo)
+??NDSII_hist
+??albedo_broad
+??albedo_sat
+??f_BRDF
+??albedo_broad
+??albedo_sat
+??albedo_broad
+??f_BRDF
+??preporc
+??preproc
+??cfactor
+??topo_corr
+??cast_shadows
+??hill_shade
+??shadow_removal
+??topo_splot
+??f_BRDF
+??snow_or_ice
+??NDSII_hist
+??albedo_sat
+??f_BRDF
+??albedo_broad
+q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
-load_all()
-test()
-use_test("shadow_removal")
-library(SatRbedo)
-?shadow_removal
-library(terra)#
-dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
-dem <- terra::rast(dem)#
-SZA <- 49#
-SAA <- 165
-shadow_removal(dem,SZA,SAA,mask=FALSE)
-a<-shadow_removal(dem,SZA,SAA,mask=FALSE)
-plot(a)
-a<-shadow_removal(dem,SZA,SAA,mask=TRUE)
-plot(a)
-?cast_shadows
-library(Rdpack)
-viewRd("./man/cast_shadows.Rd")
-viewRd("./man/shadow_removal.Rd")
-topography <- c(#
-    2474.0, 2483.0, 2499.0, 2516.0, 2529.0,#
-    2481.0, 2495.0, 2520.0, 2542.0, 2556.0,#
-    2494.0, 2515.0, 2547.0, 2571.0, 2584.0,#
-    2514.0, 2542.0, 2573.0, 2593.0, 2604.0,#
-    2543.0, 2572.0, 2596.0, 2612.0, 2621.0#
-  ) |>#
-    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
-    terra::rast()
-topography
-plot(topography)
-SZA <- 49#
-SAA <- 165
-a<-cast_shadows(topography, SZA,SAA)
-a
-plot(a)
-topography <- c(#
-    2474.0, 2483.0, 2499.0, 2516.0, 2529.0,#
-    2481.0, 2495.0, 2520.0, 2542.0, 2556.0,#
-    2494.0, 2515.0, 2547.0, 2571.0, 2584.0,#
-    2514.0, 2542.0, 2573.0, 2593.0, 2604.0,#
-    2543.0, 2572.0, 2596.0, 2612.0, 2621.0#
-  ) |>#
-    matrix(nrow = 5, ncol = 5, byrow = FALSE) |>#
-    terra::rast()
-a<-cast_shadows(topography, SZA,SAA)
-plot(a)
-plot(topography)
-topography <- c(#
-    2474.0, 2483.0, 2499.0, 2516.0, 2529.0,#
-    2481.0, 2495.0, 2520.0, 2542.0, 2556.0,#
-    2494.0, 2515.0, 2547.0, 2571.0, 2584.0,#
-    2514.0, 2542.0, 2573.0, 2593.0, 2604.0,#
-    2543.0, 2572.0, 2596.0, 2612.0, 2621.0#
-  ) |>#
-    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
-    terra::rast()
-plot(topography)
-click(topography,n=3)
-SZA
-SAA
-a<-cast_shadows(topography, SZA,SAA)
-a
-plot(a)
-b <- hill_shade(topography, SZA, SAA)
-b
-plot(b)
-plot(sa)
-plot(a)
-msk <- shadow_removal(topography, SZA, SAA, mask = FALSE)
-msk
-plot(msk)
-msk <- shadow_removal(topography, SZA, SAA, mask = TRUE)
-msk
-plot(msk)
-a
-plot(a)
-plot(b)
-dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
-dem <- terra::rast(dem)#
-SZA <- 49#
-SAA <- 165#
-msk <- shadow_removal(dem, SZA, SAA, mask = TRUE)
-msk
-plot(msk)
-plot(dem)
-zoom(dem)
-plot(dem)
-zoom(dem)
-plot(dem)
-zoom(dem)
-hs<-hill_shade(dem,SZA,SAA)
-hs
-plot(hs)
-zoom(hs)
-click(hs,n=3)
-hs
-plot(hs)
-writeRaster(hs,filename="../hs.tif")
-cs<-cast_shadows(dem,SZA,SAA)
-plot(cs)
-writeRaster(cs,filename="../cs.tif")
-topography <- c(#
-    2456.0, 2460.0, 2467.0, 2473.0, 2481.0,#
-    2463.0, 2468.0, 2475.0, 2482.0, 2494.0,#
-    2470.0, 2476.0, 2485.0, 2495.0, 2514.0,#
-    2479.0, 2487.0, 2500.0, 2518.0, 2543.0,#
-    2492.0, 2505.0, 2526.0, 2550.0, 2574.0#
-  ) |>#
-    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
-    terra::rast()#
-  SZA <- 49#
-  SAA <- 165
-a<-cast_shadows(topog)
-a<-cast_shadows(topography,SZA,SAA)
-plot(a)
-b<-hill_shade(topography,SZA,SAA)
-b
-plot(b)
-plot(topography)
-hill_shade
-normal_vector
-??terra::rast
-res(topography)
-ext(topography) <- c(482145,482265,5780535,5780655)
-topography
-a<-cast_shadows(topography,SZA,SAA)
-plot(a)
-hs<-hill_shade(topography,SZA,SAA)
-plot(hs)
-ext(topography) <- c(482142,482268,5780532,5780658)
-topography
-ext(topography) <- c(482130,482280,5780520,5780670)
-topography
-topography <- c(#
-    2456.0, 2460.0, 2467.0, 2473.0, 2481.0,#
-    2463.0, 2468.0, 2475.0, 2482.0, 2494.0,#
-    2470.0, 2476.0, 2485.0, 2495.0, 2514.0,#
-    2479.0, 2487.0, 2500.0, 2518.0, 2543.0,#
-    2492.0, 2505.0, 2526.0, 2550.0, 2574.0#
-  ) |>#
-    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
-    terra::rast(extent = c(482130,482280,5780520,5780670))#
-  SZA <- 49#
-  SAA <- 165
-topography
-topography <- c(#
-    2456.0, 2460.0, 2467.0, 2473.0, 2481.0,#
-    2463.0, 2468.0, 2475.0, 2482.0, 2494.0,#
-    2470.0, 2476.0, 2485.0, 2495.0, 2514.0,#
-    2479.0, 2487.0, 2500.0, 2518.0, 2543.0,#
-    2492.0, 2505.0, 2526.0, 2550.0, 2574.0#
-  ) |>#
-    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
-    terra::rast(crs = "+proj=utm +zone=11 +datum=WGS84 +units=m +no_defs +type=crs",#
-      extent = c(482130,482280,5780520,5780670))
-topography
-plot(topography)
-SZA <- 49#
-  SAA <- 165
-a<-cast_shadows(topography, SZA,SAA)
-a
-plot(a)
-b<-hill_shade(topography,SZA,SAA)
-b
-plot(b)
-shadow_removal(topography,SZA,SAA)
-aa<-shadow_removal(topography,SZA,SAA)
-aa
-plot(aas)
-plot(aa)
-aa<-shadow_removal(topography,SZA,SAA, mask = FALSE)
-aa
-plot(aa)
-shadow_removal
-cc<-a*b
-plot(cc)
-values(cc)
-click(cc,n=3)
-with_mask <- c(#
-    1, 1, 1, 1, 1,#
-    1, 1, 1, NA, 1,#
-    1, 1, NA, NA, NA,#
-    1, 1, NA, NA, NA,#
-    1, 1, NA, NA, NA#
-  ) |>#
-    matrix(nrow = 5, ncol = 5, byrow = TRUE) |>#
-    terra::rast(crs = "+proj=utm +zone=11 +datum=WGS84 +units=m +no_defs +type=crs",#
-      extent = c(482130,482280,5780520,5780670))
-with_mask
-plot(with_mask)
-shadow_removal
-test_active_file("./tests/testthat/test-shadow_removal.R")
-test_active_file("./tests/testthat/test-shadow_removal.R")
-test()
-library(stylr)
-library(styler)
-style_dir("./tests/")
-style_dir("./tests/")
-test()
+build_readme()
+build_readme()
+par("mar")
+par("mai")
+library(knitr)
+??opts_chunk
+??opts_knit
+str(knitr::opts_chunk$get())
+str(knitr::opts_knit$get())
+par("mar")
+build_readme()
+par("mar")
+??par
+par
+??grpahics::par
+??graphics::par
+c(5, 4, 4, 2) + 0.1
+q()
 check()
 q()

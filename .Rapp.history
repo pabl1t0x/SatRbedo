@@ -1,3 +1,35 @@
+mod_data <- luna::getNASA(#
+ product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+q()
+library(luna)#
+library(terra)
+product <- "MCD43A1"
+sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
+edate <- "2020-09-16" #Set 'edate' to 8 days before the desired date#
+e <- terra::ext(427035, 509745, 5755275, 5800005)#
+e_new <- terra::project(#
+  e, from = "+proj=utm +zone=11 +ellps=WGS84 +units=m +no_defs +type=crs",#
+  to = "+proj=longlat +datum=WGS84 +no_defs"#
+)#
+datadir <- "/Users/pablo/Documents/PhD/Athabasca/MCD43"#
+usr <- "pablo.fuchs"#
+pwd <- "Pfadfindern02"
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+e_new
+mod_data <- luna::getNASA(#
+  product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
+)
+mod_data
+mod_data <- luna::getNASA(#
+	product = product, start_date = sdate, end_date = edate, aoi = e_new,#
+	download = TRUE, overwrite = TRUE, path = datadir, username = usr, password = pwd#
+)
+q()
+modis_dir <- "./Documents/PhD/Athabasca/MCD43"
 modis_files <- list.files(path = modis_dir, full.names = TRUE)
 modis_files
 modis_data <- terra::sds(modis_files[40])
@@ -490,18 +522,6 @@ library(help=SatRbedo)
 ??albedo_broad
 q()
 library(devtools)
-build_readme()
 proj_activate("./Documents/PhD/SatRbedo/")
-build_readme()
-build_readme()
-build_readme()
-.Last.error
-build_readme()
-.Last.error
-build_readme()
-build_readme()
-build_readme()
-build_readme()
-build_readme()
 build_readme()
 q()

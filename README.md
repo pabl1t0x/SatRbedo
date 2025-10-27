@@ -144,7 +144,7 @@ plot(broadband_albedo[[6]])
 
 <div class="figure">
 
-<img src="./man/figures/example-anisotropy-1.png" alt="Fig. 2 Broadband albedo" width="80%" />
+<img src="man/figures/example-anisotropy-1.png" alt="Fig. 2 Broadband albedo" width="80%" />
 <p class="caption">
 
 Fig. 2 Broadband albedo

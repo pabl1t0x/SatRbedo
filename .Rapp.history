@@ -1,3 +1,9 @@
+modis_files <- list.files(path = modis_dir, full.names = TRUE)
+modis_files
+modis_data <- terra::sds(modis_files[40])
+modis_data
+modis_data[[1]]
+modis_data[[12]]
 library(terra)
 writeRaster(modis_data[[12]],filename="./Documents/PhD/Athabasca/modis.tif")
 768/2
@@ -484,24 +490,18 @@ library(help=SatRbedo)
 ??albedo_broad
 q()
 library(devtools)
+build_readme()
 proj_activate("./Documents/PhD/SatRbedo/")
 build_readme()
 build_readme()
-par("mar")
-par("mai")
-library(knitr)
-??opts_chunk
-??opts_knit
-str(knitr::opts_chunk$get())
-str(knitr::opts_knit$get())
-par("mar")
 build_readme()
-par("mar")
-??par
-par
-??grpahics::par
-??graphics::par
-c(5, 4, 4, 2) + 0.1
-q()
-check()
+.Last.error
+build_readme()
+.Last.error
+build_readme()
+build_readme()
+build_readme()
+build_readme()
+build_readme()
+build_readme()
 q()

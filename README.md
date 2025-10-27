@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- knitr::opts_knit$set(global.par = TRUE) -->
+
 # SatRbedo
 
 <!-- badges: start -->
@@ -56,7 +58,7 @@ corrections, and a narrow-to-broadband albedo conversion (Fig. 1).
 
 <div class="figure">
 
-<img src="./man/figures/workflow.png" alt="Fig. 1 Flowchart of the satellite albedo retrieval workflow" width="90%" />
+<img src="man/figures/workflow.png" alt="Fig. 1 Flowchart of the satellite albedo retrieval workflow" width="100%" />
 <p class="caption">
 
 Fig. 1 Flowchart of the satellite albedo retrieval workflow
@@ -70,9 +72,7 @@ Canada on 11 September 2020.
 
 **Step 1: Load the data for the area of interest**
 
-``` r
-par(mar=c(1,1,1,1))
-```
+<!-- par(mar=c(1,1,1,1)) -->
 
 ``` r
 # Load the packages
@@ -144,7 +144,7 @@ plot(broadband_albedo[[6]])
 
 <div class="figure">
 
-<img src="./man/figures/example-anisotropy-1.png" alt="Fig. 2 Broadband albedo" width="90%" />
+<img src="./man/figures/example-anisotropy-1.png" alt="Fig. 2 Broadband albedo" width="100%" />
 <p class="caption">
 
 Fig. 2 Broadband albedo

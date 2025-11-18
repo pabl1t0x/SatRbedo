@@ -1,4 +1,37 @@
 url: https://pabl1t0x.github.io/SatRbedo/
 template:
   bootstrap: 5
+reference:
+- title: "Preprocessing"
+  desc: >
+    Functions for satellite data preprocessing
+  contents: 
+  - cfactor_BRDF
+  - preproc
+- title: "Topographic correction"
+  desc: >
+    Functions for correcting surface reflectance for the effects of topography
+  contents: 
+  - cast_shadows
+  - hill_shade
+  - shadow_removal
+  - topo_corr
+  - topo_splot
+- title: "Anisotropic correction"
+  desc: >
+    Functions for calculating the anisotropic reflection factors for different spectral
+    bands and surface types (snow or ice)
+  contents: 
+  - f_BRDF
+  - NDSII_hist
+  - snow_or_ice
+- title: "Narrow-to-broadband albedo conversion"
+  desc: >
+    Functions for calculating narrowband and broadband albedo from topographically-corrected
+    surface reflectance
+  contents: 
+  - albedo_Feng
+  - albedo_Knap
+  - albedo_Liang
+  - albedo_sat
 

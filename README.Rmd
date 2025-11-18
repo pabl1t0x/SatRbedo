@@ -40,11 +40,13 @@ The package includes tools for:
 
 ## Installation
 
-You can install the development version of SatRbedo from [GitHub](https://github.com/pabl1t0x/SatRbedo) with:
+You can install `SatRbedo` with:
+
+<!-- # install.packages("devtools") -->
+<!-- devtools::install_github("pabl1t0x/SatRbedo") -->
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("pabl1t0x/SatRbedo")
+install.packages('SatRbedo', repos = c('https://pabl1t0x.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Getting Started

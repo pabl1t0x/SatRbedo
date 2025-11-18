@@ -1,9 +1,3 @@
-mod_data <- luna::getNASA(#
- product = product, start_date = sdate, end_date = edate, aoi = e_new, download = FALSE#
-)
-q()
-library(luna)#
-library(terra)
 product <- "MCD43A1"
 sdate <- "2020-09-16" #Set 'sdate' to 7 days after the desired date#
 edate <- "2020-09-16" #Set 'edate' to 8 days before the desired date#
@@ -521,7 +515,10 @@ library(help=SatRbedo)
 ??f_BRDF
 ??albedo_broad
 q()
+library()
+library(insol)
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
-build_readme()
+check()
+test()
 q()

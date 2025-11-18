@@ -31,9 +31,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="preprocessing">Preprocessing<a class="anchor" aria-label="anchor" href="#preprocessing"></a></h2>
 
-
+      <div class="section-desc"><p>Functions for satellite data preprocessing</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -42,34 +42,6 @@
 
       <dl><dt>
 
-          <code><a href="NDSII_hist.html">NDSII_hist()</a></code>
-
-        </dt>
-        <dd>NDSII histogram</dd>
-
-        <dt>
-
-          <code><a href="albedo_broad.html">albedo_Knap()</a></code> <code><a href="albedo_broad.html">albedo_Liang()</a></code> <code><a href="albedo_broad.html">albedo_Feng()</a></code>
-
-        </dt>
-        <dd>Narrow-to-broadband albedo conversion</dd>
-
-        <dt>
-
-          <code><a href="albedo_sat.html">albedo_sat()</a></code>
-
-        </dt>
-        <dd>Satellite albedo retrieval</dd>
-
-        <dt>
-
-          <code><a href="cast_shadows.html">cast_shadows()</a></code>
-
-        </dt>
-        <dd>Cast shadows</dd>
-
-        <dt>
-
           <code><a href="cfactor_BRDF.html">cfactor_BRDF()</a></code>
 
         </dt>
@@ -77,10 +49,26 @@
 
         <dt>
 
-          <code><a href="f_BRDF.html">f_BRDF()</a></code>
+          <code><a href="preproc.html">preproc()</a></code>
 
         </dt>
-        <dd>Anisotropy correction of reflected radiation over melting snow and glacier ice</dd>
+        <dd>Satellite data pre-processing</dd>
+      </dl></div><div class="section level2">
+      <h2 id="topographic-correction">Topographic correction<a class="anchor" aria-label="anchor" href="#topographic-correction"></a></h2>
+
+      <div class="section-desc"><p>Functions for correcting surface reflectance for the effects of topography</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="cast_shadows.html">cast_shadows()</a></code>
+
+        </dt>
+        <dd>Cast shadows</dd>
 
         <dt>
 
@@ -91,24 +79,10 @@
 
         <dt>
 
-          <code><a href="preproc.html">preproc()</a></code>
-
-        </dt>
-        <dd>Satellite data pre-processing</dd>
-
-        <dt>
-
           <code><a href="shadow_removal.html">shadow_removal()</a></code>
 
         </dt>
         <dd>Topographic shadows</dd>
-
-        <dt>
-
-          <code><a href="snow_or_ice.html">snow_or_ice()</a></code>
-
-        </dt>
-        <dd>Automatic discrimination of snow and ice cover types</dd>
 
         <dt>
 
@@ -123,8 +97,62 @@
 
         </dt>
         <dd>Reflectance-IC scatterplot</dd>
+      </dl></div><div class="section level2">
+      <h2 id="anisotropic-correction">Anisotropic correction<a class="anchor" aria-label="anchor" href="#anisotropic-correction"></a></h2>
+
+      <div class="section-desc"><p>Functions for calculating the anisotropic reflection factors for different spectral bands and surface types (snow or ice)</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="f_BRDF.html">f_BRDF()</a></code>
+
+        </dt>
+        <dd>Anisotropy correction of reflected radiation over melting snow and glacier ice</dd>
+
+        <dt>
+
+          <code><a href="NDSII_hist.html">NDSII_hist()</a></code>
+
+        </dt>
+        <dd>NDSII histogram</dd>
+
+        <dt>
+
+          <code><a href="snow_or_ice.html">snow_or_ice()</a></code>
+
+        </dt>
+        <dd>Automatic discrimination of snow and ice cover types</dd>
+      </dl></div><div class="section level2">
+      <h2 id="narrow-to-broadband-albedo-conversion">Narrow-to-broadband albedo conversion<a class="anchor" aria-label="anchor" href="#narrow-to-broadband-albedo-conversion"></a></h2>
+
+      <div class="section-desc"><p>Functions for calculating narrowband and broadband albedo from topographically-corrected surface reflectance</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="albedo_broad.html">albedo_Knap()</a></code> <code><a href="albedo_broad.html">albedo_Liang()</a></code> <code><a href="albedo_broad.html">albedo_Feng()</a></code>
+
+        </dt>
+        <dd>Narrow-to-broadband albedo conversion</dd>
+
+        <dt>
+
+          <code><a href="albedo_sat.html">albedo_sat()</a></code>
+
+        </dt>
+        <dd>Satellite albedo retrieval</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

@@ -1,0 +1,187 @@
+# SatRbedo
+
+The `SatRbedo` package consists of a set of tools for retrieving snow
+and ice albedo from optical satellite imagery (e.g.,
+[Landsat](https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance)
+and
+[Sentinel-2](https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2)).
+`SatRbedo` functions require the following datasets:
+
+- Atmospherically corrected surface reflectance (gridded).
+- Satellite ($\varphi_{v}$, $\theta_{v}$) and solar ($\varphi_{s}$,
+  $\theta_{s}$) azimuth and zenith angles (numeric or gridded).
+- A digital elevation model (DEM) (gridded).
+- An outline of the area of interest (shapefile).
+
+The package includes tools for:
+
+- Image pre-processing: crop grids to a specified extent, project grids
+  with different coordinate systems, and convert data from integer to
+  floating point.
+- Convert nadir satellite observations to off-nadir values using
+  view-angle corrections.
+- Detect and mask topographic shadows.
+- Automatic discrimination of snow and ice surfaces.
+- Anisotropic correction of reflected radiation of glacier snow and ice
+  using empirical parameterizations of the bidirectional reflectance
+  distribution function (BRDF).
+- Topographic correction.
+- Narrow-to-broadband albedo conversion.
+
+## Installation
+
+You can install `SatRbedo` with:
+
+``` r
+install.packages('SatRbedo', repos = c('https://pabl1t0x.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+## Getting Started
+
+Snow and ice albedo retrieval from satellite imagery is a four-step
+workflow that includes image pre-processing, topographic and anisotropic
+corrections, and a narrow-to-broadband albedo conversion (Fig. 1).
+
+![Fig. 1 Flowchart of the satellite albedo retrieval
+workflow](reference/figures/workflow.png)
+
+Fig. 1 Flowchart of the satellite albedo retrieval workflow
+
+The following example shows how to estimate albedo using surface
+reflectance data from five spectral bands at the Athabasca Glacier in
+Canada on 11 September 2020.
+
+**Step 1: Load the data for the area of interest**
+
+``` r
+# Load the packages
+library(SatRbedo)
+library(terra)
+#> terra 1.8.70
+
+# Load the raw Sentinel-2 surface reflectance data
+# Note: each spectral band was previously cut out to the extent of the area of interest and renamed
+blue_SR <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo") # blue band surface reflectance
+green_SR <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo") # green band surface reflectance
+red_SR <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo") # red band surface reflectance
+NIR_SR <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo") # near-infrared band surface reflectance
+SWIR1_SR <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo") # shortwave-infrared band 1 surface reflectance
+SWIR2_SR <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo") # shortwave-infrared band 2 surface reflectance
+
+# Load the DEM and the outline
+# Note: the DEM was re-projected to the extent of the area of interest
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
+```
+
+**Step 2: Data pre-processing**
+
+``` r
+# Transform the input data to SpatRaster and crop to the area of interest
+dem <- terra::rast(dem)
+blue <- preproc(grd = blue_SR, outline = outline)
+green <- preproc(grd = green_SR, outline = outline)
+red <- preproc(grd = red_SR, outline = outline)
+nir <- preproc(grd = NIR_SR, outline = outline)
+swir1 <- preproc(grd = SWIR1_SR, outline = outline)
+swir2 <- preproc(grd = SWIR2_SR, outline = outline)
+```
+
+**Step 3: Topographic correction**
+
+``` r
+SAA <- 164.8 # solar azimuth angle
+SZA <- 48.9 # solar zenith angle
+blue_corr <- topo_corr(blue, dem, SAA, SZA)
+green_corr <- topo_corr(green, dem, SAA, SZA)
+red_corr <- topo_corr(red, dem, SAA, SZA)
+nir_corr <- topo_corr(nir, dem, SAA, SZA)
+swir1_corr <- topo_corr(swir1, dem, SAA, SZA)
+swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
+```
+
+**Step 4: Estimation of broadband albedo after anisotropic correction**
+
+``` r
+SAA <- 164.8 # solar azimuth angle
+SZA <- 48.9 # solar zenith angle
+VAA <- 90.9 # view azimuth angle
+VZA <- 5.2 # view zenith angle
+slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")
+aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
+threshold <- snow_or_ice(green, nir)$th # threshold used to discriminate between snow and ice
+broadband_albedo <- albedo_sat(
+  SAA, SZA, VAA, VZA,
+  slope, aspect, method = "fivebands",
+  blue = blue_corr$bands[[2]], green = green_corr$bands[[2]], red = red_corr$bands[[2]],
+  NIR = nir_corr$bands[[2]], SWIR1 = swir1_corr$bands[[2]], SWIR2 = swir2_corr$bands[[2]],
+  th = threshold
+)
+# Plot the results
+plot(broadband_albedo[[6]])
+```
+
+![Fig. 2 Broadband albedo](reference/figures/example-anisotropy-1.png)
+
+Fig. 2 Broadband albedo
+
+## Contributing
+
+All contributions are welcomed. See our [Contributing
+Guidelines](https://pabl1t0x.github.io/SatRbedo/CONTRIBUTING.md) for
+more details.
+
+## Citing
+
+Please cite `SatRbedo` using:
+
+``` R
+@Manual{,
+  title = {SatRbedo: An R package for retrieving snow and ice albedo from optical satellite imagery},
+  author = {Pablo Fuchs and Ruzica Dadic and Shelley MacDonell and Heather Purdie and Brian Anderson and Marwan Katurji},
+  year = {2025},
+  note = {R package version 1.0},
+  url = {https://github.com/pabl1t0x/SatRbedo},
+}
+```
+
+## License
+
+This project is licensed under the terms of the GNU General Public
+License v3.0. See [LICENSE](https://pabl1t0x.github.io/LICENSE.md) for
+more details.
+
+![](https://www.gnu.org/graphics/gplv3-127x51.png)
+
+# Package index
+
+## All functions
+
+- [`NDSII_hist()`](https://pabl1t0x.github.io/SatRbedo/reference/NDSII_hist.md)
+  : NDSII histogram
+- [`albedo_Knap()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md)
+  [`albedo_Liang()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md)
+  [`albedo_Feng()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md)
+  : Narrow-to-broadband albedo conversion
+- [`albedo_sat()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_sat.md)
+  : Satellite albedo retrieval
+- [`cast_shadows()`](https://pabl1t0x.github.io/SatRbedo/reference/cast_shadows.md)
+  : Cast shadows
+- [`cfactor_BRDF()`](https://pabl1t0x.github.io/SatRbedo/reference/cfactor_BRDF.md)
+  : c-factor BRDF normalization
+- [`f_BRDF()`](https://pabl1t0x.github.io/SatRbedo/reference/f_BRDF.md)
+  : Anisotropy correction of reflected radiation over melting snow and
+  glacier ice
+- [`hill_shade()`](https://pabl1t0x.github.io/SatRbedo/reference/hill_shade.md)
+  : Topographic hillshading
+- [`preproc()`](https://pabl1t0x.github.io/SatRbedo/reference/preproc.md)
+  : Satellite data pre-processing
+- [`shadow_removal()`](https://pabl1t0x.github.io/SatRbedo/reference/shadow_removal.md)
+  : Topographic shadows
+- [`snow_or_ice()`](https://pabl1t0x.github.io/SatRbedo/reference/snow_or_ice.md)
+  : Automatic discrimination of snow and ice cover types
+- [`topo_corr()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_corr.md)
+  : Topographic correction
+- [`topo_splot()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_splot.md)
+  : Reflectance-IC scatterplot
+

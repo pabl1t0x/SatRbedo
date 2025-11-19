@@ -34,4 +34,10 @@ reference:
   - albedo_Knap
   - albedo_Liang
   - albedo_sat
+navbar:
+  components:
+    reference:
+      text: Functions
+    news:
+      text: News
 

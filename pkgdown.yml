@@ -1,8 +1,9 @@
 pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
-articles: {}
-last_built: 2025-11-21T14:23Z
+articles:
+  SatRbedo: SatRbedo.html
+last_built: 2025-11-25T14:23Z
 urls:
   reference: https://pabl1t0x.github.io/SatRbedo/reference
   article: https://pabl1t0x.github.io/SatRbedo/articles

@@ -1,44 +1,3 @@
-q()
-7489.46-3497.86
-3991.6*0.7
-3991.6*0.6
-q()
-library(SatRbedo)
-??shadow_removal
-??topo_corr
-??albedo_sat
-f_BRDF
-library()
-library(SatRbedo)
-??albedo_sat
-??snow_or_ice
-??cfactor_BRDF
-??topo_corr
-??albedo_sat
-q()
-library(SatRbedo)
-??albedo_sat
-q()
-library(stringr)#
-library(terra)#
-library(xml2)#
-library(XML)#
-library(SatRbedo)#
-library(doParallel)
-files <- list.files(path = "./Documents/PhD/Tasman2/L30/2018/59/G/M/M/HLS.L30.T59GMM.2018193T221908.v2.0", full.names = TRUE)
-files
-metadata <- stringr::str_subset(files, "xml")
-metadata
-md <- xml2::read_xml(metadata)
-md
-date_f <- stringr::str_sub(#
-  xml2::xml_text(xml2::xml_find_all(md, "//BeginningDateTime")), 1, 10#
-)
-date_f
-sensor <- stringr::str_sub(#
-  xml2::xml_text(xml2::xml_find_all(md, "//GranuleUR")), 5, 7#
-)
-sensor
 NSZA <- xml2::xml_double(xml2::xml_find_all(md,#
   "/Granule/AdditionalAttributes/AdditionalAttribute[24]/Values/Value"))
 NSZA
@@ -434,8 +393,40 @@ q()
 q()
 ??person
 person
+library()
+remove.packages("SatRbedo")
+library()
+library(SatRbedo)
+install.packages('SatRbedo', repos = c('https://pabl1t0x.r-universe.dev', 'https://cloud.r-project.org'))
+library()
+library(help=SatRbedo)
+library(SatRbedo)
+q()
+library()
+library(SatRbedo)
+library(terra)
+update.packages()
+library()
+library(help=terra)
+library(help=SatRbedo)
+q()
+library(pkgdown)
+library(help=pkgdown)
+??check_pkgdown
+check_pkgdown("./Documents/PhD/SatRbedo/")
+library(SatRbedo)
+??topo_corr
+??f_BRDF
+??albedo_sat
+check_pkgdown("./Documents/PhD/SatRbedo/")
+check_pkgdown("./Documents/PhD/SatRbedo/")
+check_pkgdown("./Documents/PhD/SatRbedo/")
+build_reference_index("./Documents/PhD/SatRbedo/")
+build_reference("./Documents/PhD/SatRbedo/")
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
-??install.packages
-build_readme()
+usethis::use_news_md()
+check_pkgdown("./Documents/PhD/SatRbedo/")
+check_pkgdown(".")
+build_news(".",preview=TRUE)
 q()

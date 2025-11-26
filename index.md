@@ -1,11 +1,18 @@
 # SatRbedo
 
-The `SatRbedo` package consists of a set of tools for retrieving snow
-and ice albedo from optical satellite imagery (e.g.,
+Albedo is a key parameter that controls the energy exchange between the
+atmosphere and snow or ice surfaces, playing a crucial role in
+estimating glacier melt and mass balance. While commonly measured in the
+field with pyranometers, these instruments have limited spatial coverage
+due to their footprint. Therefore, remote sensing offers the best option
+for deriving snow and ice albedo data and analysing its spatial and
+temporal variability. `SatRbedo` is an extensible, well-documented
+package for retrieving snow and ice albedo from optical satellite
+images, such as
 [Landsat](https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance)
 and
-[Sentinel-2](https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2)).
-`SatRbedo` functions require the following datasets:
+[Sentinel-2](https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2).
+It requires the following input datasets:
 
 - Atmospherically corrected surface reflectance (gridded).
 - Satellite ($\varphi_{v}$, $\theta_{v}$) and solar ($\varphi_{s}$,
@@ -13,48 +20,45 @@ and
 - A digital elevation model (DEM) (gridded).
 - An outline of the area of interest (shapefile).
 
-The package includes the following functions:
+The `SatRbedo` package has been designed for researchers, consultants,
+and individuals interested in exploring changes in snow and ice albedo.
+It includes the following functions:
 
-- [`preproc()`](https://pabl1t0x.github.io/SatRbedo/reference/preproc.md):
-  Image pre-processing, including crop grids to a specified extent,
-  project grids with different coordinate systems, and convert data from
-  integer to floating point.
-
-- `cfactor_BRDF`: Convert nadir satellite observations to off-nadir
+- [`preproc()`](https://pabl1t0x.github.io/SatRbedo/reference/preproc.md)
+  provides tools for image pre-processing, including cropping grids to a
+  specified extent, projecting grids with different coordinate systems,
+  and converting data from integer to floating point.
+- `cfactor_BRDF` converts nadir satellite observations to off-nadir
   values using view-angle corrections.
-
 - [`cast_shadows()`](https://pabl1t0x.github.io/SatRbedo/reference/cast_shadows.md),
   [`hill_shade()`](https://pabl1t0x.github.io/SatRbedo/reference/hill_shade.md),
   and
-  [`shadow_removal()`](https://pabl1t0x.github.io/SatRbedo/reference/shadow_removal.md):
-  Detect and mask topographic shadows.
-
-- [`topo_corr()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_corr.md),
+  [`shadow_removal()`](https://pabl1t0x.github.io/SatRbedo/reference/shadow_removal.md)
+  detect and mask topographic shadows.
+- [`topo_corr()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_corr.md)
   and
-  [`topo_splot()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_splot.md):
-  Topographic correction.
-
+  [`topo_splot()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_splot.md)
+  provide tools to correct surface reflectance for the effects of
+  topography and to visualise the dependency of surface reflectance on
+  the illumination condition.
 - [`snow_or_ice()`](https://pabl1t0x.github.io/SatRbedo/reference/snow_or_ice.md),
   and
-  [`NDSII_hist()`](https://pabl1t0x.github.io/SatRbedo/reference/NDSII_hist.md):
-  Automatic discrimination of snow and ice surfaces.
-
-- [`f_BRDF()`](https://pabl1t0x.github.io/SatRbedo/reference/f_BRDF.md):
-  Anisotropic correction of reflected radiation of glacier snow and ice
-  using empirical parameterizations of the bidirectional reflectance
-  distribution function (BRDF).
-
-- [`albedo_sat()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_sat.md):
-  This function calculates narrowband and broadband albedo from surface
-  reflectance data. The albedo retrieval methods include corrections for
-  the anisotropic behavior of the reflected radiation field over snow
-  and ice, and narrow-to-broadband albedo conversion algorithms.
-
+  [`NDSII_hist()`](https://pabl1t0x.github.io/SatRbedo/reference/NDSII_hist.md)
+  are used for the automatic discrimination of snow and ice surfaces.
+- [`f_BRDF()`](https://pabl1t0x.github.io/SatRbedo/reference/f_BRDF.md)
+  performs the anisotropic correction of reflected radiation of glacier
+  snow and ice using empirical parameterisations of the bidirectional
+  reflectance distribution function (BRDF).
+- [`albedo_sat()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_sat.md)
+  calculates narrowband and broadband albedo from surface reflectance
+  data. The albedo retrieval methods include corrections for the
+  anisotropic behaviour of the reflected radiation field over snow and
+  ice, as well as narrow-to-broadband albedo conversion algorithms.
 - [`albedo_Knap()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md),
   [`albedo_Feng()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md),
   and
-  [`albedo_Liang()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md):
-  Narrow-to-broadband albedo conversion.
+  [`albedo_Liang()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md)
+  convert narrowband to broadband albedo.
 
 ## Installation
 

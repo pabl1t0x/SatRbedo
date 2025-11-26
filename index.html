@@ -52,23 +52,31 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The <code>SatRbedo</code> package consists of a set of tools for retrieving snow and ice albedo from optical satellite imagery (e.g., <a href="https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance" class="external-link">Landsat</a> and <a href="https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2" class="external-link">Sentinel-2</a>). <code>SatRbedo</code> functions require the following datasets:</p>
+<p>Albedo is a key parameter that controls the energy exchange between the atmosphere and snow or ice surfaces, playing a crucial role in estimating glacier melt and mass balance. While commonly measured in the field with pyranometers, these instruments have limited spatial coverage due to their footprint. Therefore, remote sensing offers the best option for deriving snow and ice albedo data and analysing its spatial and temporal variability. <code>SatRbedo</code> is an extensible, well-documented package for retrieving snow and ice albedo from optical satellite images, such as <a href="https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance" class="external-link">Landsat</a> and <a href="https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2" class="external-link">Sentinel-2</a>. It requires the following input datasets:</p>
 <ul>
 <li>Atmospherically corrected surface reflectance (gridded).</li>
 <li>Satellite (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>φ</mi><mi>v</mi></msub><annotation encoding="application/x-tex">\varphi_v</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>v</mi></msub><annotation encoding="application/x-tex">\theta_v</annotation></semantics></math>) and solar (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>φ</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\varphi_s</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\theta_s</annotation></semantics></math>) azimuth and zenith angles (numeric or gridded).</li>
 <li>A digital elevation model (DEM) (gridded).</li>
 <li>An outline of the area of interest (shapefile).</li>
 </ul>
-<p>The package includes the following functions:</p>
+<p>The <code>SatRbedo</code> package has been designed for researchers, consultants, and individuals interested in exploring changes in snow and ice albedo. It includes the following functions:</p>
 <ul>
-<li><p><code><a href="reference/preproc.html">preproc()</a></code>: Image pre-processing, including crop grids to a specified extent, project grids with different coordinate systems, and convert data from integer to floating point.</p></li>
-<li><p><code>cfactor_BRDF</code>: Convert nadir satellite observations to off-nadir values using view-angle corrections.</p></li>
-<li><p><code><a href="reference/cast_shadows.html">cast_shadows()</a></code>, <code><a href="reference/hill_shade.html">hill_shade()</a></code>, and <code><a href="reference/shadow_removal.html">shadow_removal()</a></code>: Detect and mask topographic shadows.</p></li>
-<li><p><code><a href="reference/topo_corr.html">topo_corr()</a></code>, and <code><a href="reference/topo_splot.html">topo_splot()</a></code>: Topographic correction.</p></li>
-<li><p><code><a href="reference/snow_or_ice.html">snow_or_ice()</a></code>, and <code><a href="reference/NDSII_hist.html">NDSII_hist()</a></code>: Automatic discrimination of snow and ice surfaces.</p></li>
-<li><p><code><a href="reference/f_BRDF.html">f_BRDF()</a></code>: Anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterizations of the bidirectional reflectance distribution function (BRDF).</p></li>
-<li><p><code><a href="reference/albedo_sat.html">albedo_sat()</a></code>: This function calculates narrowband and broadband albedo from surface reflectance data. The albedo retrieval methods include corrections for the anisotropic behavior of the reflected radiation field over snow and ice, and narrow-to-broadband albedo conversion algorithms.</p></li>
-<li><p><code><a href="reference/albedo_broad.html">albedo_Knap()</a></code>, <code><a href="reference/albedo_broad.html">albedo_Feng()</a></code>, and <code><a href="reference/albedo_broad.html">albedo_Liang()</a></code>: Narrow-to-broadband albedo conversion.</p></li>
+<li>
+<code><a href="reference/preproc.html">preproc()</a></code> provides tools for image pre-processing, including cropping grids to a specified extent, projecting grids with different coordinate systems, and converting data from integer to floating point.</li>
+<li>
+<code>cfactor_BRDF</code> converts nadir satellite observations to off-nadir values using view-angle corrections.</li>
+<li>
+<code><a href="reference/cast_shadows.html">cast_shadows()</a></code>, <code><a href="reference/hill_shade.html">hill_shade()</a></code>, and <code><a href="reference/shadow_removal.html">shadow_removal()</a></code> detect and mask topographic shadows.</li>
+<li>
+<code><a href="reference/topo_corr.html">topo_corr()</a></code> and <code><a href="reference/topo_splot.html">topo_splot()</a></code> provide tools to correct surface reflectance for the effects of topography and to visualise the dependency of surface reflectance on the illumination condition.</li>
+<li>
+<code><a href="reference/snow_or_ice.html">snow_or_ice()</a></code>, and <code><a href="reference/NDSII_hist.html">NDSII_hist()</a></code> are used for the automatic discrimination of snow and ice surfaces.</li>
+<li>
+<code><a href="reference/f_BRDF.html">f_BRDF()</a></code> performs the anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterisations of the bidirectional reflectance distribution function (BRDF).</li>
+<li>
+<code><a href="reference/albedo_sat.html">albedo_sat()</a></code> calculates narrowband and broadband albedo from surface reflectance data. The albedo retrieval methods include corrections for the anisotropic behaviour of the reflected radiation field over snow and ice, as well as narrow-to-broadband albedo conversion algorithms.</li>
+<li>
+<code><a href="reference/albedo_broad.html">albedo_Knap()</a></code>, <code><a href="reference/albedo_broad.html">albedo_Feng()</a></code>, and <code><a href="reference/albedo_broad.html">albedo_Liang()</a></code> convert narrowband to broadband albedo.</li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>

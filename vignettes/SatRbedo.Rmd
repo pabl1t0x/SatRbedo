@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(SatRbedo)
+library(terra)
 ```
 
  This document aims to introduce the users to the basic functionality of `SatRbedo`. Here we use
@@ -25,11 +26,7 @@ library(SatRbedo)
 
 <!-- par(mar=c(1,1,1,1)) -->
 
-```{r example-load}
-# Load the packages
-library(SatRbedo)
-library(terra)
-
+```{r example-load, tidy = 'styler'}
 # Load the raw Sentinel-2 surface reflectance data
 # Note: each spectral band was previously cut out to the extent of the area of interest and renamed
 blue_SR <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo") # blue band surface reflectance
@@ -47,7 +44,7 @@ outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 
 **Step 2: Data pre-processing**
 
-```{r example-preprocessing}
+```{r example-preprocessing, tidy = 'styler'}
 # Transform the input data to SpatRaster and crop to the area of interest
 dem <- terra::rast(dem)
 blue <- preproc(grd = blue_SR, outline = outline)
@@ -60,7 +57,7 @@ swir2 <- preproc(grd = SWIR2_SR, outline = outline)
 
 **Step 3: Topographic correction**
 
-```{r example-topography}
+```{r example-topography, tidy = 'styler'}
 SAA <- 164.8 # solar azimuth angle
 SZA <- 48.9 # solar zenith angle
 blue_corr <- topo_corr(blue, dem, SAA, SZA)
@@ -73,7 +70,7 @@ swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
 
 **Step 4: Estimation of broadband albedo after anisotropic correction**
 
-```{r example-anisotropy, fig.dim = c(5, 5), fig.cap = "Fig. 2 Broadband albedo"}
+```{r example-anisotropy, tidy = 'styler', fig.dim = c(5, 5), fig.cap = "Broadband albedo"}
 SAA <- 164.8 # solar azimuth angle
 SZA <- 48.9 # solar zenith angle
 VAA <- 90.9 # view azimuth angle
@@ -92,7 +89,7 @@ broadband_albedo <- albedo_sat(
 plot(broadband_albedo[[6]])
 ```
 
-Where to go next?
+# Where to go next?
 
-You can check function documentation [here] and a more elaborate example using Landsat data [here].
+You can check function documentation here and a more elaborate example using Landsat data here.
 

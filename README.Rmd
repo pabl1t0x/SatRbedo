@@ -28,15 +28,18 @@ The `SatRbedo` package consists of a set of tools for retrieving snow and ice al
 - A digital elevation model (DEM) (gridded).
 - An outline of the area of interest (shapefile).
 
-The package includes tools for: 
+The package includes the following functions: 
 
-- Image pre-processing: crop grids to a specified extent, project grids with different coordinate systems, and convert data from integer to floating point.
-- Convert nadir satellite observations to off-nadir values using view-angle corrections.
-- Detect and mask topographic shadows.
-- Automatic discrimination of snow and ice surfaces.
-- Anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterizations of the bidirectional reflectance distribution function (BRDF).
-- Topographic correction.
-- Narrow-to-broadband albedo conversion.
+- `preproc()`: Image pre-processing, including crop grids to a specified extent, project grids with different coordinate systems, and convert data from integer to floating point.
+- `cfactor_BRDF`: Convert nadir satellite observations to off-nadir values using view-angle corrections.
+- `cast_shadows()`, `hill_shade()`, and `shadow_removal()`: Detect and mask topographic shadows.
+- `topo_corr()`, and `topo_splot()`: Topographic correction.
+- `snow_or_ice()`, and `NDSII_hist()`: Automatic discrimination of snow and ice surfaces.
+- `f_BRDF()`: Anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterizations of the bidirectional reflectance distribution function (BRDF).
+- `albedo_sat()`: This function calculates narrowband and broadband albedo from surface reflectance data. The albedo retrieval methods include corrections for the anisotropic behavior of the reflected radiation field over snow and ice, and narrow-to-broadband albedo conversion algorithms.
+
+
+- `albedo_Knap()`, `albedo_Feng()`, and `albedo_Liang()`: Narrow-to-broadband albedo conversion.
 
 ## Installation
 

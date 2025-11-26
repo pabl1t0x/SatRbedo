@@ -1,14 +1,3 @@
-# install.packages("devtools")#
-devtools::install_github("pabl1t0x/SatRbedo")
-library(EBImage)
-library(SatRbedo)
-q()
-library(covr)
-package_coverage("./Documents/PhD/SatRbedo/")
-package_coverage("./Documents/PhD/SatRbedo/", quiet=FALSE)
-sessionInfo()
-q()
-library(covr)
 package_coverage("./Documents/PhD/SatRbedo/")
 q()
 citation("terra")
@@ -424,7 +413,17 @@ shadow_removal
 q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
-load_all()
+?topo_splot
+library(SatRbedo)
+?topo_splot
+?topo_corr
+?topo_splot
+?topo_corr
+?topo_splot
+build_vignettes()
+build_readme()
+build_readme()
+build_readme()
+build_readme()
 check()
-install()
 q()

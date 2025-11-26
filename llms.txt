@@ -13,20 +13,48 @@ and
 - A digital elevation model (DEM) (gridded).
 - An outline of the area of interest (shapefile).
 
-The package includes tools for:
+The package includes the following functions:
 
-- Image pre-processing: crop grids to a specified extent, project grids
-  with different coordinate systems, and convert data from integer to
-  floating point.
-- Convert nadir satellite observations to off-nadir values using
-  view-angle corrections.
-- Detect and mask topographic shadows.
-- Automatic discrimination of snow and ice surfaces.
-- Anisotropic correction of reflected radiation of glacier snow and ice
+- [`preproc()`](https://pabl1t0x.github.io/SatRbedo/reference/preproc.md):
+  Image pre-processing, including crop grids to a specified extent,
+  project grids with different coordinate systems, and convert data from
+  integer to floating point.
+
+- `cfactor_BRDF`: Convert nadir satellite observations to off-nadir
+  values using view-angle corrections.
+
+- [`cast_shadows()`](https://pabl1t0x.github.io/SatRbedo/reference/cast_shadows.md),
+  [`hill_shade()`](https://pabl1t0x.github.io/SatRbedo/reference/hill_shade.md),
+  and
+  [`shadow_removal()`](https://pabl1t0x.github.io/SatRbedo/reference/shadow_removal.md):
+  Detect and mask topographic shadows.
+
+- [`topo_corr()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_corr.md),
+  and
+  [`topo_splot()`](https://pabl1t0x.github.io/SatRbedo/reference/topo_splot.md):
+  Topographic correction.
+
+- [`snow_or_ice()`](https://pabl1t0x.github.io/SatRbedo/reference/snow_or_ice.md),
+  and
+  [`NDSII_hist()`](https://pabl1t0x.github.io/SatRbedo/reference/NDSII_hist.md):
+  Automatic discrimination of snow and ice surfaces.
+
+- [`f_BRDF()`](https://pabl1t0x.github.io/SatRbedo/reference/f_BRDF.md):
+  Anisotropic correction of reflected radiation of glacier snow and ice
   using empirical parameterizations of the bidirectional reflectance
   distribution function (BRDF).
-- Topographic correction.
-- Narrow-to-broadband albedo conversion.
+
+- [`albedo_sat()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_sat.md):
+  This function calculates narrowband and broadband albedo from surface
+  reflectance data. The albedo retrieval methods include corrections for
+  the anisotropic behavior of the reflected radiation field over snow
+  and ice, and narrow-to-broadband albedo conversion algorithms.
+
+- [`albedo_Knap()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md),
+  [`albedo_Feng()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md),
+  and
+  [`albedo_Liang()`](https://pabl1t0x.github.io/SatRbedo/reference/albedo_broad.md):
+  Narrow-to-broadband albedo conversion.
 
 ## Installation
 

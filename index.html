@@ -59,15 +59,16 @@
 <li>A digital elevation model (DEM) (gridded).</li>
 <li>An outline of the area of interest (shapefile).</li>
 </ul>
-<p>The package includes tools for:</p>
+<p>The package includes the following functions:</p>
 <ul>
-<li>Image pre-processing: crop grids to a specified extent, project grids with different coordinate systems, and convert data from integer to floating point.</li>
-<li>Convert nadir satellite observations to off-nadir values using view-angle corrections.</li>
-<li>Detect and mask topographic shadows.</li>
-<li>Automatic discrimination of snow and ice surfaces.</li>
-<li>Anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterizations of the bidirectional reflectance distribution function (BRDF).</li>
-<li>Topographic correction.</li>
-<li>Narrow-to-broadband albedo conversion.</li>
+<li><p><code><a href="reference/preproc.html">preproc()</a></code>: Image pre-processing, including crop grids to a specified extent, project grids with different coordinate systems, and convert data from integer to floating point.</p></li>
+<li><p><code>cfactor_BRDF</code>: Convert nadir satellite observations to off-nadir values using view-angle corrections.</p></li>
+<li><p><code><a href="reference/cast_shadows.html">cast_shadows()</a></code>, <code><a href="reference/hill_shade.html">hill_shade()</a></code>, and <code><a href="reference/shadow_removal.html">shadow_removal()</a></code>: Detect and mask topographic shadows.</p></li>
+<li><p><code><a href="reference/topo_corr.html">topo_corr()</a></code>, and <code><a href="reference/topo_splot.html">topo_splot()</a></code>: Topographic correction.</p></li>
+<li><p><code><a href="reference/snow_or_ice.html">snow_or_ice()</a></code>, and <code><a href="reference/NDSII_hist.html">NDSII_hist()</a></code>: Automatic discrimination of snow and ice surfaces.</p></li>
+<li><p><code><a href="reference/f_BRDF.html">f_BRDF()</a></code>: Anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterizations of the bidirectional reflectance distribution function (BRDF).</p></li>
+<li><p><code><a href="reference/albedo_sat.html">albedo_sat()</a></code>: This function calculates narrowband and broadband albedo from surface reflectance data. The albedo retrieval methods include corrections for the anisotropic behavior of the reflected radiation field over snow and ice, and narrow-to-broadband albedo conversion algorithms.</p></li>
+<li><p><code><a href="reference/albedo_broad.html">albedo_Knap()</a></code>, <code><a href="reference/albedo_broad.html">albedo_Feng()</a></code>, and <code><a href="reference/albedo_broad.html">albedo_Liang()</a></code>: Narrow-to-broadband albedo conversion.</p></li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>

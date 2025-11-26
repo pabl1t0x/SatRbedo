@@ -61,19 +61,16 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pabl1t0x/SatRbedo" class="external-link">SatRbedo</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pabl1t0x/SatRbedo" class="external-link">SatRbedo</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; terra 1.8.80</span></span></code></pre></div>
 <p>This document aims to introduce the users to the basic functionality
 of <code>SatRbedo</code>. Here we use Sentinel-2 data from five spectral
 bands at the Athabasca Glacier in Canada on 11 September 2020.</p>
 <p><strong>Step 1: Load the data for the area of interest</strong></p>
 <!-- par(mar=c(1,1,1,1)) -->
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the packages</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pabl1t0x/SatRbedo" class="external-link">SatRbedo</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; terra 1.8.80</span></span>
-<span></span>
-<span><span class="co"># Load the raw Sentinel-2 surface reflectance data</span></span>
+<code class="sourceCode R"><span><span class="co"># Load the raw Sentinel-2 surface reflectance data</span></span>
 <span><span class="co"># Note: each spectral band was previously cut out to the extent of the area of interest and renamed</span></span>
 <span><span class="va">blue_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B02_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># blue band surface reflectance</span></span>
 <span><span class="va">green_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B03_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># green band surface reflectance</span></span>
@@ -126,13 +123,16 @@ correction</strong></p>
 <span><span class="co"># Plot the results</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">broadband_albedo</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="SatRbedo_files/figure-html/example-anisotropy-1.png" class="r-plt" alt="Fig. 2 Broadband albedo" width="480"><p class="caption">
-Fig. 2 Broadband albedo
+<img src="SatRbedo_files/figure-html/example-anisotropy-1.png" class="r-plt" alt="Broadband albedo" width="480"><p class="caption">
+Broadband albedo
 </p>
 </div>
-<p>Where to go next?</p>
-<p>You can check function documentation [here] and a more elaborate
-example using Landsat data [here].</p>
+<div class="section level2">
+<h2 id="where-to-go-next">Where to go next?<a class="anchor" aria-label="anchor" href="#where-to-go-next"></a>
+</h2>
+<p>You can check function documentation here and a more elaborate
+example using Landsat data here.</p>
+</div>
   </main>
 </div>
 

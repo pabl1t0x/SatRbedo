@@ -2,6 +2,8 @@
 
 ``` r
 library(SatRbedo)
+library(terra)
+#> terra 1.8.80
 ```
 
 This document aims to introduce the users to the basic functionality of
@@ -11,11 +13,6 @@ Athabasca Glacier in Canada on 11 September 2020.
 **Step 1: Load the data for the area of interest**
 
 ``` r
-# Load the packages
-library(SatRbedo)
-library(terra)
-#> terra 1.8.80
-
 # Load the raw Sentinel-2 surface reflectance data
 # Note: each spectral band was previously cut out to the extent of the area of interest and renamed
 blue_SR <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo") # blue band surface reflectance
@@ -78,12 +75,11 @@ broadband_albedo <- albedo_sat(
 plot(broadband_albedo[[6]])
 ```
 
-![Fig. 2 Broadband
-albedo](SatRbedo_files/figure-html/example-anisotropy-1.png)
+![Broadband albedo](SatRbedo_files/figure-html/example-anisotropy-1.png)
 
-Fig. 2 Broadband albedo
+Broadband albedo
 
-Where to go next?
+## Where to go next?
 
-You can check function documentation \[here\] and a more elaborate
-example using Landsat data \[here\].
+You can check function documentation here and a more elaborate example
+using Landsat data here.

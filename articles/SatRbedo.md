@@ -1,16 +1,23 @@
-# SatRbedo
+# Introduction to SatRbedo
+
+This document aims to introduce users to the basic functionality of
+`SatRbedo`. The example demonstrates how to use the package to compute
+snow and ice albedo at the Athabasca Glacier in Canada from five
+spectral bands. It utilises Sentinel-2 surface reflectance data measured
+on 11 September 2020.
+
+First, we load the `satRbedo` and [terra](https://rspatial.org/)
+packages. The latter is used for spatial data manipulation and analysis.
 
 ``` r
 library(SatRbedo)
 library(terra)
-#> terra 1.8.80
 ```
 
-This document aims to introduce the users to the basic functionality of
-`SatRbedo`. Here we use Sentinel-2 data from five spectral bands at the
-Athabasca Glacier in Canada on 11 September 2020.
+The process for generating satellite albedo retrievals involves four
+steps:
 
-**Step 1: Load the data for the area of interest**
+## Step 1: Load the data for the area of interest
 
 ``` r
 # Load the raw Sentinel-2 surface reflectance data
@@ -28,7 +35,7 @@ dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")
 outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 ```
 
-**Step 2: Data pre-processing**
+## Step 2: Data pre-processing
 
 ``` r
 # Transform the input data to SpatRaster and crop to the area of interest
@@ -41,7 +48,7 @@ swir1 <- preproc(grd = SWIR1_SR, outline = outline)
 swir2 <- preproc(grd = SWIR2_SR, outline = outline)
 ```
 
-**Step 3: Topographic correction**
+## Step 3: Topographic correction
 
 ``` r
 SAA <- 164.8 # solar azimuth angle
@@ -54,7 +61,7 @@ swir1_corr <- topo_corr(swir1, dem, SAA, SZA)
 swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
 ```
 
-**Step 4: Estimation of broadband albedo after anisotropic correction**
+## Step 4: Estimation of broadband albedo after anisotropic correction
 
 ``` r
 SAA <- 164.8 # solar azimuth angle
@@ -72,14 +79,14 @@ broadband_albedo <- albedo_sat(
   th = threshold
 )
 # Plot the results
-plot(broadband_albedo[[6]])
+plot(broadband_albedo[[6]], plg = list(title = "Albedo"))
 ```
 
-![Broadband albedo](SatRbedo_files/figure-html/example-anisotropy-1.png)
-
-Broadband albedo
+![](SatRbedo_files/figure-html/example-anisotropy-1.png)
 
 ## Where to go next?
 
-You can check function documentation here and a more elaborate example
-using Landsat data here.
+You can check the function documentation
+[here](https://pabl1t0x.github.io/SatRbedo/reference/index.html). A more
+elaborate example using Landsat data can be found in
+[`vignette("albedo_retrieval_landsat")`](https://pabl1t0x.github.io/SatRbedo/articles/albedo_retrieval_landsat.md).

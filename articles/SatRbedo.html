@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>SatRbedo • SatRbedo</title>
+<title>Introduction to SatRbedo • SatRbedo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="SatRbedo">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to SatRbedo">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -31,6 +31,12 @@
       <ul class="navbar-nav me-auto">
 <li class="active nav-item"><a class="nav-link" href="../articles/SatRbedo.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Functions</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/albedo_retrieval_landsat.html">albedo_retrieval_landsat</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -51,7 +57,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>SatRbedo</h1>
+      <h1>Introduction to SatRbedo</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/pabl1t0x/SatRbedo/blob/master/vignettes/SatRbedo.Rmd" class="external-link"><code>vignettes/SatRbedo.Rmd</code></a></small>
@@ -60,14 +66,22 @@
 
     
     
+<p>This document aims to introduce users to the basic functionality of
+<code>SatRbedo</code>. The example demonstrates how to use the package
+to compute snow and ice albedo at the Athabasca Glacier in Canada from
+five spectral bands. It utilises Sentinel-2 surface reflectance data
+measured on 11 September 2020.</p>
+<p>First, we load the <code>satRbedo</code> and <a href="https://rspatial.org/" class="external-link">terra</a>
+packages. The latter is used for spatial data manipulation and
+analysis.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pabl1t0x/SatRbedo" class="external-link">SatRbedo</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; terra 1.8.80</span></span></code></pre></div>
-<p>This document aims to introduce the users to the basic functionality
-of <code>SatRbedo</code>. Here we use Sentinel-2 data from five spectral
-bands at the Athabasca Glacier in Canada on 11 September 2020.</p>
-<p><strong>Step 1: Load the data for the area of interest</strong></p>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
+<p>The process for generating satellite albedo retrievals involves four
+steps:</p>
+<div class="section level2">
+<h2 id="step-1-load-the-data-for-the-area-of-interest">Step 1: Load the data for the area of interest<a class="anchor" aria-label="anchor" href="#step-1-load-the-data-for-the-area-of-interest"></a>
+</h2>
 <!-- par(mar=c(1,1,1,1)) -->
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the raw Sentinel-2 surface reflectance data</span></span>
@@ -83,7 +97,10 @@ bands at the Athabasca Glacier in Canada on 11 September 2020.</p>
 <span><span class="co"># Note: the DEM was re-projected to the extent of the area of interest</span></span>
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_dem.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span>
 <span><span class="va">outline</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_outline.shp"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Step 2: Data pre-processing</strong></p>
+</div>
+<div class="section level2">
+<h2 id="step-2-data-pre-processing">Step 2: Data pre-processing<a class="anchor" aria-label="anchor" href="#step-2-data-pre-processing"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform the input data to SpatRaster and crop to the area of interest</span></span>
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">dem</span><span class="op">)</span></span>
@@ -93,7 +110,10 @@ bands at the Athabasca Glacier in Canada on 11 September 2020.</p>
 <span><span class="va">nir</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/preproc.html">preproc</a></span><span class="op">(</span>grd <span class="op">=</span> <span class="va">NIR_SR</span>, outline <span class="op">=</span> <span class="va">outline</span><span class="op">)</span></span>
 <span><span class="va">swir1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/preproc.html">preproc</a></span><span class="op">(</span>grd <span class="op">=</span> <span class="va">SWIR1_SR</span>, outline <span class="op">=</span> <span class="va">outline</span><span class="op">)</span></span>
 <span><span class="va">swir2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/preproc.html">preproc</a></span><span class="op">(</span>grd <span class="op">=</span> <span class="va">SWIR2_SR</span>, outline <span class="op">=</span> <span class="va">outline</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Step 3: Topographic correction</strong></p>
+</div>
+<div class="section level2">
+<h2 id="step-3-topographic-correction">Step 3: Topographic correction<a class="anchor" aria-label="anchor" href="#step-3-topographic-correction"></a>
+</h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SAA</span> <span class="op">&lt;-</span> <span class="fl">164.8</span> <span class="co"># solar azimuth angle</span></span>
 <span><span class="va">SZA</span> <span class="op">&lt;-</span> <span class="fl">48.9</span> <span class="co"># solar zenith angle</span></span>
@@ -103,8 +123,11 @@ bands at the Athabasca Glacier in Canada on 11 September 2020.</p>
 <span><span class="va">nir_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">nir</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span><span class="op">)</span></span>
 <span><span class="va">swir1_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir1</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span><span class="op">)</span></span>
 <span><span class="va">swir2_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir2</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Step 4: Estimation of broadband albedo after anisotropic
-correction</strong></p>
+</div>
+<div class="section level2">
+<h2 id="step-4-estimation-of-broadband-albedo-after-anisotropic-correction">Step 4: Estimation of broadband albedo after anisotropic
+correction<a class="anchor" aria-label="anchor" href="#step-4-estimation-of-broadband-albedo-after-anisotropic-correction"></a>
+</h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SAA</span> <span class="op">&lt;-</span> <span class="fl">164.8</span> <span class="co"># solar azimuth angle</span></span>
 <span><span class="va">SZA</span> <span class="op">&lt;-</span> <span class="fl">48.9</span> <span class="co"># solar zenith angle</span></span>
@@ -121,19 +144,18 @@ correction</strong></p>
 <span>  th <span class="op">=</span> <span class="va">threshold</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co"># Plot the results</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">broadband_albedo</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="SatRbedo_files/figure-html/example-anisotropy-1.png" class="r-plt" alt="Broadband albedo" width="480"><p class="caption">
-Broadband albedo
-</p>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">broadband_albedo</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>, plg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Albedo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="SatRbedo_files/figure-html/example-anisotropy-1.png" class="r-plt" width="576"></p>
 </div>
 <div class="section level2">
 <h2 id="where-to-go-next">Where to go next?<a class="anchor" aria-label="anchor" href="#where-to-go-next"></a>
 </h2>
-<p>You can check function documentation here and a more elaborate
-example using Landsat data here.</p>
+<p>You can check the function documentation <a href="https://pabl1t0x.github.io/SatRbedo/reference/index.html">here</a>.
+A more elaborate example using Landsat data can be found in
+<code><a href="../articles/albedo_retrieval_landsat.html">vignette("albedo_retrieval_landsat")</a></code>.</p>
 </div>
-  </main>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

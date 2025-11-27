@@ -40,7 +40,7 @@ It includes the following functions:
   cropping grids to a specified extent, projecting grids with different
   coordinate systems, and converting data from integer to floating
   point.
-- `cfactor_BRDF` converts nadir satellite observations to off-nadir
+- `cfactor_BRDF()` converts nadir satellite observations to off-nadir
   values using view-angle corrections.
 - `cast_shadows()`, `hill_shade()`, and `shadow_removal()` detect and
   mask topographic shadows.

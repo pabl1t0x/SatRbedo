@@ -32,7 +32,7 @@ Albedo is a key parameter that controls the energy exchange between the atmosphe
 The `SatRbedo` package has been designed for researchers, consultants, and individuals interested in exploring changes in snow and ice albedo. It includes the following functions:
 
 - `preproc()` provides tools for image pre-processing, including cropping grids to a specified extent, projecting grids with different coordinate systems, and converting data from integer to floating point.
-- `cfactor_BRDF` converts nadir satellite observations to off-nadir values using view-angle corrections.
+- `cfactor_BRDF()` converts nadir satellite observations to off-nadir values using view-angle corrections.
 - `cast_shadows()`, `hill_shade()`, and `shadow_removal()` detect and mask topographic shadows.
 - `topo_corr()` and `topo_splot()` provide tools to correct surface reflectance for the effects of topography and to visualise the dependency of surface reflectance on the illumination condition.
 - `snow_or_ice()`, and `NDSII_hist()` are used for the automatic discrimination of snow and ice surfaces.

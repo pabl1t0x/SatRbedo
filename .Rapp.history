@@ -1,4 +1,9 @@
 package_coverage("./Documents/PhD/SatRbedo/")
+package_coverage("./Documents/PhD/SatRbedo/", quiet=FALSE)
+sessionInfo()
+q()
+library(covr)
+package_coverage("./Documents/PhD/SatRbedo/")
 q()
 citation("terra")
 q()
@@ -413,17 +418,12 @@ shadow_removal
 q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
-?topo_splot
-library(SatRbedo)
-?topo_splot
-?topo_corr
-?topo_splot
-?topo_corr
-?topo_splot
-build_vignettes()
-build_readme()
-build_readme()
-build_readme()
-build_readme()
-check()
+build_rmd("./vignettes/SatRbedo.Rmd")
+?terra::plot
+?terra::plot
+build_rmd("./vignettes/SatRbedo.Rmd")
+??terra::plot
+build_rmd("./vignettes/SatRbedo.Rmd")
+build_rmd("./vignettes/SatRbedo.Rmd")
+ls()
 q()

@@ -28,8 +28,9 @@ It includes the following functions:
   provides tools for image pre-processing, including cropping grids to a
   specified extent, projecting grids with different coordinate systems,
   and converting data from integer to floating point.
-- `cfactor_BRDF` converts nadir satellite observations to off-nadir
-  values using view-angle corrections.
+- [`cfactor_BRDF()`](https://pabl1t0x.github.io/SatRbedo/reference/cfactor_BRDF.md)
+  converts nadir satellite observations to off-nadir values using
+  view-angle corrections.
 - [`cast_shadows()`](https://pabl1t0x.github.io/SatRbedo/reference/cast_shadows.md),
   [`hill_shade()`](https://pabl1t0x.github.io/SatRbedo/reference/hill_shade.md),
   and

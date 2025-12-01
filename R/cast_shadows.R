@@ -35,7 +35,7 @@
 #'  \insertCite{corripio_2003;textual}{SatRbedo} for details. The `doshade` subroutine
 #'  was originally written by Javier Corripio and it was shipped with the `insol`
 #'  package. This function has been optimized and updated to take advantage of the
-#'  infrastructure provided by the `{terra}` package.
+#'  infrastructure provided by the `terra` package.
 #'
 #' @returns Returns an object of the same class as the input DEM (matrix or SpatRaster),
 #'  with values of 0 for cast-shadowed pixels and 1 for not-shaded pixels.

@@ -1,6 +1,7 @@
 url: https://pabl1t0x.github.io/SatRbedo/
 template:
   bootstrap: 5
+  math-rendering: mathjax
 reference:
 - title: "Preprocessing"
   desc: >

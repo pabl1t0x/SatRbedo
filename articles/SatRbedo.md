@@ -56,23 +56,11 @@ swir2 <- preproc(grd = SWIR2_SR, outline = AOI)
 SAA <- 167.8 # solar azimuth angle
 SZA <- 47.8 # solar zenith angle
 blue_corr <- topo_corr(blue, dem, SAA, SZA)
-#> Warning: [-] CRS do not match
-#> Warning: [rast] CRS do not match
 green_corr <- topo_corr(green, dem, SAA, SZA)
-#> Warning: [-] CRS do not match
-#> Warning: [rast] CRS do not match
 red_corr <- topo_corr(red, dem, SAA, SZA)
-#> Warning: [-] CRS do not match
-#> Warning: [rast] CRS do not match
 nir_corr <- topo_corr(nir, dem, SAA, SZA)
-#> Warning: [-] CRS do not match
-#> Warning: [rast] CRS do not match
 swir1_corr <- topo_corr(swir1, dem, SAA, SZA)
-#> Warning: [-] CRS do not match
-#> Warning: [rast] CRS do not match
 swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
-#> Warning: [-] CRS do not match
-#> Warning: [rast] CRS do not match
 ```
 
 ## Step 4: Discrimination of snow and ice pixels
@@ -80,7 +68,6 @@ swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
 ``` r
 # Use the glacier mask to crop the DEM and the green and NIR spectral bands
 dem_crop <- terra::crop(dem, glacier_mask, mask = TRUE)
-#> Warning: [crop] CRS do not match
 slope <- terra::terrain(dem_crop, v = "slope", neighbors = 4, unit = "degrees")
 aspect <- terra::terrain(dem_crop, v = "aspect", neighbors = 4, unit = "degrees")
 green_crop <- terra::crop(green, glacier_mask, mask = TRUE)
@@ -111,8 +98,6 @@ broadband_albedo <- albedo_sat(
   NIR = nir_crop, SWIR1 = swir1_crop, SWIR2 = swir2_crop,
   th = threshold
 )
-#> Warning: [mask] CRS do not match
-#> Warning: [mask] CRS do not match
 # Plot the results
 plot(broadband_albedo[[6]], plg = list(title = "Albedo"))
 ```

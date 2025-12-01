@@ -15,8 +15,8 @@ and
 It requires the following input datasets:
 
 - Atmospherically corrected surface reflectance (gridded).
-- Satellite ($\varphi_{v}$, $\theta_{v}$) and solar ($\varphi_{s}$,
-  $\theta_{s}$) azimuth and zenith angles (numeric or gridded).
+- Satellite (\\\varphi_v\\, \\\theta_v\\) and solar (\\\varphi_s\\,
+  \\\theta_s\\) azimuth and zenith angles (numeric or gridded).
 - A digital elevation model (DEM) (gridded).
 - An outline of the area of interest (shapefile).
 

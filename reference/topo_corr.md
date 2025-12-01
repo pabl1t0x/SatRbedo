@@ -106,8 +106,6 @@ SZA <- 48.9
 
 # Topographic correction using method="tanrotation"
 corr <- topo_corr(band = nir, dem = dem, SAA = SAA, SZA = SZA, method = "tanrotation")
-#> Warning: [-] CRS do not match
-#> Warning: [rast] CRS do not match
 plot(corr$bands[[1]]) # plot IC
 
 plot(corr$bands[[2]]) # plot corrected surface reflectance
@@ -115,9 +113,6 @@ plot(corr$bands[[2]]) # plot corrected surface reflectance
 
 # Topographic correction using method="ccorrection"
 corr <- topo_corr(band = nir, dem = dem, SAA = SAA, SZA = SZA, method = "ccorrection", IC_min = 0.3)
-#> Warning: [/] CRS do not match
-#> Warning: [mask] CRS do not match
-#> Warning: [rast] CRS do not match
 plot(corr$bands[[2]]) # plot corrected surface reflectance
 
 ```

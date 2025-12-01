@@ -6,7 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Tools for Retrieving Snow and Ice Albedo from Optical Satellite Imagery • SatRbedo</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -61,7 +67,7 @@
 <p>Albedo is a key parameter that controls the energy exchange between the atmosphere and snow or ice surfaces, playing a crucial role in estimating glacier melt and mass balance. While commonly measured in the field with pyranometers, these instruments have limited spatial coverage due to their footprint. Therefore, remote sensing offers the best option for deriving snow and ice albedo data and analysing its spatial and temporal variability. <code>SatRbedo</code> is an extensible, well-documented package for retrieving snow and ice albedo from optical satellite images, such as <a href="https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance" class="external-link">Landsat</a> and <a href="https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2" class="external-link">Sentinel-2</a>. It requires the following input datasets:</p>
 <ul>
 <li>Atmospherically corrected surface reflectance (gridded).</li>
-<li>Satellite (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>φ</mi><mi>v</mi></msub><annotation encoding="application/x-tex">\varphi_v</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>v</mi></msub><annotation encoding="application/x-tex">\theta_v</annotation></semantics></math>) and solar (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>φ</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\varphi_s</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\theta_s</annotation></semantics></math>) azimuth and zenith angles (numeric or gridded).</li>
+<li>Satellite (<span class="math inline">\(\varphi_v\)</span>, <span class="math inline">\(\theta_v\)</span>) and solar (<span class="math inline">\(\varphi_s\)</span>, <span class="math inline">\(\theta_s\)</span>) azimuth and zenith angles (numeric or gridded).</li>
 <li>A digital elevation model (DEM) (gridded).</li>
 <li>An outline of the area of interest (shapefile).</li>
 </ul>

@@ -82,12 +82,12 @@ albedo I: Algorithms.” *Remote Sensing of Environment*, **76**(2),
 library(terra)
 #> terra 1.8.80
 outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
-blue <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo")
-green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-red <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo")
-nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
-swir1 <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo")
-swir2 <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")
+blue <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo")
+green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+red <- system.file("extdata/athabasca_2020253_B04_S30.tif", package = "SatRbedo")
+nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
+swir1 <- system.file("extdata/athabasca_2020253_B11_S30.tif", package = "SatRbedo")
+swir2 <- system.file("extdata/athabasca_2020253_B12_S30.tif", package = "SatRbedo")
 blue <- preproc(blue, outline)
 green <- preproc(green, outline)
 red <- preproc(red, outline)
@@ -98,39 +98,39 @@ swir2 <- preproc(swir2, outline)
 # Broadband albedo using Knap et al. (1999)
 albedo_Knap(green, nir)
 #> class       : SpatRaster 
-#> size        : 207, 216, 1  (nrow, ncol, nlyr)
+#> size        : 205, 215, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
-#> extent      : 477840, 484320, 5778300, 5784510  (xmin, xmax, ymin, ymax)
+#> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)
 #> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
 #> source(s)   : memory
-#> varname     : athabasca_B03_20200911 
+#> varname     : athabasca_2020253_B03_S30 
 #> name        :       Green 
-#> min value   : -0.05468608 
-#> max value   :  1.05072313 
+#> min value   : -0.04773838 
+#> max value   :  1.16060598 
 
 # Broadband albedo using Liang (2001)
 albedo_Liang(blue, red, nir, swir1, swir2)
 #> class       : SpatRaster 
-#> size        : 207, 216, 1  (nrow, ncol, nlyr)
+#> size        : 205, 215, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
-#> extent      : 477840, 484320, 5778300, 5784510  (xmin, xmax, ymin, ymax)
+#> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)
 #> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
 #> source(s)   : memory
-#> varname     : athabasca_B02_20200911 
+#> varname     : athabasca_2020253_B02_S30 
 #> name        :       Blue 
-#> min value   : -0.0753151 
-#> max value   :  1.0227364 
+#> min value   : -0.0598207 
+#> max value   :  1.0845899 
 
 # Broadband albedo using Feng et al. (2023)
 albedo_Feng(blue, green, red, nir)
 #> class       : SpatRaster 
-#> size        : 207, 216, 1  (nrow, ncol, nlyr)
+#> size        : 205, 215, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
-#> extent      : 477840, 484320, 5778300, 5784510  (xmin, xmax, ymin, ymax)
+#> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)
 #> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
 #> source(s)   : memory
-#> varname     : athabasca_B02_20200911 
+#> varname     : athabasca_2020253_B02_S30 
 #> name        :      Blue 
-#> min value   : 0.1658235 
-#> max value   : 0.8302532 
+#> min value   : 0.1514815 
+#> max value   : 0.8585487 
 ```

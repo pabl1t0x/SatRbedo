@@ -97,15 +97,17 @@ Sensing*, **8**(2), 84–106.
 ``` r
 library(terra)
 outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
-nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
 dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")
-nir <- preproc(grd = nir, outline = outline)
-dem <- preproc(grd = dem, outline = outline)
+nir <- preproc(grd = nir)
+dem <- preproc(grd = dem)
 SAA <- 164.8
 SZA <- 48.9
 
 # Topographic correction using method="tanrotation"
 corr <- topo_corr(band = nir, dem = dem, SAA = SAA, SZA = SZA, method = "tanrotation")
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 plot(corr$bands[[1]]) # plot IC
 
 plot(corr$bands[[2]]) # plot corrected surface reflectance
@@ -113,6 +115,9 @@ plot(corr$bands[[2]]) # plot corrected surface reflectance
 
 # Topographic correction using method="ccorrection"
 corr <- topo_corr(band = nir, dem = dem, SAA = SAA, SZA = SZA, method = "ccorrection", IC_min = 0.3)
+#> Warning: [/] CRS do not match
+#> Warning: [mask] CRS do not match
+#> Warning: [rast] CRS do not match
 plot(corr$bands[[2]]) # plot corrected surface reflectance
 
 ```

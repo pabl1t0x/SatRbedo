@@ -50,8 +50,8 @@ Histograms.” *IEEE Transactions on Systems, Man, and Cybernetics*,
 ## Examples
 
 ``` r
-green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
 outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 green <- preproc(grd = green, outline = outline)
 nir <- preproc(grd = nir, outline = outline)

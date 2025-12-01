@@ -46,7 +46,7 @@ vectors along the sides of the grid cell. By definition, the length of
 this vector is equal to the surface area of the grid cell. This function
 was originally written by Javier Corripio as part of the `insol`
 package. The function has been optimized and updated to take advantage
-of the infrastructure provided by the `terra` package.
+of the infrastructure provided by the `{terra}` package.
 
 ## References
 

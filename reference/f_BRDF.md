@@ -115,16 +115,16 @@ satellite observations.” *Remote Sensing*, **13**(9), 1714.
 ``` r
 library(terra)
 outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
-green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
 dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")
 green <- preproc(grd = green, outline = outline)
 nir <- preproc(grd = nir, outline = outline)
 dem <- preproc(grd = dem, outline = outline)
 SAA <- 164.8
 SZA <- 48.9
-VAA <- 90.9
-VZA <- 5.2
+VAA <- 287.1
+VZA <- 7.2
 slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")
 aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
 
@@ -136,6 +136,8 @@ f <- f_BRDF(
   method = "twobands", green = green, NIR = nir,
   th = th
 )
+#> Warning: [mask] CRS do not match
+#> Warning: [mask] CRS do not match
 plot(f[[1]])
 
 plot(f[[2]])
@@ -149,6 +151,8 @@ f <- f_BRDF(
   method = "fivebands", green = green, NIR = nir,
   th = th
 )
+#> Warning: [mask] CRS do not match
+#> Warning: [mask] CRS do not match
 plot(f[[1]])
 
 plot(f[[2]])

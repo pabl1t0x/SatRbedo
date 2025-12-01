@@ -29,7 +29,7 @@ Liang (2001)
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/albedo_retrieval_landsat.html">albedo_retrieval_landsat</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/albedo_retrieval_landsat.html">Retrieving snow and ice albedo from Landsat data</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -129,12 +129,12 @@ only a function of the near-infrared band is used.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> terra 1.8.80</span>
 <span class="r-in"><span><span class="va">outline</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_outline.shp"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">blue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B02_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">green</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B03_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">red</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B04_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">nir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B8A_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">swir1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B11_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">swir2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_B12_20200911.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">blue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020253_B02_S30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">green</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020253_B03_S30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">red</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020253_B04_S30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020253_B8A_S30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">swir1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020253_B11_S30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">swir2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020253_B12_S30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">blue</span> <span class="op">&lt;-</span> <span class="fu"><a href="preproc.html">preproc</a></span><span class="op">(</span><span class="va">blue</span>, <span class="va">outline</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">green</span> <span class="op">&lt;-</span> <span class="fu"><a href="preproc.html">preproc</a></span><span class="op">(</span><span class="va">green</span>, <span class="va">outline</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">red</span> <span class="op">&lt;-</span> <span class="fu"><a href="preproc.html">preproc</a></span><span class="op">(</span><span class="va">red</span>, <span class="va">outline</span><span class="op">)</span></span></span>
@@ -145,41 +145,41 @@ only a function of the near-infrared band is used.</p></dd>
 <span class="r-in"><span><span class="co"># Broadband albedo using Knap et al. (1999)</span></span></span>
 <span class="r-in"><span><span class="fu">albedo_Knap</span><span class="op">(</span><span class="va">green</span>, <span class="va">nir</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> size        : 207, 216, 1  (nrow, ncol, nlyr)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> size        : 205, 215, 1  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 30, 30  (x, y)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 477840, 484320, 5778300, 5784510  (xmin, xmax, ymin, ymax)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> varname     : athabasca_B03_20200911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> varname     : athabasca_2020253_B03_S30 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> name        :       Green </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : -0.05468608 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> max value   :  1.05072313 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : -0.04773838 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max value   :  1.16060598 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Broadband albedo using Liang (2001)</span></span></span>
 <span class="r-in"><span><span class="fu">albedo_Liang</span><span class="op">(</span><span class="va">blue</span>, <span class="va">red</span>, <span class="va">nir</span>, <span class="va">swir1</span>, <span class="va">swir2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> size        : 207, 216, 1  (nrow, ncol, nlyr)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> size        : 205, 215, 1  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 30, 30  (x, y)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 477840, 484320, 5778300, 5784510  (xmin, xmax, ymin, ymax)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> varname     : athabasca_B02_20200911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> varname     : athabasca_2020253_B02_S30 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> name        :       Blue </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : -0.0753151 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> max value   :  1.0227364 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : -0.0598207 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max value   :  1.0845899 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Broadband albedo using Feng et al. (2023)</span></span></span>
 <span class="r-in"><span><span class="fu">albedo_Feng</span><span class="op">(</span><span class="va">blue</span>, <span class="va">green</span>, <span class="va">red</span>, <span class="va">nir</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> size        : 207, 216, 1  (nrow, ncol, nlyr)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> size        : 205, 215, 1  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 30, 30  (x, y)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 477840, 484320, 5778300, 5784510  (xmin, xmax, ymin, ymax)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> varname     : athabasca_B02_20200911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> varname     : athabasca_2020253_B02_S30 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> name        :      Blue </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : 0.1658235 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> max value   : 0.8302532 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : 0.1514815 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max value   : 0.8585487 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

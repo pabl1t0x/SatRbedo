@@ -57,9 +57,9 @@ plot(msk, col = "blue")
 
 
 # Overlay an RGB composite with the shadow masks
-blue <- terra::rast(system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo"))
-green <- terra::rast(system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo"))
-red <- terra::rast(system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo"))
+blue <- preproc(system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo"))
+green <- preproc(system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo"))
+red <- preproc(system.file("extdata/athabasca_2020253_B04_S30.tif", package = "SatRbedo"))
 r <- c(stretch(blue), stretch(green), stretch(red))
 RGB(r) <- c(3, 2, 1)
 plot(r)

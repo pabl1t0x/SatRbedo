@@ -5,7 +5,7 @@ position of the sun and calculating the illumination values for each
 grid cell of a DEM. The `hill_shade` function is based upon the
 vectorial algebra algorithms developed by Corripio (2003) . This
 function has been optimized and updated to take advantage of the
-infrastructure provided by the `terra` package.
+infrastructure provided by the `{terra}` package.
 
 ## Usage
 

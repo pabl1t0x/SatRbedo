@@ -48,7 +48,7 @@ neighbor objects, such as mountains. See Corripio (2003) for details.
 The `doshade` subroutine was originally written by Javier Corripio and
 it was shipped with the `insol` package. This function has been
 optimized and updated to take advantage of the infrastructure provided
-by the `terra` package.
+by the `{terra}` package.
 
 ## References
 

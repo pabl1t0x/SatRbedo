@@ -4,7 +4,7 @@ This document aims to introduce users to the basic functionality of
 `SatRbedo`. The example demonstrates how to use the package to compute
 snow and ice albedo at the Athabasca Glacier in Canada from five
 spectral bands. It utilises Sentinel-2 surface reflectance data measured
-on 11 September 2020.
+on 9 September 2020.
 
 First, we load the `satRbedo` and [terra](https://rspatial.org/)
 packages. The latter is used for spatial data manipulation and analysis.
@@ -14,7 +14,7 @@ library(SatRbedo)
 library(terra)
 ```
 
-The process for generating satellite albedo retrievals involves four
+The process for generating satellite albedo retrievals involves five
 steps:
 
 ## Step 1: Load the data for the area of interest
@@ -22,12 +22,12 @@ steps:
 ``` r
 # Load the raw Sentinel-2 surface reflectance data
 # Note: each spectral band was previously cut out to the extent of the area of interest and renamed
-blue_SR <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo") # blue band surface reflectance
-green_SR <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo") # green band surface reflectance
-red_SR <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo") # red band surface reflectance
-NIR_SR <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo") # near-infrared band surface reflectance
-SWIR1_SR <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo") # shortwave-infrared band 1 surface reflectance
-SWIR2_SR <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo") # shortwave-infrared band 2 surface reflectance
+blue_SR <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo") # blue band surface reflectance
+green_SR <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo") # green band surface reflectance
+red_SR <- system.file("extdata/athabasca_2020253_B04_S30.tif", package = "SatRbedo") # red band surface reflectance
+NIR_SR <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo") # near-infrared band surface reflectance
+SWIR1_SR <- system.file("extdata/athabasca_2020253_B11_S30.tif", package = "SatRbedo") # shortwave-infrared band 1 surface reflectance
+SWIR2_SR <- system.file("extdata/athabasca_2020253_B12_S30.tif", package = "SatRbedo") # shortwave-infrared band 2 surface reflectance
 
 # Load the DEM and the outline
 # Note: the DEM was re-projected to the extent of the area of interest
@@ -38,46 +38,81 @@ outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 ## Step 2: Data pre-processing
 
 ``` r
-# Transform the input data to SpatRaster and crop to the area of interest
+# Transform the input data to SpatRaster and crop to the extent of the area of interest
 dem <- terra::rast(dem)
-blue <- preproc(grd = blue_SR, outline = outline)
-green <- preproc(grd = green_SR, outline = outline)
-red <- preproc(grd = red_SR, outline = outline)
-nir <- preproc(grd = NIR_SR, outline = outline)
-swir1 <- preproc(grd = SWIR1_SR, outline = outline)
-swir2 <- preproc(grd = SWIR2_SR, outline = outline)
+glacier_mask <- terra::vect(outline)
+AOI <- terra::ext(477870, 484320, 5778330, 5784480)
+blue <- preproc(grd = blue_SR, outline = AOI)
+green <- preproc(grd = green_SR, outline = AOI)
+red <- preproc(grd = red_SR, outline = AOI)
+nir <- preproc(grd = NIR_SR, outline = AOI)
+swir1 <- preproc(grd = SWIR1_SR, outline = AOI)
+swir2 <- preproc(grd = SWIR2_SR, outline = AOI)
 ```
 
 ## Step 3: Topographic correction
 
 ``` r
-SAA <- 164.8 # solar azimuth angle
-SZA <- 48.9 # solar zenith angle
+SAA <- 167.8 # solar azimuth angle
+SZA <- 47.8 # solar zenith angle
 blue_corr <- topo_corr(blue, dem, SAA, SZA)
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 green_corr <- topo_corr(green, dem, SAA, SZA)
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 red_corr <- topo_corr(red, dem, SAA, SZA)
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 nir_corr <- topo_corr(nir, dem, SAA, SZA)
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 swir1_corr <- topo_corr(swir1, dem, SAA, SZA)
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 ```
 
-## Step 4: Estimation of broadband albedo after anisotropic correction
+## Step 4: Discrimination of snow and ice pixels
 
 ``` r
-SAA <- 164.8 # solar azimuth angle
-SZA <- 48.9 # solar zenith angle
-VAA <- 90.9 # view azimuth angle
-VZA <- 5.2 # view zenith angle
-slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")
-aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
-threshold <- snow_or_ice(green, nir)$th # threshold used to discriminate between snow and ice
+# Use the glacier mask to crop the DEM and the green and NIR spectral bands
+dem_crop <- terra::crop(dem, glacier_mask, mask = TRUE)
+#> Warning: [crop] CRS do not match
+slope <- terra::terrain(dem_crop, v = "slope", neighbors = 4, unit = "degrees")
+aspect <- terra::terrain(dem_crop, v = "aspect", neighbors = 4, unit = "degrees")
+green_crop <- terra::crop(green, glacier_mask, mask = TRUE)
+nir_crop <- terra::crop(nir, glacier_mask, mask = TRUE)
+# Calculate the threshold used to discriminate between snow and ice
+threshold <- snow_or_ice(green_crop, nir_crop)$th
+```
+
+## Step 5: Estimation of broadband albedo after anisotropic correction
+
+``` r
+SAA <- 167.8 # solar azimuth angle
+SZA <- 47.8 # solar zenith angle
+VAA <- 277.6 # view azimuth angle
+VZA <- 8.4 # view zenith angle
+# In this example, we will calculate broadband albedo using five spectral bands.
+# Use the glacier mask to crop the topographically-corrected bands.
+blue_crop <- terra::crop(blue_corr$bands[[2]], glacier_mask, mask = TRUE)
+green_crop <- terra::crop(green_corr$bands[[2]], glacier_mask, mask = TRUE)
+red_crop <- terra::crop(red_corr$bands[[2]], glacier_mask, mask = TRUE)
+nir_crop <- terra::crop(nir_corr$bands[[2]], glacier_mask, mask = TRUE)
+swir1_crop <- terra::crop(swir1_corr$bands[[2]], glacier_mask, mask = TRUE)
+swir2_crop <- terra::crop(swir2_corr$bands[[2]], glacier_mask, mask = TRUE)
 broadband_albedo <- albedo_sat(
   SAA, SZA, VAA, VZA,
   slope, aspect, method = "fivebands",
-  blue = blue_corr$bands[[2]], green = green_corr$bands[[2]], red = red_corr$bands[[2]],
-  NIR = nir_corr$bands[[2]], SWIR1 = swir1_corr$bands[[2]], SWIR2 = swir2_corr$bands[[2]],
+  blue = blue_crop, green = green_crop, red = red_crop,
+  NIR = nir_crop, SWIR1 = swir1_crop, SWIR2 = swir2_crop,
   th = threshold
 )
+#> Warning: [mask] CRS do not match
+#> Warning: [mask] CRS do not match
 # Plot the results
 plot(broadband_albedo[[6]], plg = list(title = "Albedo"))
 ```

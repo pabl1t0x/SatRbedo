@@ -33,7 +33,7 @@
 #' cell. By definition, the length of this vector is equal to the surface area of the grid cell.
 #' This function was originally written by Javier Corripio as part of the `insol` package.
 #' The function has been optimized and updated to take advantage of the infrastructure provided
-#' by the `terra` package.
+#' by the `{terra}` package.
 #'
 #' @returns Returns a 3D array with the same number of rows and columns as the DEM and the three
 #'  layers in the third dimension corresponding to the (x, y, z) components of the normal vectors

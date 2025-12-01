@@ -22,7 +22,7 @@ Computes the hypothetical illumination of a surface by setting the position of
 the sun and calculating the illumination values for each grid cell of a DEM. The
 \code{hill_shade} function is based upon the vectorial algebra algorithms developed
 by \insertCite{corripio_2003;textual}{SatRbedo}. This function has been
-optimized and updated to take advantage of the infrastructure provided by the \code{terra} package.
+optimized and updated to take advantage of the infrastructure provided by the \code{{terra}} package.
 }
 \examples{
 library(terra)

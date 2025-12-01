@@ -33,7 +33,7 @@ is defined as the average of the cross products of the vectors along the sides o
 cell. By definition, the length of this vector is equal to the surface area of the grid cell.
 This function was originally written by Javier Corripio as part of the \code{insol} package.
 The function has been optimized and updated to take advantage of the infrastructure provided
-by the \code{terra} package.
+by the \code{{terra}} package.
 }
 \references{
 \insertAllCited{}

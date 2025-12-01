@@ -34,7 +34,7 @@ illumination or shadowed by neighbor objects, such as mountains. See
 \insertCite{corripio_2003;textual}{SatRbedo} for details. The \code{doshade} subroutine
 was originally written by Javier Corripio and it was shipped with the \code{insol}
 package. This function has been optimized and updated to take advantage of the
-infrastructure provided by the \code{terra} package.
+infrastructure provided by the \code{{terra}} package.
 }
 \examples{
 library(terra)

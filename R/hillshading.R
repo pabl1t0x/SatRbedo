@@ -20,7 +20,7 @@
 #' the sun and calculating the illumination values for each grid cell of a DEM. The
 #'  `hill_shade` function is based upon the vectorial algebra algorithms developed
 #' by \insertCite{corripio_2003;textual}{SatRbedo}. This function has been
-#' optimized and updated to take advantage of the infrastructure provided by the `terra` package.
+#' optimized and updated to take advantage of the infrastructure provided by the `{terra}` package.
 #'
 #' @importFrom Rdpack reprompt
 #'

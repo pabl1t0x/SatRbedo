@@ -62,16 +62,16 @@
 #' @examples
 #' library(terra)
 #' outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
-#' green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-#' nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+#' green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+#' nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
 #' dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")
 #' green <- preproc(grd = green, outline = outline)
 #' nir <- preproc(grd = nir, outline = outline)
 #' dem <- preproc(grd = dem, outline = outline)
 #' SAA <- 164.8
 #' SZA <- 48.9
-#' VAA <- 90.9
-#' VZA <- 5.2
+#' VAA <- 287.1
+#' VZA <- 7.2
 #' slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")
 #' aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
 #'
@@ -372,12 +372,12 @@ f_BRDF <- function(SAA, SZA, VAA, VZA,
 #' @examples
 #' library(terra)
 #' outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
-#' blue <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo")
-#' green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-#' red <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo")
-#' nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
-#' swir1 <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo")
-#' swir2 <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")
+#' blue <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo")
+#' green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+#' red <- system.file("extdata/athabasca_2020253_B04_S30.tif", package = "SatRbedo")
+#' nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
+#' swir1 <- system.file("extdata/athabasca_2020253_B11_S30.tif", package = "SatRbedo")
+#' swir2 <- system.file("extdata/athabasca_2020253_B12_S30.tif", package = "SatRbedo")
 #' dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")
 #' blue <- preproc(grd = blue, outline = outline)
 #' green <- preproc(grd = green, outline = outline)
@@ -388,8 +388,8 @@ f_BRDF <- function(SAA, SZA, VAA, VZA,
 #' dem <- preproc(grd = dem, outline = outline)
 #' SAA <- 164.8
 #' SZA <- 48.9
-#' VAA <- 90.9
-#' VZA <- 5.2
+#' VAA <- 287.1
+#' VZA <- 7.2
 #' slope <- terra::terrain(dem, v = "slope", neighbors = 4, unit = "degrees")
 #' aspect <- terra::terrain(dem, v = "aspect", neighbors = 4, unit = "degrees")
 #'
@@ -563,12 +563,12 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
 #' @examples
 #' library(terra)
 #' outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
-#' blue <- system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo")
-#' green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-#' red <- system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo")
-#' nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
-#' swir1 <- system.file("extdata/athabasca_B11_20200911.tif", package = "SatRbedo")
-#' swir2 <- system.file("extdata/athabasca_B12_20200911.tif", package = "SatRbedo")
+#' blue <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo")
+#' green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+#' red <- system.file("extdata/athabasca_2020253_B04_S30.tif", package = "SatRbedo")
+#' nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
+#' swir1 <- system.file("extdata/athabasca_2020253_B11_S30.tif", package = "SatRbedo")
+#' swir2 <- system.file("extdata/athabasca_2020253_B12_S30.tif", package = "SatRbedo")
 #' blue <- preproc(blue, outline)
 #' green <- preproc(green, outline)
 #' red <- preproc(red, outline)

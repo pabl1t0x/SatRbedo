@@ -1,214 +1,3 @@
-package_coverage("./Documents/PhD/SatRbedo/")
-package_coverage("./Documents/PhD/SatRbedo/", quiet=FALSE)
-sessionInfo()
-q()
-library(covr)
-package_coverage("./Documents/PhD/SatRbedo/")
-q()
-citation("terra")
-q()
-library(SunCalcMeeus)
-library(help=SunCalcMeeus)
-??as_tod
-360/364
-90*pi/180
-sin(45)
-sin(45*pi/180)
-15*9
-asin(0.5)
-asin(0.5) * 180/pi
-??ifelse
-asin
-acos
-100000*(1-300*0.0001)
-100*100/1000
-100000*(1-300*10)
-100000-300*10
-100000/(100000*(1-300*0.0001))
-1/1.030928
-97000/100000
-10/100000
-1-0.0001*300
-1e-04
-90*pi/180
-min(1,3,4)
-??min
-min
-class(min)
-min(3/4, 0.22)
-n <- 0.8
-D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15)
-D_f
-n <- 0.81
-D_f
-D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15)
-D_f
-n <- 0.6
-D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15)
-D_f
-library(styler)
-style_file("./Documents/PhD/Tasman_spts/spatiotemporal_analysis/SW_melt.R")
-SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, we) {#
-  day_ang <- J * 360 / 365.25 # day angle#
-  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
-    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
-  LSTM <- 15 * time_diff # local standard time meridian#
-  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
-  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
-    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
-    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
-  omega <- 15 * (LST - 12) # hour angle#
-  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
-    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
-  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
-    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
-  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
-  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
-  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
-  n <- min(1 - SW / K, 1) # cloudiness#
-  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
-  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
-  SW_dir <- (1 - D_f) * SW_normal *#
-    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
-  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
-  if (we) {#
-    res <- (1 - alb) * SW_dir + (1 - alb) * SW_diff#
-  } else {#
-    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
-  }#
-  res#
-}
-a<-SW_net(178,100,0,0,-19.5,63.5,300,1.572,3,90,we=FALSE)
-SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, alb, we) {#
-  day_ang <- J * 360 / 365.25 # day angle#
-  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
-    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
-  LSTM <- 15 * time_diff # local standard time meridian#
-  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
-  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
-    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
-    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
-  omega <- 15 * (LST - 12) # hour angle#
-  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
-    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
-  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
-    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
-  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
-  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
-  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
-  n <- min(1 - SW / K, 1) # cloudiness#
-  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
-  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
-  SW_dir <- (1 - D_f) * SW_normal *#
-    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
-  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
-  if (we) {#
-    res <- (1 - alb) * SW_dir + (1 - alb) * SW_diff#
-  } else {#
-    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
-  }#
-  res#
-}
-a<-SW_net(178,100,0,0,-19.5,63.5,300,1.572,3,90,0.31,we=FALSE)
-a
-a<-SW_net(178,100,0,0,-19.5,63.5,300,1.572,3,90,0.31,we=TRUE)
-a
-a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
-a
-a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=TRUE)
-a
-SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, alb, we) {#
-  day_ang <- J * 360 / 365.25 # day angle#
-  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
-    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
-  LSTM <- 15 * time_diff # local standard time meridian#
-  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
-  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
-    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
-    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
-  omega <- 15 * (LST - 12) # hour angle#
-  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
-    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
-  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
-    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
-  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
-  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
-  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
-  n <- min(1 - SW / K, 1) # cloudiness#
-  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
-  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
-  SW_dir <- (1 - D_f) * SW_normal *#
-    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
-  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
-  if (we) {#
-    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
-  } else {#
-    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
-  }#
-  res#
-}
-a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
-a
-a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=TRUE)
-a
-SW_net <- function(J, t, time_diff, DST, lon, lat, elev, SW, slp, asp, alb, we) {#
-  day_ang <- J * 360 / 365.25 # day angle#
-  EOT <- -0.128 * sin((day_ang - 2.8) * pi / 180) -#
-    0.165 * sin((2 * day_ang + 19.7) * pi / 180) # equation of time#
-  LSTM <- 15 * time_diff # local standard time meridian#
-  LST <- t + (lon - LSTM) / 15 + EOT - DST # local solar time#
-  delta <- 0.3948 - 23.2559 * cos((J * 360 / 365 + 9.1) * pi / 180) -#
-    0.3915 * cos((2 * J * 360 / 365 + 5.4) * pi / 180) -#
-    0.1764 * cos((3 * J * 360 / 365 + 26) * pi / 180) # solar declination#
-  omega <- 15 * (LST - 12) # hour angle#
-  h <- asin(cos(lat * pi / 180) * cos(delta * pi / 180) * cos(omega * pi / 180) +#
-    sin(lat * pi / 180) * sin(delta * pi / 180)) # solar elevation angle#
-  cos_alpha <- (sin(lat * pi / 180) * sin(h) - sin(delta * pi / 180)) /#
-    (cos(lat * pi / 180) * cos(h)) # cosine of solar azimuth angle#
-  sin_alpha <- (cos(delta * pi / 180) * sin(omega * pi / 180)) / cos(h) # sine of solar azimuth angle#
-  alpha <- ifelse(sin_alpha < 0, -acos(cos_alpha), acos(cos_alpha))#
-  K <- 1368 * 0.75^(1 - 1e-04 * elev) * cos(1.57 - h) # theoretical maximum SWin under cloud-free sky#
-  n <- min(1 - SW / K, 1) # cloudiness#
-  D_f <- ifelse(n > 0.8, 0.8, 0.65 * max(n, 0) + 0.15) # fraction of diffuse SW#
-  SW_normal <- SW / sin(h) # radiation received by a surface normal to the sun's rays#
-  SW_dir <- (1 - D_f) * SW_normal *#
-    (sin(h) * cos(slp * pi / 180) + cos(h) * sin(slp * pi / 180) * cos(alpha - asp * pi / 180)) # direct SW#
-  SW_diff <- D_f * SW * (cos(slp * pi / 360))^2 + alb * SW * (sin(slp * pi / 360))^2 # diffuse SW#
-  if (we) {#
-    res <- ((1 - alb) * SW_dir + (1 - alb) * SW_diff) * 0.0107784#
-  } else {#
-    res <- (1 - alb) * SW_dir + (1 - alb) * SW_diff#
-  }#
-  res#
-}
-a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
-a
-a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=TRUE)
-a
-a<-SW_net(178,100,0,0,-19.5,63.5,300,300,3,90,0.31,we=FALSE)
-a
-q()
-library(SatRbedo)
-library(help=SatRbedo)
-??NDSII_hist
-??albedo_broad
-??albedo_sat
-??f_BRDF
-??albedo_broad
-??albedo_sat
-??albedo_broad
-??f_BRDF
-??preporc
-??preproc
-??cfactor
-??topo_corr
-??cast_shadows
-??hill_shade
-??shadow_removal
-??topo_splot
-??f_BRDF
-??snow_or_ice
-??NDSII_hist
 ??albedo_sat
 ??f_BRDF
 ??albedo_broad
@@ -416,14 +205,153 @@ shadow_removal
 ?topo_splot
 ?albedo_sat
 q()
+library(SatRbedo)
+??preproc
+??snow_or_ice
+??hill_shade
+??shadow_removal
+blue <- terra::rast(system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo"))#
+green <- terra::rast(system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo"))#
+red <- terra::rast(system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo"))
+r <- c(stretch(blue), stretch(green), stretch(red))
+r
+RGB(r) <- c(3, 2, 1)
+library(terra)
+plot(r)
+r
+plot(blue)
+plot(green
+)
+plot(red)
+?RGB
+r
+plot(r)
+r <- rast(system.file("ex/logo.tif", package="terra"))   #
+RGB(r)#
+plot(r)#
+#
+has.RGB(r)#
+RGB(r) <- NULL#
+has.RGB(r)#
+plot(r)#
+#
+RGB(r) <- c(3,1,2)#
+# same as #
+# r <- RGB(r, c(3,1,2))#
+#
+plot(r)#
+RGB(r) <- 1:3#
+x <- colorize(r, "col")#
+y <- colorize(r, "hsv")#
+z <- colorize(y, "rgb")
+??shadow_removal
+blue <- terra::rast(system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo"))#
+green <- terra::rast(system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo"))#
+red <- terra::rast(system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo"))
+r <- c(blue, green, red)
+r
+blue
+green
+red
+blue <- terra::rast(system.file("extdata/athabasca_B02_20200911.tif", package = "SatRbedo"))#
+green <- terra::rast(system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo"))#
+red <- terra::rast(system.file("extdata/athabasca_B04_20200911.tif", package = "SatRbedo"))
+blue
+q()
+library(terra)
+b2<-terra::rast("./Documents/PhD/SatRbedo/inst/extdata/athabasca_B02_20200911.tif")
+b2
+library(SatRbedo)
+b2<-preproc("./Documents/PhD/SatRbedo/inst/extdata/athabasca_B02_20200911.tif", scale_factor=10000)
+b2
+b2<-preproc("./Documents/PhD/SatRbedo/inst/extdata/athabasca_B02_20200911.tif", scale_factor=1)
+b2
+preproc
+b2
+b2<-terra::rast("./Documents/PhD/SatRbedo/inst/extdata/athabasca_B02_20200911.tif")
+b2
+b2<-preproc("./Documents/PhD/SatRbedo/inst/extdata/athabasca_B02_20200911.tif", scale_factor=1)
+b2
+b3<-preproc("./Documents/PhD/SatRbedo/inst/extdata/athabasca_B03_20200911.tif", scale_factor=1)
+b3
+b4<-preproc("./Documents/PhD/SatRbedo/inst/extdata/athabasca_B04_20200911.tif", scale_factor=1)
+b4
+r <- c(stretch(blue), stretch(green), stretch(red))#
+RGB(r) <- c(3, 2, 1)
+r <- c(stretch(b2), stretch(b3), stretch(b4))#
+RGB(r) <- c(3, 2, 1)
+r
+plot(r)
+q()
 library(devtools)
 proj_activate("./Documents/PhD/SatRbedo/")
+load_all()
+document()
+test()
+build_readme()
 build_rmd("./vignettes/SatRbedo.Rmd")
-?terra::plot
-?terra::plot
+.Last.error
+blue_SR <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo") # blue band surface reflectance#
+green_SR <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo") # green band surface reflectance#
+red_SR <- system.file("extdata/athabasca_2020253_B04_S30.tif", package = "SatRbedo") # red band surface reflectance#
+NIR_SR <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo") # near-infrared band surface reflectance#
+SWIR1_SR <- system.file("extdata/athabasca_2020253_B11_S30.tif", package = "SatRbedo") # shortwave-infrared band 1 surface reflectance#
+SWIR2_SR <- system.file("extdata/athabasca_2020253_B12_S30.tif", package = "SatRbedo") # shortwave-infrared band 2 surface reflectance
+blue_SR
+dem <- system.file("extdata/athabasca_dem.tif", package = "SatRbedo")#
+outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
+dem <- terra::rast(dem)#
+AOI <- terra::vect(outline)
+dem
+plot(dem)
+library(terra)
+plot(dem)
+AOI
+plot(AOI)
+blue <- preproc(grd = blue_SR, outline = terra::ext(AOI))#
+green <- preproc(grd = green_SR, outline = terra::ext(AOI))#
+red <- preproc(grd = red_SR, outline = terra::ext(AOI))#
+nir <- preproc(grd = NIR_SR, outline = terra::ext(AOI))#
+swir1 <- preproc(grd = SWIR1_SR, outline = terra::ext(AOI))#
+swir2 <- preproc(grd = SWIR2_SR, outline = terra::ext(AOI))
+blue
+plot(blue)
+plot(green)
+plot(red)
+plot(nir)
+plot(swir1)
+plot(swir2)
+blue
+green
+red
+nir
+swir1
+swir2
+SAA <- 167.8 # solar azimuth angle#
+SZA <- 47.8 # solar zenith angle#
+blue_corr <- topo_corr(blue, dem, SAA, SZA)#
+green_corr <- topo_corr(green, dem, SAA, SZA)#
+red_corr <- topo_corr(red, dem, SAA, SZA)#
+nir_corr <- topo_corr(nir, dem, SAA, SZA)#
+swir1_corr <- topo_corr(swir1, dem, SAA, SZA)#
+swir2_corr <- topo_corr(swir2, dem, SAA, SZA)
+blue_corr <- topo_corr(blue, dem, SAA, SZA)
+dem
+blue
+library(Rdpack)
+blue <- preproc(grd = blue_SR)
+blue
+dem
+AOI
+ext(AOI)
+blue
+AOI <- terra::ext(477870, 484320, 5778330, 5784480)
+AOI
+blue <- preproc(grd = blue_SR, outline = AOI)
+blue
+plot(blue)
+blue
+dem
 build_rmd("./vignettes/SatRbedo.Rmd")
-??terra::plot
-build_rmd("./vignettes/SatRbedo.Rmd")
-build_rmd("./vignettes/SatRbedo.Rmd")
-ls()
+check()
 q()

@@ -1,6 +1,6 @@
 test_that("An NDSII map and a threshold to discriminate between snow and ice are returned", {
-  green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-  nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+  green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+  nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
   outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
   green <- preproc(grd = green, outline = outline)
   green <- terra::ifel(green > 0, green, NA)
@@ -9,12 +9,12 @@ test_that("An NDSII map and a threshold to discriminate between snow and ice are
   NDSII <- (green - nir) / (green + nir)
   result <- snow_or_ice(green, nir)
   expect_equal(terra::values(result$NDSII), terra::values(NDSII), tolerance = 1e-6)
-  expect_equal(result$th, 0.2148438, tolerance = 1e-6)
+  expect_equal(result$th, 0.1601562, tolerance = 1e-6)
 })
 
 test_that("An NDSII histogram is returned", {
-  green <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
-  nir <- system.file("extdata/athabasca_B8A_20200911.tif", package = "SatRbedo")
+  green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
+  nir <- system.file("extdata/athabasca_2020253_B8A_S30.tif", package = "SatRbedo")
   outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
   green <- preproc(grd = green, outline = outline)
   nir <- preproc(grd = nir, outline = outline)

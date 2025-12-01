@@ -42,16 +42,16 @@ to floating point using an offset and a scale factor.
 }
 \examples{
 # uncorrected grid
-f <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
+f <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
 preproc(grd = f)
 
 # crop grid
-g <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
+g <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
 v <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 preproc(grd = g, outline = v)
 
 # crop and reproject grid
-g <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
+g <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
 v <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 preproc(grd = g, outline = v, coords = "+proj=longlat +datum=WGS84")
 
@@ -59,7 +59,7 @@ preproc(grd = g, outline = v, coords = "EPSG:4326")
 
 # Transform grid values
 library(terra)
-g <- system.file("extdata/athabasca_B03_20200911.tif", package = "SatRbedo")
+g <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
 orig <- preproc(grd = g)
 minmax(orig)
 new <- preproc(grd = g, add_offset = 5, scale_factor = 10)

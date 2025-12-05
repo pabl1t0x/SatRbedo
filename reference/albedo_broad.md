@@ -80,7 +80,7 @@ albedo I: Algorithms.” *Remote Sensing of Environment*, **76**(2),
 
 ``` r
 library(terra)
-#> terra 1.8.80
+#> terra 1.8.86
 outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 blue <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo")
 green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")

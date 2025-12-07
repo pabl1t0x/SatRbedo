@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 This document aims to introduce users to the basic functionality of `SatRbedo`. The example demonstrates how to use the package to compute snow and ice albedo at the Athabasca Glacier in Canada from five spectral bands. It utilises Sentinel-2 surface reflectance data measured on 9 September 2020.
 
-First, we load the `satRbedo` and `{terra}` packages. The latter is used for spatial data manipulation and analysis.
+First, we load the `SatRbedo` and `{terra}` packages. The latter is used for spatial data manipulation and analysis.
 
 ```{r setup, message = FALSE}
 library(SatRbedo)

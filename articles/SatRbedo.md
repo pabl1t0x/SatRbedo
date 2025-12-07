@@ -6,7 +6,7 @@ snow and ice albedo at the Athabasca Glacier in Canada from five
 spectral bands. It utilises Sentinel-2 surface reflectance data measured
 on 9 September 2020.
 
-First, we load the `satRbedo` and [terra](https://rspatial.org/)
+First, we load the `SatRbedo` and [terra](https://rspatial.org/)
 packages. The latter is used for spatial data manipulation and analysis.
 
 ``` r

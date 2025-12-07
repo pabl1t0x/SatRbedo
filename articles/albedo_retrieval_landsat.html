@@ -74,29 +74,47 @@
     
 <p>This vignette shows how to use Landsat surface reflectance,
 topographic data, and glacier outlines to retrieve snow and ice albedo
-at the Athabasca Glacier in Canada. We provide the input datasets for 11
-September 2020 and guide the user through the processing steps
-implemented in <code>SatRbedo</code>. It is assumed that users have
-basic knowledge of geographic information systems, satellite remote
-sensing, and accessing Earth Observation data.</p>
+at the Athabasca Glacier in Canada. We provide the input datasets for 16
+August 2020 and guide the user through the processing steps implemented
+in <code>SatRbedo</code>. It is assumed that users have basic knowledge
+of geographic information systems, satellite remote sensing, and
+accessing Earth Observation data.</p>
+<div class="section level2">
+<h2 id="load-the-required-packages">Load the required packages<a class="anchor" aria-label="anchor" href="#load-the-required-packages"></a>
+</h2>
+<p>First, we load the <code>SatRbedo</code> and <a href="https://rspatial.org/" class="external-link">terra</a>
+packages. The latter is used for spatial data manipulation,
+visualization, and analysis.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pabl1t0x/SatRbedo" class="external-link">SatRbedo</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
+</div>
 <div class="section level2">
 <h2 id="input-data">Input data<a class="anchor" aria-label="anchor" href="#input-data"></a>
 </h2>
-<p>Landsat surface reflectance and topographic data for the area of
-interest can be downloaded from the USGS <a href="https://earthexplorer.usgs.gov/" class="external-link">EarthExplorer</a>. Glacier
-outlines are available at the <a href="https://www.glims.org/" class="external-link">GLIMS</a>
+<p>Landsat surface reflectance (Landsat Collection 2 Level-2) and
+topographic (e.g., SRTM) data for the area of interest can be downloaded
+from the USGS <a href="https://earthexplorer.usgs.gov/" class="external-link">EarthExplorer</a>. Glacier
+outlines are available on the <a href="https://www.glims.org/" class="external-link">GLIMS</a>
 website.</p>
-<p>After downloading the required input data, the grid and shapefiles
-can be reprojected to a common coordinate system and resampled to the
-same spatial resolution. Finally, they are cropped to the extent of the
-area of interest. The <code><a href="../reference/preproc.html">preproc()</a></code> function and the
-<a href="https://rspatial.org/" class="external-link">terra</a> package can be used to perform these tasks.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pabl1t0x/SatRbedo" class="external-link">SatRbedo</a></span><span class="op">)</span></span></code></pre></div>
+<p>The <code>SatRbedo</code> package provides functions to calculate
+albedo using two (green and near-infrared), four (blue, green, red, and
+near-infrared), and five (blue, red, near-infrared, shortwave-infrared
+1, and shortwave-infrared 2) spectral bands. These functions also
+require the solar and view angles. To generate these angles, the <a href="https://www.usgs.gov/landsat-missions/solar-illumination-and-sensor-viewing-angle-coefficient-files" class="external-link">Landsat
+Angles Creation Tools</a> can be used.</p>
+<p>After downloading the necessary input data, reproject the digital
+elevation model (DEM) grid and the glacier outline shapefile to
+Landsat’s coordinate system, then resample them to 30 m spatial
+resolution. Crop the DEM, spectral surface reflectance, and angle bands
+to the area of interest. The tasks can be performed using the
+<code>[preproc()]</code> function and the <a href="https://rspatial.org/" class="external-link">terra</a>
+package.</p>
 <p>This workflow can be applied tor other instruments and sensors, by
 specifying the spectral bands in the functions.</p>
 </div>
-  </main>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

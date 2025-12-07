@@ -31,6 +31,6 @@ Landsat surface reflectance (Landsat Collection 2 Level-2) and topographic (e.g.
 
 The `SatRbedo` package provides functions to calculate albedo using two (green and near-infrared), four (blue, green, red, and near-infrared), and five (blue, red, near-infrared, shortwave-infrared 1, and shortwave-infrared 2) spectral bands. These functions also require the solar and view angles. To generate these angles, the [Landsat Angles Creation Tools](https://www.usgs.gov/landsat-missions/solar-illumination-and-sensor-viewing-angle-coefficient-files) can be used. 
 
-After downloading the necessary input data, reproject the digital elevation model (DEM) grid and the glacier outline shapefile to Landsat’s coordinate system, then resample them to 30 m spatial resolution. Crop the DEM, spectral surface reflectance, and angle bands to the area of interest. The tasks can be performed using the `[preproc()]` function and the `{terra}` package.
+After downloading the necessary input data, reproject the digital elevation model (DEM) grid and the glacier outline shapefile to Landsat’s coordinate system, then resample them to 30 m spatial resolution. Crop the DEM, spectral surface reflectance, and angle bands to the area of interest. The tasks can be performed using the `preproc()` function and the `{terra}` package.
 
 This workflow can be applied tor other instruments and sensors, by specifying the spectral bands in the functions.

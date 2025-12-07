@@ -40,7 +40,8 @@ elevation model (DEM) grid and the glacier outline shapefile to
 Landsat’s coordinate system, then resample them to 30 m spatial
 resolution. Crop the DEM, spectral surface reflectance, and angle bands
 to the area of interest. The tasks can be performed using the
-`[preproc()]` function and the [terra](https://rspatial.org/) package.
+[`preproc()`](https://pabl1t0x.github.io/SatRbedo/reference/preproc.md)
+function and the [terra](https://rspatial.org/) package.
 
 This workflow can be applied tor other instruments and sensors, by
 specifying the spectral bands in the functions.

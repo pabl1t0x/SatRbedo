@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   albedo_retrieval_landsat: albedo_retrieval_landsat.html
   SatRbedo: SatRbedo.html
-last_built: 2025-12-07T02:00Z
+last_built: 2025-12-07T02:07Z
 urls:
   reference: https://pabl1t0x.github.io/SatRbedo/reference
   article: https://pabl1t0x.github.io/SatRbedo/articles

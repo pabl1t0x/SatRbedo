@@ -105,13 +105,139 @@ require the solar and view angles. To generate these angles, the <a href="https:
 Angles Creation Tools</a> can be used.</p>
 <p>After downloading the necessary input data, reproject the digital
 elevation model (DEM) grid and the glacier outline shapefile to
-Landsat’s coordinate system, then resample them to 30 m spatial
-resolution. Crop the DEM, spectral surface reflectance, and angle bands
-to the area of interest. The tasks can be performed using the
-<code><a href="../reference/preproc.html">preproc()</a></code> function and the <a href="https://rspatial.org/" class="external-link">terra</a>
-package.</p>
-<p>This workflow can be applied tor other instruments and sensors, by
-specifying the spectral bands in the functions.</p>
+Landsat’s coordinate system, then resample the DEM to 30 m spatial
+resolution. Select scenes with minimal cloud coverage and crop the DEM,
+surface reflectance, and angle bands to the area of interest. These
+tasks can be performed using the <code><a href="../reference/preproc.html">preproc()</a></code> function and the
+<a href="https://rspatial.org/" class="external-link">terra</a> package.</p>
+<p>Below, we provide the necessary input data to run the
+<code>SatRbedo</code> functions for the area of interest:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the Landsat surface reflectance bands</span></span>
+<span><span class="va">blue_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020229_B02_L30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># blue band surface reflectance (Landsat band 2)</span></span>
+<span><span class="va">green_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020229_B03_L30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># green band surface reflectance (Landsat band 3)</span></span>
+<span><span class="va">red_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020229_B04_L30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># red band surface reflectance (Landsat band 4)</span></span>
+<span><span class="va">NIR_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020229_B05_L30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># near-infrared band surface reflectance (Landsat band 5)</span></span>
+<span><span class="va">SWIR1_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020229_B06_L30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># shortwave-infrared band 1 surface reflectance (Landsat band 6)</span></span>
+<span><span class="va">SWIR2_SR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_2020229_B07_L30.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span> <span class="co"># shortwave-infrared band 2 surface reflectance (Landsat band 7)</span></span>
+<span></span>
+<span><span class="co"># Load the DEM and the glacier outline</span></span>
+<span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_dem.tif"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span>
+<span><span class="va">outline</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/athabasca_outline.shp"</span>, package <span class="op">=</span> <span class="st">"SatRbedo"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Transform the raster data to SpatRaster and the glacier outline to SpatVector</span></span>
+<span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">dem</span><span class="op">)</span></span>
+<span><span class="va">glacier_mask</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="va">outline</span><span class="op">)</span></span>
+<span><span class="va">blue</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">blue_SR</span><span class="op">)</span></span>
+<span><span class="va">green</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">green_SR</span><span class="op">)</span></span>
+<span><span class="va">red</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">red_SR</span><span class="op">)</span></span>
+<span><span class="va">nir</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">NIR_SR</span><span class="op">)</span></span>
+<span><span class="va">swir1</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">SWIR1_SR</span><span class="op">)</span></span>
+<span><span class="va">swir2</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">SWIR2_SR</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="topographic-correction">Topographic correction<a class="anchor" aria-label="anchor" href="#topographic-correction"></a>
+</h2>
+<p>The topographic correction compensates for differences in solar
+illumination caused by elevation, slope, aspect, and the obstruction of
+surrounding terrain. The topographic correction methods implemented in
+<code>SatRbedo</code> require the removal of terrain shadow effects,
+including self and cast shadows. This can be achieved with the
+<code><a href="../reference/shadow_removal.html">shadow_removal()</a></code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">SAA</span> <span class="op">&lt;-</span> <span class="fl">154.6</span> <span class="co"># solar azimuth angle</span></span>
+<span><span class="va">SZA</span> <span class="op">&lt;-</span> <span class="fl">40.8</span> <span class="co"># solar zenith angle</span></span>
+<span><span class="va">msk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shadow_removal.html">shadow_removal</a></span><span class="op">(</span><span class="va">dem</span>, <span class="va">SZA</span>, <span class="va">SAA</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Shadow mask</span></span>
+<span></span>
+<span><span class="co"># Remove shadowed pixels</span></span>
+<span><span class="va">blue_masked</span> <span class="op">&lt;-</span> <span class="va">blue</span> <span class="op">*</span> <span class="va">msk</span></span>
+<span><span class="va">green_masked</span> <span class="op">&lt;-</span> <span class="va">green</span> <span class="op">*</span> <span class="va">msk</span></span>
+<span><span class="va">red_masked</span> <span class="op">&lt;-</span> <span class="va">red</span> <span class="op">*</span> <span class="va">msk</span></span>
+<span><span class="va">nir_masked</span> <span class="op">&lt;-</span> <span class="va">nir</span> <span class="op">*</span> <span class="va">msk</span></span>
+<span><span class="va">swir1_masked</span> <span class="op">&lt;-</span> <span class="va">swir1</span> <span class="op">*</span> <span class="va">msk</span></span>
+<span><span class="va">swir2_masked</span> <span class="op">&lt;-</span> <span class="va">swir2</span> <span class="op">*</span> <span class="va">msk</span></span></code></pre></div>
+<p>Then, the topographic correction is carried out using the
+<code><a href="../reference/topo_corr.html">topo_corr()</a></code> function:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Topographic correction using method = "tanrotation"</span></span>
+<span><span class="va">blue_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">blue_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"tanrotation"</span><span class="op">)</span></span>
+<span><span class="va">green_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">green_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"tanrotation"</span><span class="op">)</span></span>
+<span><span class="va">red_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">red_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"tanrotation"</span><span class="op">)</span></span>
+<span><span class="va">nir_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">nir_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"tanrotation"</span><span class="op">)</span></span>
+<span><span class="va">swir1_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir1_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"tanrotation"</span><span class="op">)</span></span>
+<span><span class="va">swir2_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir2_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"tanrotation"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Topographic correction using method = "ccorrection"</span></span>
+<span><span class="va">blue_corr_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">blue_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"ccorrection"</span>, IC_min <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="va">green_corr_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">green_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"ccorrection"</span>, IC_min <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="va">red_corr_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">red_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"ccorrection"</span>, IC_min <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="va">nir_corr_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">nir_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"ccorrection"</span>, IC_min <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="va">swir1_corr_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir1_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"ccorrection"</span>, IC_min <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="va">swir2_corr_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topo_corr.html">topo_corr</a></span><span class="op">(</span><span class="va">swir2_masked</span>, <span class="va">dem</span>, <span class="va">SAA</span>, <span class="va">SZA</span>, method <span class="op">=</span> <span class="st">"ccorrection"</span>, IC_min <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
+<p>The first method (method = “tanrotation”) is preferred because it
+does not overcorrect surface reflectance in low-illumination
+regions.</p>
+</div>
+<div class="section level2">
+<h2 id="discrimination-of-snow-and-ice-pixels">Discrimination of snow and ice pixels<a class="anchor" aria-label="anchor" href="#discrimination-of-snow-and-ice-pixels"></a>
+</h2>
+<p>The algorithm for distinguishing snow from ice surfaces uses the
+green and near-infrared surface reflectance bands. It is applied to all
+pixels within the glacier mask.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">green_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">green</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">nir_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">nir</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">surf_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/snow_or_ice.html">snow_or_ice</a></span><span class="op">(</span><span class="va">green_crop</span>, <span class="va">nir_crop</span><span class="op">)</span></span>
+<span><span class="va">thres</span> <span class="op">&lt;-</span> <span class="va">surf_type</span><span class="op">$</span><span class="va">th</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">surf_type</span><span class="op">$</span><span class="va">NDSII</span> <span class="op">&gt;</span> <span class="va">thres</span>, type <span class="op">=</span> <span class="st">"classes"</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FFFFC8"</span>, <span class="st">"#00407F"</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"snow"</span>, <span class="st">"ice"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="albedo_retrieval_landsat_files/figure-html/surface-type-1.png" class="r-plt" width="576"></p>
+</div>
+<div class="section level2">
+<h2 id="estimation-of-broadband-albedo-after-anisotropic-correction">Estimation of broadband albedo after anisotropic correction<a class="anchor" aria-label="anchor" href="#estimation-of-broadband-albedo-after-anisotropic-correction"></a>
+</h2>
+<p>Finally, broadband albedo can be calculated using three different
+methods through the <code><a href="../reference/albedo_sat.html">albedo_sat()</a></code> function.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">SAA</span> <span class="op">&lt;-</span> <span class="fl">154.6</span> <span class="co"># solar azimuth angle</span></span>
+<span><span class="va">SZA</span> <span class="op">&lt;-</span> <span class="fl">40.8</span> <span class="co"># solar zenith angle</span></span>
+<span><span class="va">VAA</span> <span class="op">&lt;-</span> <span class="fl">266.3</span> <span class="co"># view azimuth angle</span></span>
+<span><span class="va">VZA</span> <span class="op">&lt;-</span> <span class="fl">4.1</span> <span class="co"># view zenith angle</span></span>
+<span></span>
+<span><span class="co"># Use the glacier mask to crop the DEM and the topographically-corrected bands</span></span>
+<span><span class="va">dem_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">dem</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">slope</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/terrain.html" class="external-link">terrain</a></span><span class="op">(</span><span class="va">dem_crop</span>, v <span class="op">=</span> <span class="st">"slope"</span>, neighbors <span class="op">=</span> <span class="fl">4</span>, unit <span class="op">=</span> <span class="st">"degrees"</span><span class="op">)</span></span>
+<span><span class="va">aspect</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/terrain.html" class="external-link">terrain</a></span><span class="op">(</span><span class="va">dem_crop</span>, v <span class="op">=</span> <span class="st">"aspect"</span>, neighbors <span class="op">=</span> <span class="fl">4</span>, unit <span class="op">=</span> <span class="st">"degrees"</span><span class="op">)</span></span>
+<span><span class="va">blue_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">blue_corr</span><span class="op">$</span><span class="va">bands</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">green_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">green_corr</span><span class="op">$</span><span class="va">bands</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">red_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">red_corr</span><span class="op">$</span><span class="va">bands</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">nir_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">nir_corr</span><span class="op">$</span><span class="va">bands</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">swir1_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">swir1_corr</span><span class="op">$</span><span class="va">bands</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">swir2_crop</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">swir2_corr</span><span class="op">$</span><span class="va">bands</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">glacier_mask</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">albedo_two</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/albedo_sat.html">albedo_sat</a></span><span class="op">(</span></span>
+<span>  <span class="va">SAA</span>, <span class="va">SZA</span>, <span class="va">VAA</span>, <span class="va">VZA</span>,</span>
+<span>  <span class="va">slope</span>, <span class="va">aspect</span>, method <span class="op">=</span> <span class="st">"twobands"</span>,</span>
+<span>  green <span class="op">=</span> <span class="va">green_crop</span>, NIR <span class="op">=</span> <span class="va">nir_crop</span>, th <span class="op">=</span> <span class="va">thres</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">albedo_four</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/albedo_sat.html">albedo_sat</a></span><span class="op">(</span></span>
+<span>  method <span class="op">=</span> <span class="st">"fourbands"</span>,</span>
+<span>  blue <span class="op">=</span> <span class="va">blue_crop</span>, green <span class="op">=</span> <span class="va">green_crop</span>, red <span class="op">=</span> <span class="va">red_crop</span>, NIR <span class="op">=</span> <span class="va">nir_crop</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">albedo_five</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/albedo_sat.html">albedo_sat</a></span><span class="op">(</span></span>
+<span>  <span class="va">SAA</span>, <span class="va">SZA</span>, <span class="va">VAA</span>, <span class="va">VZA</span>,</span>
+<span>  <span class="va">slope</span>, <span class="va">aspect</span>, method <span class="op">=</span> <span class="st">"fivebands"</span>,</span>
+<span>  blue <span class="op">=</span> <span class="va">blue_crop</span>, green <span class="op">=</span> <span class="va">green_crop</span>, red <span class="op">=</span> <span class="va">red_crop</span>,</span>
+<span>  NIR <span class="op">=</span> <span class="va">nir_crop</span>, SWIR1 <span class="op">=</span> <span class="va">swir1_crop</span>, SWIR2 <span class="op">=</span> <span class="va">swir2_crop</span>, th <span class="op">=</span> <span class="va">thres</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the results</span></span>
+<span><span class="va">albedo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">albedo_two</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, <span class="va">albedo_four</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span>, <span class="va">albedo_five</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">albedo</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Two bands"</span>, <span class="st">"Four bands"</span>, <span class="st">"Five bands"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/panel.html" class="external-link">panel</a></span><span class="op">(</span><span class="va">albedo</span>, plg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Albedo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="albedo_retrieval_landsat_files/figure-html/broadband-albedo-1.png" class="r-plt" width="576"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

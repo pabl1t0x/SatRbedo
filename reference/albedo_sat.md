@@ -187,6 +187,8 @@ alb <- albedo_sat(
   slope = slope, aspect = aspect, method = "twobands",
   green = green, NIR = nir, th = th
 )
+#> Warning: [mask] CRS do not match
+#> Warning: [mask] CRS do not match
 plot(alb[[3]]) # Broadband albedo
 
 plot(alb[[4]]) # Flags
@@ -207,6 +209,8 @@ alb <- albedo_sat(
   slope = slope, aspect = aspect, method = "fivebands",
   blue = blue, green = green, red = red, NIR = nir, SWIR1 = swir1, SWIR2 = swir2, th = th
 )
+#> Warning: [mask] CRS do not match
+#> Warning: [mask] CRS do not match
 plot(alb[[6]]) # Broadband albedo
 
 ```

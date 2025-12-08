@@ -42,12 +42,18 @@ dem <- preproc(grd = dem)
 SAA <- 164.8
 SZA <- 48.9
 corr <- topo_corr(band = nir, dem = dem, SAA = SAA, SZA = SZA, method = "tanrotation")
+#> Warning: [-] CRS do not match
+#> Warning: [rast] CRS do not match
 
 # Scatterplot of IC vs. uncorrected surface reflectance
 topo_splot(corr$bands[[1]], nir)
+#> Warning: [mask] CRS do not match
+#> Warning: [rast] CRS do not match
 
 
 # Scatterplot of IC vs. topographically-corrected surface reflectance
 topo_splot(corr$bands[[1]], corr$bands[[2]])
+#> Warning: [mask] CRS do not match
+#> Warning: [rast] CRS do not match
 
 ```

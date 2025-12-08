@@ -136,6 +136,8 @@ f <- f_BRDF(
   method = "twobands", green = green, NIR = nir,
   th = th
 )
+#> Warning: [mask] CRS do not match
+#> Warning: [mask] CRS do not match
 plot(f[[1]])
 
 plot(f[[2]])
@@ -149,6 +151,8 @@ f <- f_BRDF(
   method = "fivebands", green = green, NIR = nir,
   th = th
 )
+#> Warning: [mask] CRS do not match
+#> Warning: [mask] CRS do not match
 plot(f[[1]])
 
 plot(f[[2]])

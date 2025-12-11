@@ -30,13 +30,13 @@ Source:
 
 Fuchs P, Dadic R, MacDonell S, Purdie H, Anderson B, Katurji M (2025).
 *SatRbedo: An R package for retrieving snow and ice albedo from optical
-satellite imagery*. R package version 1.0,
+satellite imagery*. R package version 1.0.0,
 <https://github.com/pabl1t0x/SatRbedo>.
 
     @Manual{,
       title = {SatRbedo: An R package for retrieving snow and ice albedo from optical satellite imagery},
       author = {Pablo Fuchs and Ruzica Dadic and Shelley MacDonell and Heather Purdie and Brian Anderson and Marwan Katurji},
       year = {2025},
-      note = {R package version 1.0},
+      note = {R package version 1.0.0},
       url = {https://github.com/pabl1t0x/SatRbedo},
     }

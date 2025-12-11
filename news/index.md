@@ -1,5 +1,5 @@
 # Changelog
 
-## SatRbedo 1.0
+## SatRbedo 1.0.0
 
 - Initial release.

@@ -4,6 +4,6 @@ bibentry(
   author   = as.person("Pablo Fuchs, Ruzica Dadic, Shelley MacDonell,
     Heather Purdie, Brian Anderson, Marwan Katurji"),
   year     = "2025",
-  note     = "R package version 1.0",
+  note     = "R package version 1.0.0",
   url      = "https://github.com/pabl1t0x/SatRbedo"
 )

@@ -1,7 +1,7 @@
 Package: SatRbedo
 Title: Tools for Retrieving Snow and Ice Albedo from Optical Satellite
     Imagery
-Version: 1.0
+Version: 1.0.0
 Authors@R: 
     c(
       person(

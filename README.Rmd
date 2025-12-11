@@ -74,7 +74,7 @@ Please cite `SatRbedo` using:
   title = {SatRbedo: An R package for retrieving snow and ice albedo from optical satellite imagery},
   author = {Pablo Fuchs and Ruzica Dadic and Shelley MacDonell and Heather Purdie and Brian Anderson and Marwan Katurji},
   year = {2025},
-  note = {R package version 1.0},
+  note = {R package version 1.0.0},
   url = {https://github.com/pabl1t0x/SatRbedo},
 }
 ```

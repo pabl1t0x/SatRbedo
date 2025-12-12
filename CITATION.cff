@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use SatRbedo, please cite it as below."
+authors:
+- family-names: "Fuchs"
+  given-names: "Pablo"
+  orcid: "https://orcid.org/0000-0002-6042-5620"
+- family-names: "Dadic"
+  given-names: "Ruzica"
+  orcid: "https://orcid.org/0000-0003-1303-1896"
+- family-names: "MacDonell"
+  given-names: "Shelley"
+  orcid: "https://orcid.org/0000-0001-9641-4547"
+- family-names: "Purdie"
+  given-names: "Heather"
+  orcid: "https://orcid.org/0000-0002-2723-6908"
+- family-names: "Anderson"
+  given-names: "Brian"
+- family-names: "Katurji"
+  given-names: "Marwan"
+  orcid: "https://orcid.org/0000-0002-3368-1469"
+title: "SatRbedo: An R package for retrieving snow and ice albedo from optical satellite imagery"
+version: 1.0.0
+doi: 10.5281/zenodo.17905205
+date-released: 2025-12-12
+url: "https://github.com/pabl1t0x/SatRbedo"

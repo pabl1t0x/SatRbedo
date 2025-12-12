@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo/tree/master)
 [![status](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa/status.svg)](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa)
+[![DOI](https://zenodo.org/badge/1000973120.svg)](https://doi.org/10.5281/zenodo.17905204)
 <!-- badges: end -->
 
 Albedo is a key parameter that controls the energy exchange between the atmosphere and snow or ice surfaces, playing a crucial role in estimating glacier melt and mass balance. While commonly measured in the field with pyranometers, these instruments have limited spatial coverage due to their footprint. Therefore, remote sensing offers the best option for deriving snow and ice albedo data and analysing its spatial and temporal variability.

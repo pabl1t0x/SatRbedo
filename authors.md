@@ -26,7 +26,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/pabl1t0x/SatRbedo/blob/v1.0.0/inst/CITATION)
+[`inst/CITATION`](https://github.com/pabl1t0x/SatRbedo/blob/master/inst/CITATION)
 
 Fuchs P, Dadic R, MacDonell S, Purdie H, Anderson B, Katurji M (2025).
 *SatRbedo: An R package for retrieving snow and ice albedo from optical

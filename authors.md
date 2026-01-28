@@ -28,15 +28,18 @@
 Source:
 [`inst/CITATION`](https://github.com/pabl1t0x/SatRbedo/blob/master/inst/CITATION)
 
-Fuchs P, Dadic R, MacDonell S, Purdie H, Anderson B, Katurji M (2025).
-*SatRbedo: An R package for retrieving snow and ice albedo from optical
-satellite imagery*. R package version 1.0.0,
-<https://github.com/pabl1t0x/SatRbedo>.
+Fuchs P, Dadic R, MacDonell S, Purdie H, Anderson B, Katurji M (2026).
+“SatRbedo: An R package for retrieving snow and ice albedo from optical
+satellite imagery.” *Journal of Open Source Software*, **11**(117),
+8973. [doi:10.21105/joss.08973](https://doi.org/10.21105/joss.08973).
 
-    @Manual{,
-      title = {SatRbedo: An R package for retrieving snow and ice albedo from optical satellite imagery},
+    @Article{,
+      title = {{SatRbedo}: An R package for retrieving snow and ice albedo from optical satellite imagery},
       author = {Pablo Fuchs and Ruzica Dadic and Shelley MacDonell and Heather Purdie and Brian Anderson and Marwan Katurji},
-      year = {2025},
-      note = {R package version 1.0.0},
-      url = {https://github.com/pabl1t0x/SatRbedo},
+      journal = {Journal of Open Source Software},
+      year = {2026},
+      volume = {11},
+      number = {117},
+      pages = {8973},
+      doi = {10.21105/joss.08973},
     }

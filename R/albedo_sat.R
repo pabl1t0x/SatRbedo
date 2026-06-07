@@ -447,7 +447,7 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
       albedo_green <- green - f_green
       albedo_NIR <- NIR - f_nir
       albedo_broad <- terra::ifel(
-        albedo_green > 1.0,
+        is.na(albedo_green) & !is.na(albedo_NIR),
         {
           albedo_Knap(green, albedo_NIR, saturated = TRUE)
         },
@@ -456,7 +456,7 @@ albedo_sat <- function(SAA, SZA, VAA, VZA,
         }
       )
       flag <- terra::ifel(
-        albedo_green > 1.0,
+        is.na(albedo_green) & !is.na(albedo_NIR),
         {
           albedo_NIR / albedo_NIR * 2
         },

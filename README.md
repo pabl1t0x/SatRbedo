@@ -3,7 +3,7 @@
 
 <!-- knitr::opts_knit$set(global.par = TRUE) -->
 
-# SatRbedo
+# SatRbedo <a href="https://pabl1t0x.github.io/SatRbedo/"><img src="man/figures/logo.png" align="right" height="139" alt="SatRbedo website" /></a>
 
 <!-- badges: start -->
 

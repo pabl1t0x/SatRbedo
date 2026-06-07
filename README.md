@@ -117,4 +117,4 @@ Please cite `SatRbedo` using:
 This project is licensed under the terms of the GNU General Public
 License v3.0. See [LICENSE](/LICENSE.md) for more details.
 
-![](https://www.gnu.org/graphics/gplv3-127x51.png)
+<img src="man/figures/gplv3-127x51.png" alt="" width="15%" />

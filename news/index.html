@@ -45,7 +45,14 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="satrbedo-100">SatRbedo 1.0.0<a class="anchor" aria-label="anchor" href="#satrbedo-100"></a></h2>
 <ul><li>Initial release.</li>
-</ul></div>
+</ul><!--
+# SatRbedo 1.0.1
+
+* Correction of albedo_sat.R file (line xx). Here, broadband albedo produced missing
+values if green albedo was higher than one, but NIR albedo was not. The problem sourced
+from the fact that green albedo is never higher than one, as restricted in the code.
+
+--></div>
   </main></div>
 
 

@@ -114,4 +114,4 @@ This project is licensed under the terms of the GNU General Public
 License v3.0. See [LICENSE](https://pabl1t0x.github.io/LICENSE.md) for
 more details.
 
-![](https://www.gnu.org/graphics/gplv3-127x51.png)
+![](reference/figures/gplv3-127x51.png)

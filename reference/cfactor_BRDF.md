@@ -108,13 +108,13 @@ SZA <- terra::rast(m2)
 VAA <- terra::rast(m3)
 VZA <- terra::rast(m4)
 cfactor_BRDF(SAA, SZA, VAA, VZA, NSZ = 34.97, band = "NIR")
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 3, 3, 1  (nrow, ncol, nlyr)
 #> resolution  : 1, 1  (x, y)
 #> extent      : 0, 3, 0, 3  (xmin, xmax, ymin, ymax)
-#> coord. ref. :  
+#> coord. ref. : 
 #> source(s)   : memory
-#> name        :     lyr.1 
-#> min value   : 0.9966314 
-#> max value   : 0.9992424 
+#> name        :    lyr.1
+#> min value   : 0.996631
+#> max value   : 0.999242
 ```

@@ -13,12 +13,13 @@
     }
   };
 </script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tools for Retrieving Snow and Ice Albedo from Optical Satellite Imagery">
 <meta name="description" content="The package consists of a set of tools for retrieving snow and ice albedo from optical satellite imagery (e.g., Landsat and Sentinel-2). The tools require the following gridded datasets: (1) atmospherically-corrected surface reflectance, (2) a digital elevation model (DEM), and (3) satellite and solar azimuth and zenith angles. The package includes tools for: image pre-processing (crop grids to a specified extent, project grids with different coordinate systems, and convert data from integer to floating point); convert nadir satellite observations to off-nadir values using view-angle corrections; detect and mask topographic shadows; automatic discrimination of snow and ice surfaces; anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterizations of the bidirectional reflectance distribution function (BRDF); topographic correction; and narrow-to-broadband albedo conversion.">
 <meta property="og:description" content="The package consists of a set of tools for retrieving snow and ice albedo from optical satellite imagery (e.g., Landsat and Sentinel-2). The tools require the following gridded datasets: (1) atmospherically-corrected surface reflectance, (2) a digital elevation model (DEM), and (3) satellite and solar azimuth and zenith angles. The package includes tools for: image pre-processing (crop grids to a specified extent, project grids with different coordinate systems, and convert data from integer to floating point); convert nadir satellite observations to off-nadir values using view-angle corrections; detect and mask topographic shadows; automatic discrimination of snow and ice surfaces; anisotropic correction of reflected radiation of glacier snow and ice using empirical parameterizations of the bidirectional reflectance distribution function (BRDF); topographic correction; and narrow-to-broadband albedo conversion.">
+<meta property="og:image" content="https://pabl1t0x.github.io/SatRbedo/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -60,8 +61,11 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="satrbedo">SatRbedo<a class="anchor" aria-label="anchor" href="#satrbedo"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="satrbedo-">SatRbedo 
+<a class="anchor" aria-label="anchor" href="#satrbedo-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
 <p>Albedo is a key parameter that controls the energy exchange between the atmosphere and snow or ice surfaces, playing a crucial role in estimating glacier melt and mass balance. While commonly measured in the field with pyranometers, these instruments have limited spatial coverage due to their footprint. Therefore, remote sensing offers the best option for deriving snow and ice albedo data and analysing its spatial and temporal variability. <code>SatRbedo</code> is an extensible, well-documented package for retrieving snow and ice albedo from optical satellite images, such as <a href="https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance" class="external-link">Landsat</a> and <a href="https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2" class="external-link">Sentinel-2</a>. It requires the following input datasets:</p>

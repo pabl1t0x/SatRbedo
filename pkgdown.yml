@@ -1,10 +1,10 @@
-pandoc: 3.1.11
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   albedo_retrieval_landsat: albedo_retrieval_landsat.html
   SatRbedo: SatRbedo.html
-last_built: 2026-01-28T01:44Z
+last_built: 2026-06-07T03:36Z
 urls:
   reference: https://pabl1t0x.github.io/SatRbedo/reference
   article: https://pabl1t0x.github.io/SatRbedo/articles

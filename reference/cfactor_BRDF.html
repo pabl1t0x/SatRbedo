@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="c-factor BRDF normalization — cfactor_BRDF"><meta name="description" content="Calculates the c-factor proposed by Roy et al. (2016)
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="c-factor BRDF normalization — cfactor_BRDF"><meta name="description" content="Calculates the c-factor proposed by Roy et al. (2016)
 
 which can be used to normalize surface reflectance data to nadir BRDF adjusted
 reflectance (NBAR), or to convert NBAR observations to off-nadir surface reflectance.
@@ -19,7 +19,7 @@ reflectance (NBAR), or to convert NBAR observations to off-nadir surface reflect
 The c-factor is calculated based on a spectral kernel-based BRDF model. The mathematical
 formulation of the kernels is presented in
  Wanner et al. (1995), Lucht et al. (2000) and Carlsen et al. (2020)
-."></head><body>
+."><meta property="og:image" content="https://pabl1t0x.github.io/SatRbedo/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -52,8 +52,7 @@ formulation of the kernels is presented in
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>c-factor BRDF normalization</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>c-factor BRDF normalization</h1>
       <small class="dont-index">Source: <a href="https://github.com/pabl1t0x/SatRbedo/blob/master/R/cfactor_BRDF.R" class="external-link"><code>R/cfactor_BRDF.R</code></a></small>
       <div class="d-none name"><code>cfactor_BRDF.Rd</code></div>
     </div>
@@ -163,15 +162,15 @@ values for a spectral band.</p>
 <span class="r-in"><span><span class="va">VAA</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">m3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">VZA</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">m4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cfactor_BRDF</span><span class="op">(</span><span class="va">SAA</span>, <span class="va">SZA</span>, <span class="va">VAA</span>, <span class="va">VZA</span>, NSZ <span class="op">=</span> <span class="fl">34.97</span>, band <span class="op">=</span> <span class="st">"NIR"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> size        : 3, 3, 1  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 1, 1  (x, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 0, 3, 0, 3  (xmin, xmax, ymin, ymax)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. :  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> name        :     lyr.1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : 0.9966314 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> max value   : 0.9992424 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> name        :    lyr.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> min value   : 0.996631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max value   : 0.999242</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

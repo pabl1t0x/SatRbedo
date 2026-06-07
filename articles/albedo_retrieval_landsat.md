@@ -15,6 +15,7 @@ packages. The latter is used for spatial data manipulation,
 visualization, and analysis.
 
 ``` r
+
 library(SatRbedo)
 library(terra)
 ```
@@ -48,6 +49,7 @@ Below, we provide the necessary input data to run the `SatRbedo`
 functions for the area of interest:
 
 ``` r
+
 # Load the Landsat surface reflectance bands
 blue_SR <- system.file("extdata/athabasca_2020229_B02_L30.tif", package = "SatRbedo") # blue band surface reflectance (Landsat band 2)
 green_SR <- system.file("extdata/athabasca_2020229_B03_L30.tif", package = "SatRbedo") # green band surface reflectance (Landsat band 3)
@@ -82,6 +84,7 @@ and cast shadows. This can be achieved with the
 function:
 
 ``` r
+
 SAA <- 154.6 # solar azimuth angle
 SZA <- 40.8 # solar zenith angle
 msk <- shadow_removal(dem, SZA, SAA, mask = TRUE) # Shadow mask
@@ -100,6 +103,7 @@ Then, the topographic correction is carried out using the
 function:
 
 ``` r
+
 # Topographic correction using method = "tanrotation"
 blue_corr <- topo_corr(blue_masked, dem, SAA, SZA, method = "tanrotation")
 green_corr <- topo_corr(green_masked, dem, SAA, SZA, method = "tanrotation")
@@ -127,6 +131,7 @@ and near-infrared surface reflectance bands. It is applied to all pixels
 within the glacier mask.
 
 ``` r
+
 green_crop <- terra::crop(green, glacier_mask, mask = TRUE)
 nir_crop <- terra::crop(nir, glacier_mask, mask = TRUE)
 surf_type <- snow_or_ice(green_crop, nir_crop)
@@ -145,6 +150,7 @@ methods through the
 function.
 
 ``` r
+
 SAA <- 154.6 # solar azimuth angle
 SZA <- 40.8 # solar zenith angle
 VAA <- 266.3 # view azimuth angle

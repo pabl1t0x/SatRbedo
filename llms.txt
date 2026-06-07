@@ -66,6 +66,7 @@ It includes the following functions:
 You can install `SatRbedo` with:
 
 ``` r
+
 install.packages('SatRbedo', repos = c('https://pabl1t0x.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 

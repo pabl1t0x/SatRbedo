@@ -80,7 +80,7 @@ albedo I: Algorithms.” *Remote Sensing of Environment*, **76**(2),
 
 ``` r
 library(terra)
-#> terra 1.8.93
+#> terra 1.9.27
 outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 blue <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo")
 green <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
@@ -97,40 +97,40 @@ swir2 <- preproc(swir2, outline)
 
 # Broadband albedo using Knap et al. (1999)
 albedo_Knap(green, nir)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 205, 215, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
 #> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)
-#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
+#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611)
 #> source(s)   : memory
-#> varname     : athabasca_2020253_B03_S30 
-#> name        :       Green 
-#> min value   : -0.04773838 
-#> max value   :  1.16060598 
+#> varname     : athabasca_2020253_B03_S30
+#> name        :     Green
+#> min value   : -0.047738
+#> max value   :  1.160606
 
 # Broadband albedo using Liang (2001)
 albedo_Liang(blue, red, nir, swir1, swir2)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 205, 215, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
 #> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)
-#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
+#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611)
 #> source(s)   : memory
-#> varname     : athabasca_2020253_B02_S30 
-#> name        :       Blue 
-#> min value   : -0.0598207 
-#> max value   :  1.0845899 
+#> varname     : athabasca_2020253_B02_S30
+#> name        :      Blue
+#> min value   : -0.059821
+#> max value   :   1.08459
 
 # Broadband albedo using Feng et al. (2023)
 albedo_Feng(blue, green, red, nir)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 205, 215, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
 #> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)
-#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
+#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611)
 #> source(s)   : memory
-#> varname     : athabasca_2020253_B02_S30 
-#> name        :      Blue 
-#> min value   : 0.1514815 
-#> max value   : 0.8585487 
+#> varname     : athabasca_2020253_B02_S30
+#> name        :     Blue
+#> min value   : 0.151482
+#> max value   : 0.858549
 ```

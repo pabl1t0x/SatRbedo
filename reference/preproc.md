@@ -71,56 +71,56 @@ which this function wraps.
 # uncorrected grid
 f <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
 preproc(grd = f)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 205, 215, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
 #> extent      : 477870, 484320, 5778330, 5784480  (xmin, xmax, ymin, ymax)
-#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
+#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611)
 #> source(s)   : memory
-#> varname     : athabasca_2020253_B03_S30 
-#> name        :   Green 
-#> min value   : -0.0701 
-#> max value   :  1.3828 
+#> varname     : athabasca_2020253_B03_S30
+#> name        :   Green
+#> min value   : -0.0701
+#> max value   :  1.3828
 
 # crop grid
 g <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
 v <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 preproc(grd = g, outline = v)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 205, 214, 1  (nrow, ncol, nlyr)
 #> resolution  : 30, 30  (x, y)
 #> extent      : 477870, 484290, 5778330, 5784480  (xmin, xmax, ymin, ymax)
-#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611) 
+#> coord. ref. : WGS 84 / UTM zone 11N (EPSG:32611)
 #> source(s)   : memory
-#> varname     : athabasca_2020253_B03_S30 
-#> name        :   Green 
-#> min value   : -0.0414 
-#> max value   :  1.2874 
+#> varname     : athabasca_2020253_B03_S30
+#> name        :   Green
+#> min value   : -0.0414
+#> max value   :  1.2874
 
 # crop and reproject grid
 g <- system.file("extdata/athabasca_2020253_B03_S30.tif", package = "SatRbedo")
 v <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 preproc(grd = g, outline = v, coords = "+proj=longlat +datum=WGS84")
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 151, 256, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.0003683312, 0.0003683312  (x, y)
 #> extent      : -117.3239, -117.2296, 52.15492, 52.21054  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=longlat +datum=WGS84 +no_defs 
+#> coord. ref. : +proj=longlat +datum=WGS84 +no_defs
 #> source(s)   : memory
-#> name        :      Green 
-#> min value   : -0.0335326 
-#> max value   :  1.2748423 
+#> name        :     Green
+#> min value   : -0.033533
+#> max value   :  1.274842
 
 preproc(grd = g, outline = v, coords = "EPSG:4326")
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 151, 256, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.0003683312, 0.0003683312  (x, y)
 #> extent      : -117.3239, -117.2296, 52.15492, 52.21054  (xmin, xmax, ymin, ymax)
-#> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+#> coord. ref. : lon/lat WGS 84 (EPSG:4326)
 #> source(s)   : memory
-#> name        :      Green 
-#> min value   : -0.0335326 
-#> max value   :  1.2748423 
+#> name        :     Green
+#> min value   : -0.033533
+#> max value   :  1.274842
 
 # Transform grid values
 library(terra)

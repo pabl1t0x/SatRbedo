@@ -11,6 +11,7 @@ packages. The latter is used for spatial data manipulation,
 visualization, and analysis.
 
 ``` r
+
 library(SatRbedo)
 library(terra)
 ```
@@ -21,6 +22,7 @@ steps:
 ## Step 1: Load the data for the area of interest
 
 ``` r
+
 # Load Sentinel-2 surface reflectance data
 # Note: each spectral band was previously cut out to the extent of the area of interest and renamed
 blue_SR <- system.file("extdata/athabasca_2020253_B02_S30.tif", package = "SatRbedo") # blue band surface reflectance (Sentinel-2 band 2)
@@ -40,6 +42,7 @@ outline <- system.file("extdata/athabasca_outline.shp", package = "SatRbedo")
 ## Step 2: Data pre-processing
 
 ``` r
+
 # Transform the raster data to SpatRaster and the glacier outline to SpatVector
 dem <- terra::rast(dem)
 glacier_mask <- terra::vect(outline)
@@ -55,6 +58,7 @@ swir2 <- preproc(grd = SWIR2_SR, outline = AOI)
 ## Step 3: Topographic correction
 
 ``` r
+
 SAA <- 167.8 # solar azimuth angle
 SZA <- 47.8 # solar zenith angle
 
@@ -79,6 +83,7 @@ swir2_corr <- topo_corr(swir2_masked, dem, SAA, SZA)
 ## Step 4: Discrimination of snow and ice pixels
 
 ``` r
+
 # Use the glacier mask to crop the green and NIR spectral bands
 green_crop <- terra::crop(green, glacier_mask, mask = TRUE)
 nir_crop <- terra::crop(nir, glacier_mask, mask = TRUE)
@@ -90,6 +95,7 @@ threshold <- snow_or_ice(green_crop, nir_crop)$th
 ## Step 5: Estimation of broadband albedo after anisotropic correction
 
 ``` r
+
 SAA <- 167.8 # solar azimuth angle
 SZA <- 47.8 # solar zenith angle
 VAA <- 277.6 # view azimuth angle

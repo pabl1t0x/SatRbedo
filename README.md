@@ -7,10 +7,9 @@
 
 <!-- badges: start -->
 
-[![Codecov test
-coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo/tree/master)
 [![status](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa/status.svg)](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa)
 [![DOI](https://zenodo.org/badge/1000973120.svg)](https://doi.org/10.5281/zenodo.17905204)
+[![R-CMD-check](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Albedo is a key parameter that controls the energy exchange between the
@@ -117,4 +116,8 @@ Please cite `SatRbedo` using:
 This project is licensed under the terms of the GNU General Public
 License v3.0. See [LICENSE](/LICENSE.md) for more details.
 
-<img src="man/figures/gplv3-127x51.png" alt="" width="15%" />
+<img src="man/figures/gplv3-127x51.png" alt="" width="15%" /> \##
+Acknowledgements
+
+Logo designed by [Diego
+Espinatto](https://www.linkedin.com/in/diego-espinatto-aa63681a0/).

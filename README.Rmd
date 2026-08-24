@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 # SatRbedo <a href="https://pabl1t0x.github.io/SatRbedo/"><img src="man/figures/logo.png" align="right" height="139" alt="SatRbedo website" /></a>
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo/tree/master)
 [![status](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa/status.svg)](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa)
 [![DOI](https://zenodo.org/badge/1000973120.svg)](https://doi.org/10.5281/zenodo.17905204)
+[![R-CMD-check](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Albedo is a key parameter that controls the energy exchange between the atmosphere and snow or ice surfaces, playing a crucial role in estimating glacier melt and mass balance. While commonly measured in the field with pyranometers, these instruments have limited spatial coverage due to their footprint. Therefore, remote sensing offers the best option for deriving snow and ice albedo data and analysing its spatial and temporal variability.
@@ -90,3 +90,6 @@ This project is licensed under the terms of the GNU General Public License v3.0.
 ``` {r gpl, echo = FALSE, out.width="15%"}
 knitr::include_graphics("man/figures/gplv3-127x51.png")
 ```
+## Acknowledgements
+
+Logo designed by [Diego Espinatto](https://www.linkedin.com/in/diego-espinatto-aa63681a0/).

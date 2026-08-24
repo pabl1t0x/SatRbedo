@@ -23,6 +23,9 @@
   Author of the vectorial algebra algorithms used to detect topographic
   shadows
 
+- **Diego Espinatto**. Contributor.  
+  R package logo design
+
 ## Citation
 
 Source:

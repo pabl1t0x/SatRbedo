@@ -116,8 +116,9 @@ Please cite `SatRbedo` using:
 This project is licensed under the terms of the GNU General Public
 License v3.0. See [LICENSE](/LICENSE.md) for more details.
 
-<img src="man/figures/gplv3-127x51.png" alt="" width="15%" /> \##
-Acknowledgements
+<img src="man/figures/gplv3-127x51.png" alt="" width="15%" />
+
+## Acknowledgements
 
 Logo designed by [Diego
 Espinatto](https://www.linkedin.com/in/diego-espinatto-aa63681a0/).

@@ -90,6 +90,7 @@ This project is licensed under the terms of the GNU General Public License v3.0.
 ``` {r gpl, echo = FALSE, out.width="15%"}
 knitr::include_graphics("man/figures/gplv3-127x51.png")
 ```
+
 ## Acknowledgements
 
 Logo designed by [Diego Espinatto](https://www.linkedin.com/in/diego-espinatto-aa63681a0/).

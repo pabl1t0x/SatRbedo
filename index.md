@@ -119,4 +119,4 @@ more details.
 ## Acknowledgements
 
 Logo designed by [Diego
-Espinatto](https://www.linkedin.com/in/diego-espinatto-aa63681a0/).
+Espinatto](https://www.behance.net/despinatto85).

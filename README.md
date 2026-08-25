@@ -10,6 +10,8 @@
 [![status](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa/status.svg)](https://joss.theoj.org/papers/c5899414306d4cf318350654b7aa38fa)
 [![DOI](https://zenodo.org/badge/1000973120.svg)](https://doi.org/10.5281/zenodo.17905204)
 [![R-CMD-check](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/pabl1t0x/SatRbedo/graph/badge.svg)](https://app.codecov.io/gh/pabl1t0x/SatRbedo)
 <!-- badges: end -->
 
 Albedo is a key parameter that controls the energy exchange between the
@@ -121,4 +123,4 @@ License v3.0. See [LICENSE](/LICENSE.md) for more details.
 ## Acknowledgements
 
 Logo designed by [Diego
-Espinatto](https://www.linkedin.com/in/diego-espinatto-aa63681a0/).
+Espinatto](https://www.behance.net/despinatto85).

@@ -11,6 +11,10 @@
 [![DOI](https://zenodo.org/badge/1000973120.svg)](https://doi.org/10.5281/zenodo.17905204)
 [![R-CMD-check](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pabl1t0x/SatRbedo/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/pabl1t0x/SatRbedo/branch/master/graph/badge.svg?token=DmWnoGYnHn)](https://codecov.io/gh/pabl1t0x/SatRbedo)
+[![name status
+badge](https://pabl1t0x.r-universe.dev/badges/:name)](https://pabl1t0x.r-universe.dev/)
+[![SatRbedo status
+badge](https://pabl1t0x.r-universe.dev/SatRbedo/badges/version)](https://pabl1t0x.r-universe.dev/SatRbedo)
 <!-- badges: end -->
 
 Albedo is a key parameter that controls the energy exchange between the
